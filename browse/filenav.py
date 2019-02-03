@@ -35,9 +35,9 @@ import time        # to sleep in certain situations and avoid hangs
 import ui          # duh
 import webbrowser  # to open HTML files
 try:               # to save PIL images to string
-    import cStringIO as StringIO
+    import io as StringIO
 except ImportError:
-    import StringIO
+    import io
 
 def full_path(path):
     # Return absolute path with expanded ~s, input path assumed relative to cwd
@@ -198,7 +198,7 @@ FILE_TYPES = {
                     readme rst rtf txt version xls xlsx xlt xltx yml""",
     "video":     "avi m4v mov mp4"
               }
-FILE_TYPES = {k:tuple(v.split()) for k,v in FILE_TYPES.iteritems()}
+FILE_TYPES = {k:tuple(v.split()) for k,v in FILE_TYPES.items()}
 
 # dict of descriptions and icons for all file type groups
 FILE_DESCS_ICONS = {
@@ -217,13 +217,13 @@ FILE_DESCS_ICONS = {
     "video":     ("Video File",      "ionicons-ios7-film-outline-32"),
                    }
 FILE_DESCS_ICONS = {k:(d,ui.Image.named(i)) for k,(d,i)
-                        in FILE_DESCS_ICONS.iteritems()}
+                        in FILE_DESCS_ICONS.items()}
 
 fileinfo = collections.namedtuple('fileinfo',
             'file_ext recognized_ext filetype filedesc icon')
 
 def get_filetype(file_ext):
-    for filetype, exts in FILE_TYPES.iteritems():
+    for filetype, exts in FILE_TYPES.items():
         if file_ext in exts:
             return filetype
     return None
@@ -252,7 +252,7 @@ def get_thumbnail(path):
     def path_to_thumbnail(path):
         thumb = Image.open(path)
         thumb.thumbnail((32, 32), Image.ANTIALIAS)
-        strio = StringIO.StringIO()
+        strio = io.StringIO()
         thumb.save(strio, thumb.format)
         data = strio.getvalue()
         strio.close()
@@ -611,14 +611,14 @@ class StatDataSource(object):
             try:
                 from Shellista import Shell
             except ImportError as err:
-                print("Failed to import Shellista: " + err.message)
+                print(("Failed to import Shellista: " + err.message))
                 print("See note on Shellista integration at the top of filenav.py.")
                 print("> logout")
                 return
             shell = Shell()
             shell.prompt = '> '
             shell.onecmd("cd " + self.fi.path)
-            print("> cd " + self.fi.path)
+            print(("> cd " + self.fi.path))
             shell.cmdloop()
         elif key == "ios-qlook":
             # Preview - Quick Look
@@ -685,7 +685,7 @@ def format_size(size, long=True):
         while size >= 1024.0 and i < len(SIZE_SUFFIXES)-1:
             size = size/1024.0
             i += 1
-        if long:
+        if int:
             return "{size:02.2f} {suffix} ({bsize} bytes)".format(size=size, suffix=SIZE_SUFFIXES[i], bsize=bsize)
         else:
             return "{size:01.1f} {suffix}".format(size=size, suffix=SIZE_SUFFIXES[i])
@@ -753,3 +753,4 @@ def run(path="~", mode="popover"):
 
 if __name__ == "__main__":
     run(sys.argv[1] if len(sys.argv) > 1 else "~")
+

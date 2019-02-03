@@ -45,7 +45,7 @@ class Game (Scene):
 		self.speed = 3
 		self.paused = False
 		self.score = 0
-		for i in xrange(3): self.add_item()
+		for i in range(3): self.add_item()
 	
 	def game_over(self):
 		play_effect('Explosion_3')
@@ -118,7 +118,7 @@ class Game (Scene):
 		tx = self.joints[-1].x
 		ty = self.joints[-1].y
 		collected = set()
-		for i in xrange(self.speed):
+		for i in range(self.speed):
 			#Move head:
 			hx += self.direction[0]
 			hy += self.direction[1]
@@ -189,3 +189,4 @@ class Game (Scene):
 			pickle.dump(self.highscore, f)
 
 run(Game(), PORTRAIT)
+

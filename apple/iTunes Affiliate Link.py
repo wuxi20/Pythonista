@@ -2,7 +2,7 @@
 # Modified for Pythonista. 
 
 from sys import stdout
-import clipboard, console, webbrowser, urllib
+import clipboard, console, webbrowser, urllib.request, urllib.parse, urllib.error
 
 # My affiliate ID.
 myID = '11l4RT'
@@ -28,8 +28,8 @@ else:
 # Copy to clipboard
 #clipboard.set(itemURL)
 
-s = urllib.quote(itemURL.encode('utf-8'))
-t = urllib.quote(tweetText.encode('utf-8'))
+s = urllib.parse.quote(itemURL.encode('utf-8'))
+t = urllib.parse.quote(tweetText.encode('utf-8'))
 
 
 openLink = 'tweetbot://therotcod/post?text=' + t + '%0A%0A' + s
@@ -37,3 +37,4 @@ openLink = 'tweetbot://therotcod/post?text=' + t + '%0A%0A' + s
 clipboard.set(itemURL)
 
 webbrowser.open(openLink)
+

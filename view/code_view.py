@@ -75,5 +75,6 @@ if __name__ == '__main__':
 	cd.present('sheet', animated = False)
 	
 	# left this in just so easy to see the different style names
-	print cd.get_style_names()
+	print(cd.get_style_names())
+
 

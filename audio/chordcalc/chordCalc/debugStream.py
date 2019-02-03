@@ -7,5 +7,6 @@ class debugStream():
 		self.out += string.format(*args) + '\n'
 	
 	def send(self):
-		print self.out
+		print(self.out)
 		self.out = ''
+

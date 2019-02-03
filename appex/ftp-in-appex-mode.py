@@ -21,6 +21,7 @@ if ftpok:
 
     # Get all authors sub-dirctories
     authors = ftp.nlst(source)
-    print authors[0]
+    print(authors[0])
     ftp.quit()
+
 

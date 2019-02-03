@@ -2,7 +2,7 @@
 
 # https://forum.omz-software.com/topic/918/generating-tones-and-pitches-ie-square-sine-in-x-hz-gps-lat-long
 
-`function_name_here()`
+repr(function_name_here())
 
 #==============================
 
@@ -41,3 +41,4 @@ import numpy as np
 
 th=np.linspace(0, 2*np.pi*freq*duration, numSamples, endpoint=False)
 data = (32767*volume/100.0*np.sin(th)).astype(np.int16)
+

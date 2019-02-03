@@ -3,7 +3,7 @@
 # https://forum.omz-software.com/topic/2711/open-page-source-in-pythonista
 
 import appex
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from objc_util import *
 #Helper functions
 def openUrl(url):
@@ -49,3 +49,4 @@ with open(filepath,'w') as f:
 appex.finish()
 #Open in pythonista
 openUrl('pythonista://'+filename)
+

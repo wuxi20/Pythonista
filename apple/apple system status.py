@@ -21,8 +21,8 @@ from datetime import datetime
 console.clear()
 console.set_font("Futura", 16)
 console.set_color(0, 0, 0)
-print "Fetching DevCenter status"
-print datetime.now().strftime("%Y/%m/%d %H:%M:%S (local time)")
+print("Fetching DevCenter status")
+print(datetime.now().strftime("%Y/%m/%d %H:%M:%S (local time)"))
 url="https://developer.apple.com/support/system-status/"
 console.show_activity()
 resp = requests.get(url)
@@ -35,8 +35,8 @@ down = 0
 up = 0
 # Data Last Updated on apple server
 for h2 in soup.find_all("h2"):
-  print "Data Last", h2.text
-print "_______________________"
+  print("Data Last", h2.text)
+print("_______________________")
 for td in soup.find_all("td"):
  if td["class"][0] == "offline":
    console.set_color(1, 0.5, 0)
@@ -44,11 +44,11 @@ for td in soup.find_all("td"):
  else:
    console.set_color(0, 0, 0)
    up+=1
- print td.text
+ print(td.text)
 
 console.set_color(0, 0, 0)
-print "_______________________"
+print("_______________________")
 console.set_color(1, 0.5, 0)
-print "Offline:", down
+print("Offline:", down)
 console.set_color(0, 0, 0)
-print "Online:", up
+print("Online:", up)

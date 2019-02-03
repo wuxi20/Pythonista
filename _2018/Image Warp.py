@@ -11,7 +11,7 @@ M = 16 # number of vert. and horiz. quads in the mesh (16*16=256)
 
 class ImageWarp (Scene):
 	def setup(self):
-		self.offsets = [[(0.0, 0.0) for x in xrange(M+1)] for y in xrange(M+1)]
+		self.offsets = [[(0.0, 0.0) for x in range(M+1)] for y in range(M+1)]
 		if self.size.w >= 700:
 			# Use the original image on iPad:
 			self.img = 'Test_Lenna'
@@ -28,8 +28,8 @@ class ImageWarp (Scene):
 	
 	def draw_warped_image(self):
 		m = self.m
-		for x in xrange(M):
-			for y in xrange(M):
+		for x in range(M):
+			for y in range(M):
 				d = self.offsets
 				# distances of the 4 corner points from their original position:
 				d1 = d[x][y]; d2 = d[x + 1][y]
@@ -48,8 +48,8 @@ class ImageWarp (Scene):
 		# push mesh vertices away from touch location:
 		m = self.m
 		r = self.img_size / 5
-		for x in xrange(0, M + 1):
-			for y in xrange(0, M + 1):
+		for x in range(0, M + 1):
+			for y in range(0, M + 1):
 				offset = self.offsets[x][y]
 				dist = sqrt((x*m-touch_x + offset[0])**2.0 +
 				            (y*m-touch_y + offset[1])**2.0)
@@ -65,8 +65,8 @@ class ImageWarp (Scene):
 					self.offsets[x][y] = (offset_x, offset_y)
 	
 	def revert(self):
-		for x in xrange(0, M + 1):
-			for y in xrange(0, M + 1):
+		for x in range(0, M + 1):
+			for y in range(0, M + 1):
 				offset = self.offsets[x][y]
 				offset_x = floor(offset[0] - cmp(offset[0], 0))
 				offset_y = floor(offset[1] - cmp(offset[1], 0))
@@ -89,8 +89,9 @@ class ImageWarp (Scene):
 		if len(self.touches) > 1:
 			self.revert()
 		else:
-			loc = self.touches.values()[0].location
+			loc = list(self.touches.values())[0].location
 			touch_x, touch_y = loc.x - tx, loc.y - ty
 			self.bulge(touch_x, touch_y)
 
 run(ImageWarp(), frame_interval=1)
+

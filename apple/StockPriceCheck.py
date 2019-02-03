@@ -7,8 +7,8 @@
 # This Python script checks stock prices in Google Finance pages and send notifications (email and instant) if predetermined conditions in a csv file (passed as argument) are met. More info in: www.movingelectrons.net/blog/2014/1/12/how-to-get-alerts-on-stock-price-changes-using-python
 
 import string, re, os, time, smtplib, sys
-from urllib import urlopen
-import httplib, urllib #used in the Pushover code
+from urllib.request import urlopen
+import http.client, urllib.request, urllib.parse, urllib.error #used in the Pushover code
 
 
 def quote_grab(symbol):
@@ -16,12 +16,12 @@ def quote_grab(symbol):
 	baseurl = 'http://google.com/finance?q='
 	urlData = urlopen(baseurl + symbol)
 	
-	print 'Opening Google Finance URL...'
+	print('Opening Google Finance URL...')
 	
 	# Another option: namestr = re.compile('.*name:\"' + symbol + '\",cp:(.*),p:(.*?),cid(.*)}.*')
 	namestr = re.compile('.*name:\"' + symbol + '\",cp:(.*),p:(.*?),cid(.*)') # "?" used as there is a second string "cid" in the page and the Match was being done up to that one. The "?" keeps it to the 1st occurrence.
 	
-	print 'Checking quotes for ' + symbol
+	print('Checking quotes for ' + symbol)
 	
 	for line in urlData:
 	
@@ -39,9 +39,9 @@ def quote_grab(symbol):
 	
 def pushover(msg):
 
-	conn = httplib.HTTPSConnection("api.pushover.net:443")
+	conn = http.client.HTTPSConnection("api.pushover.net:443")
 	conn.request("POST", "/1/messages.json",
-	urllib.urlencode({
+	urllib.parse.urlencode({
 	"token": "INSERT YOUR TOKEN HERE",
 	"user": "INSERT YOUR API USER KEY HERE",
 	"message": msg,
@@ -89,10 +89,11 @@ for line in csvFile:
 		chg = True
 		
 if chg:
-	print 'sending email...'
+	print('sending email...')
 	send_email('Stock Price Changes',body)
-	print 'sending message to pushover...'
+	print('sending message to pushover...')
 	pushover(body)
 	
 csvFile.close()
+
 

@@ -56,7 +56,7 @@ class CircleText(ui.View):
 		self.process_kwargs(**kwargs)
 		
 	def process_kwargs(self, **kwargs):
-		for k, v in kwargs.iteritems():
+		for k, v in kwargs.items():
 			if hasattr(self, k):
 				setattr(self, k, v)
 				
@@ -100,7 +100,7 @@ class CircleText(ui.View):
 	def get_max_fontsize(self, r, text, font_name, inset_rect):
 		r1 = ui.Rect(*r).inset(*inset_rect)
 		
-		for i in xrange(5, 1000):
+		for i in range(5, 1000):
 			w, h = ui.measure_string(text, max_width=0,
 			font=(font_name, i), alignment=ui.ALIGN_CENTER,
 			line_break_mode=ui.LB_TRUNCATE_TAIL)
@@ -114,7 +114,8 @@ if __name__ == '__main__':
 	ct.present('sheet')
 	
 	
-	for i in xrange(120):
+	for i in range(120):
 		ct.update_attrs(text = str(i))
 		time.sleep(.02)
+
 

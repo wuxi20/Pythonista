@@ -21,17 +21,18 @@ def main():
     started_recording = recorder.record()
 
     if started_recording:
-        print 'Recording started, press the "stop script" button to end recording...'
+        print('Recording started, press the "stop script" button to end recording...')
     try:
         while True:
             pass
     except KeyboardInterrupt:
-        print 'Stopping...'
+        print('Stopping...')
         recorder.stop()
         recorder.release()
-        print 'Stopped recording.'
+        print('Stopped recording.')
         import console
         console.quicklook(os.path.abspath('Recording.m4a'))
 
 if __name__ == '__main__':
     main()
+

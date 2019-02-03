@@ -35,12 +35,13 @@ def main():
 	tabVC.tabCollectionView().contentInset = UIEdgeInsets(58,0,0,0)
 	overviewItem = UIBarButtonItem.alloc().initWithImage_style_target_action_(UIImage.imageNamed_('ShowTabs'), 0, tabVC, sel('showTabOverview:'))
 	
-	print tabVC.navigationItem().rightBarButtonItems()
-	print tabVC.toolbar().rightBarButtons()
+	print(tabVC.navigationItem().rightBarButtonItems())
+	print(tabVC.toolbar().rightBarButtons())
 	addButton(overviewItem)
-	print tabVC.navigationItem().rightBarButtonItems()
-	print tabVC.toolbar().rightBarButtons()
+	print(tabVC.navigationItem().rightBarButtonItems())
+	print(tabVC.toolbar().rightBarButtons())
 	
 if __name__ == '__main__':
 	main()
+
 

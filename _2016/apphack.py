@@ -63,7 +63,8 @@ if __name__=='__main__':
 		'''run a script without clearing glbals'''
 		import editor
 		editor.reload_files()
-		execfile(editor.get_path(),globals())
+		exec(compile(open(editor.get_path()).read(), editor.get_path(), 'exec'),globals())
 		
 	create_toolbar_button(run_script,'iow:play_32',0,'execfile')
+
 

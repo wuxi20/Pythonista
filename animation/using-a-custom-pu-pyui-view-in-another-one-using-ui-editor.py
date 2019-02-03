@@ -93,7 +93,7 @@ class PanelHelp (object):
 	def __init__(self):
 		# if set, we expect that self.dismiss_callback
 		# will be set by the caller
-		print 'in here'
+		print('in here')
 		self.will_dismiss = False
 		self.panel_result = None
 		self.dismiss_callback = None
@@ -127,4 +127,5 @@ class CountriesPanel(PYUILoader, PanelHelp):
 if __name__ == '__main__':
 	cp = CountriesPanel(dict(type = 'pyui_str', data = f_str, raw = True ))
 	cp.present('sheet')
+
 

@@ -29,7 +29,7 @@ class MyScene(Scene):
 		
 	def touch_began(self, touch):
 		#end location
-		print touch.location.x, touch.location.y
+		print(touch.location.x, touch.location.y)
 		push_matrix()
 		scale(1.5, 1.5)
 		translate(touch.location.x, touch.location.y)
@@ -97,4 +97,5 @@ class SceneViewer(ui.View):
 		self.add_subview(self.scene_view)
 		
 SceneViewer(MyScene())
+
 

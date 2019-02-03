@@ -25,7 +25,7 @@ def slug(text, encoding=None,
 	while '--' in clean_text:
 		clean_text = clean_text.replace('--', '-')
 	ascii_text = normalize('NFKD', clean_text).encode('ascii', 'ignore')
-	strict_text = map(lambda x: x if x in permitted_chars else '', ascii_text)
+	strict_text = [x if x in permitted_chars else '' for x in ascii_text]
 	
 	return ''.join(strict_text)
 	
@@ -62,7 +62,7 @@ class MobileBlogger:
 		
 	def _get_latest_commit(self, reload=False):
 		if self._latest_commit is None or reload:
-			self._latest_commit = self._gh.repos.commits.list().next().next()
+			self._latest_commit = next(self._gh.repos.commits.list().next())
 			
 		return self._latest_commit
 		
@@ -124,7 +124,7 @@ class MobileBlogger:
 		
 def main():
 	if not appex.is_running_extension():
-		print 'Running in Pythonista app, using test data...\n'
+		print('Running in Pythonista app, using test data...\n')
 		text = '''
 		'''
 	else:
@@ -185,8 +185,9 @@ def main():
 		mb.create_new_post(results['title'], text, metas)
 		console.hud_alert('New post created!')
 	else:
-		print 'No input text found.'
+		print('No input text found.')
 		
 if __name__ == '__main__':
 	main()
+
 

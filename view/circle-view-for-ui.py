@@ -39,17 +39,17 @@ import ui
 import webbrowser
 #these are fillers for phhton 3 changes
 try:
-	import cStringIO
+	import io
 	print("old cString")
 except ImportError:
 	from io import StringIO as cStringIO
 	print("new stringIO")
 try:
-	import urllib2
+	import urllib.request, urllib.error, urllib.parse
 	print(urllib2)
 except ImportError:
 	import urllib3 as urllib2
-	print(urllib3,' as urllib2')
+	print((urllib3,' as urllib2'))
 from PIL import Image, ImageOps, ImageDraw
 import io
 import Image
@@ -58,7 +58,7 @@ import Image
 def circleMaskViewFromURL(url):
 	url=url
 	#load image from url and show it
-	file=cStringIO.StringIO(urllib2.urlopen(url).read())
+	file=io.StringIO(urllib.request.urlopen(url).read())
 	
 	img = Image.open(file)
 	
@@ -94,4 +94,5 @@ if __name__=="__main__":
 
 	#tests
 	circleMaskViewFromURL("http://vignette2.wikia.nocookie.net/jamesbond/images/3/31/Vesper_Lynd_(Eva_Green)_-_Profile.jpg/revision/latest?cb=20130506215331")
+
 

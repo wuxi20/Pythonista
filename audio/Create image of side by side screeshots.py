@@ -20,7 +20,7 @@ im2 = photos.pick_image(show_albums=False)
 background = Image.new('RGBA', (746,650), (255, 255, 255, 255))
 
 console.clear()
-print "Generating image..."
+print("Generating image...")
 console.show_activity()
 
 _1 = im1.resize((366,650),Image.ANTIALIAS)
@@ -29,4 +29,4 @@ background.paste(_1,(0,0))
 background.paste(_2,(380,0))
 photos.save_image(background)
 console.hide_activity()
-print "Image saved to camera roll."
+print("Image saved to camera roll.")

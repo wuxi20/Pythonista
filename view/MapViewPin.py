@@ -28,7 +28,7 @@ def mapView_viewForAnnotation_(self, cmd, mk_mapview, annotation):
 			return pinView
 		return None
 	except Exception as e:
-		print e
+		print(e)
 		
 methods = [mapView_viewForAnnotation_]
 protocols = ['MKMapViewDelegate']
@@ -58,7 +58,7 @@ class MapView (ui.View):
 			self.map_delegate = MyMapViewDelegate.alloc().init().autorelease()
 			self.mk_map_view.setDelegate_(self.map_delegate)
 		except Exception as e:
-			print e
+			print(e)
 			
 	@on_main_thread
 	def add_pin(self, lat, lon, title, subtitle=None, select=False):
@@ -89,4 +89,5 @@ if __name__ == '__main__':
 	m.present()
 	
 #==============================
+
 

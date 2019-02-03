@@ -44,7 +44,7 @@ class MyScene(Scene):
 		self.timelabel = LabelNode(position=(0, self.size.h/2), text='time')
 		self.time_anchor.add_child(self.timelabel)
 		self.angles = cycle([pi/4, -pi/4])
-		rotate_action = Action.repeat(Action.rotate_to(self.angles.next(), 1, TIMING_EASE_IN_OUT), 0)
+		rotate_action = Action.repeat(Action.rotate_to(next(self.angles), 1, TIMING_EASE_IN_OUT), 0)
 		self.time_anchor.run_action(rotate_action)
 		
 run(MyScene(), PORTRAIT)
@@ -114,4 +114,5 @@ run(MyScene(), PORTRAIT,frame_interval=1)
 self.ang = self.ang + self.delta*cos(radians(2*self.ang)) +.05*self.delta
 
 # --------------------
+
 

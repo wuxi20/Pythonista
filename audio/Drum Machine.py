@@ -1,5 +1,5 @@
 #TODO: Adjust size to screen size (iPhone)
-#TODO: Clear (and random, play/pause?) buttons
+#TODO: Clear (and random, play/pause?) buttonsyb
 
 from scene import *
 from sound import play_effect, set_volume, load_effect

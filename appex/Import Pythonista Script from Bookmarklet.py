@@ -3,11 +3,12 @@
 # I got help from here: http://www.macstories.net/tutorials/from-instapaper-and-pythonista-to-dropbox-and-evernote-as-pdf/
 
 import sys
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import editor
 import os
 
 url = sys.argv[1]
 scriptName = os.path.basename(url)
-contents = urllib2.urlopen(url).read()
+contents = urllib.request.urlopen(url).read()
 editor.make_new_file(scriptName[:-3], contents)
+

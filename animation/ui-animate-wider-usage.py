@@ -85,15 +85,16 @@ class CircleProgress(ui.View):
 		ui.draw_string(s, lb_rect , font=self.font, color='black', alignment=ui.ALIGN_CENTER, line_break_mode=ui.LB_TRUNCATE_TAIL)
 		
 	def set_attrs(self, **kwargs):
-		for k,v in kwargs.iteritems():
+		for k,v in kwargs.items():
 			if hasattr(self, k):
 				setattr(self, k, v)
 				
 	def animate(self, sender = None):
-		print 'in animate...'
+		print('in animate...')
 		def animation():
 			self.alpha = 0 # fade out
 			self.value = self.alpha
 			self.set_needs_display()
 		ui.animate(animation, duration=2)
+
 

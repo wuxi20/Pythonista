@@ -4,7 +4,7 @@
 
 from objc_util import *
 import console
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import dialogs
 
 WKWebView = ObjCClass('WKWebView')
@@ -72,7 +72,8 @@ def searchBarSearchButtonClicked_(_self, _cmd, _sb):
 			view.loadRequest_(NSURLRequest.requestWithURL_(res.URL()))
 			searchbar.text = res.URL().absoluteString()
 		else:
-			view.loadRequest_(NSURLRequest.requestWithURL_(nsurl('http://www.google.com/search?q=' + urllib.quote(term))))
+			view.loadRequest_(NSURLRequest.requestWithURL_(nsurl('http://www.google.com/search?q=' + urllib.parse.quote(term))))
 	
 if __name__ == '__main__':
 	main()
+

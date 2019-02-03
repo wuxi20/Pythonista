@@ -120,14 +120,14 @@ class EurosignalEncoder:
         self.wavfile.write(struct.pack('<L', size - 44))
 
 def Usage():
-    print 'Usage: eurosig.py <numbers file> <wav file>'
+    print('Usage: eurosig.py <numbers file> <wav file>')
 
-    print '(to "play" an existing numbers file to a wav file)'
-    print 'or:    eurosig.py <numbers file> <wav file> <# numbers> [<load>]'
-    print '(to generate a random sequence of numbers which will be logged'
+    print('(to "play" an existing numbers file to a wav file)')
+    print('or:    eurosig.py <numbers file> <wav file> <# numbers> [<load>]')
+    print('(to generate a random sequence of numbers which will be logged')
 
-    print 'to a numbers file and "played" to a wav file -- load will be'
-    print 'assumed at 0.5 if not given)'
+    print('to a numbers file and "played" to a wav file -- load will be')
+    print('assumed at 0.5 if not given)')
 
 if __name__ == '__main__':
     limit = 0
@@ -153,4 +153,5 @@ if __name__ == '__main__':
     es.DoGenerate()
     num.close()
     wav.close()
+
 

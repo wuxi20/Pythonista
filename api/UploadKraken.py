@@ -35,7 +35,7 @@ if appex.is_running_extension() is True:
 else:
 	image = photos.pick_image(original=True, raw_data=True)
 	
-print 'Uploading to Kraken...'
+print('Uploading to Kraken...')
 console.show_activity()
 
 request = requests.post(
@@ -49,15 +49,16 @@ response = json.loads(str(request.content))
 if (response['success']):
 	console.hud_alert('Lossless image uploaded to Kraken.', 'success')
 else:
-	print 'Fail. Error message: %s ' % response['error']
+	print('Fail. Error message: %s ' % response['error'])
 	
 from Kraken import kraken
 final = kraken(response['kraked_url'])
 
 clipboard.set(final)
-import urllib, cStringIO, Image
+import urllib.request, urllib.parse, urllib.error, io, Image
 
-file = cStringIO.StringIO(urllib.urlopen(final).read())
+file = io.StringIO(urllib.request.urlopen(final).read())
 img = Image.open(file)
 img.show()
+
 

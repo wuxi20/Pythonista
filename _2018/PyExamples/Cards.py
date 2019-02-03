@@ -36,7 +36,7 @@ class Game (Scene):
 		width = (card_size + 5) * 4
 		offset = Point((self.size.w - width)/2,
 		               (self.size.h - width)/2)
-		for i in xrange(len(images)):
+		for i in range(len(images)):
 			x, y = i % 4, i / 4
 			card = Layer(Rect(offset.x + x * (card_size + 5),
 			                  offset.y + y * (card_size + 5),
@@ -123,3 +123,4 @@ class Game (Scene):
 								curve=curve_ease_back_in,
 								completion=self.new_game)
 run(Game())
+

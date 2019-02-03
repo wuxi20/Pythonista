@@ -13,15 +13,15 @@
 # Get Pythonista for iOS here:
 # http://omz-software.com/pythonista
 
-from BaseHTTPServer import BaseHTTPRequestHandler
-import urlparse
-import urllib
+from http.server import BaseHTTPRequestHandler
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import cgi
 import editor
 import console
 from socket import gethostname
 import os
-from cStringIO import StringIO
+from io import StringIO
 
 TEMPLATE = ('<!DOCTYPE html><html><head>' +
   '<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/'+
@@ -60,7 +60,7 @@ class TransferRequestHandler(BaseHTTPRequestHandler):
 		return buffer.getvalue()
 	
 	def do_GET(self):
-		parsed_path = urlparse.urlparse(self.path)
+		parsed_path = urllib.parse.urlparse(self.path)
 		path = parsed_path.path
 		if path == '/':
 			html = TEMPLATE
@@ -71,7 +71,7 @@ class TransferRequestHandler(BaseHTTPRequestHandler):
 			self.end_headers()
 			self.wfile.write(html)
 			return
-		file_path = urllib.unquote(path)[1:]
+		file_path = urllib.parse.unquote(path)[1:]
 		if os.path.isfile(file_path):
 			self.send_response(200)
 			self.send_header('Content-Type', 'application/x-python')
@@ -122,12 +122,13 @@ class TransferRequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == '__main__':
 	console.clear()
-	from BaseHTTPServer import HTTPServer
+	from http.server import HTTPServer
 	server = HTTPServer(('', 8080), TransferRequestHandler)
 	URL = 'http://%s.local:8080' % gethostname()
-	print 'Open this page in your browser:'
+	print('Open this page in your browser:')
 	console.set_font('Helvetica-Bold', 30)
-	print URL
+	print(URL)
 	console.set_font()
-	print 'Tap the stop button when you\'re done.'
+	print('Tap the stop button when you\'re done.')
 	server.serve_forever()
+

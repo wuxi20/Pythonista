@@ -28,7 +28,7 @@ class Piano (Scene):
 		                   'Piano_G3#', 'Piano_A3#']
 		for key_name in chain(white_key_names, black_key_names):
 			sound.load_effect(key_name)
-		white_positions = range(8)
+		white_positions = list(range(8))
 		black_positions = [0.5, 1.5, 3.5, 4.5, 5.5]
 		key_w = self.size.w
 		key_h = self.size.h / 8
@@ -80,3 +80,4 @@ class Piano (Scene):
 				key.touch = None
 
 run(Piano(), PORTRAIT)
+

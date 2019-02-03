@@ -11,7 +11,7 @@ import webbrowser
 # takes "$4.99" and returns $5
 def round(p):
     price = p.split(".")
-    print price
+    print(price)
     dollar = int(price[0][1:]) if price[0] != '$' else 0
     cents = int(price[1])
     if cents > 75:

@@ -8,7 +8,7 @@ import shutil
 
 def main():
 	if not appex.is_running_extension():
-		print 'ERROR: This script is meant to be run from the sharing extension.'
+		print('ERROR: This script is meant to be run from the sharing extension.')
 	else:
 		input_files = appex.get_attachments()
 		for input_file in input_files:

@@ -23,7 +23,7 @@ class FileSidebar(object):
 		
 	@ui.in_background
 	def add(self, sender):
-		if not editor.get_path() in self.db.values():
+		if not editor.get_path() in list(self.db.values()):
 			self.db[editor.get_path()] = editor.get_path()
 			self.update()
 			
@@ -46,7 +46,7 @@ class FileSidebar(object):
 		self.files = []
 		#Add subviews to main view and 'present' ui
 		offset = 50
-		for key,file in self.db.items():
+		for key,file in list(self.db.items()):
 			#print os.path.basename(file)
 			filetitle = os.path.basename(file).replace('.py', '')
 			openf = ui.Button(frame=(2,offset,40,self.buttonheight), title=filetitle)
@@ -64,4 +64,5 @@ class FileSidebar(object):
 		
 if __name__=='__main__':
 	sidebar = FileSidebar()
+
 

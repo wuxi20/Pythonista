@@ -2,9 +2,9 @@
 
 # https://gist.github.com/roger-/4192561
 
-from __future__ import division
-from __future__ import absolute_import
-from __future__ import print_function
+
+
+
 import numbers
 import operator
 import math
@@ -106,7 +106,7 @@ patch_array()
 
 
 def arange(*args, **kwargs):
-	return array(range(*args, **kwargs))
+	return array(list(range(*args, **kwargs)))
 	
 def linspace(start, stop, num=50, endpoint=True, retstep=False):
 	if num == 1:
@@ -145,7 +145,7 @@ def vectorize(func):
 	return new_func
 	
 def vectorize_all(namespace):
-	for func in namespace.__dict__.keys():
+	for func in list(namespace.__dict__.keys()):
 		namespace.__dict__[func] = vectorize(namespace.__dict__[func])
 		
 		
@@ -166,4 +166,5 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
 

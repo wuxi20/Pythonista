@@ -16,8 +16,9 @@ def main():
         player.prepareToPlay()
         player.play()
     except Exception as e:
-        print str(e)
+        print(str(e))
     
 
 if __name__ == '__main__':
     main()
+

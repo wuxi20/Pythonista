@@ -3,8 +3,8 @@
 
 # https://gist.github.com/KainokiKaede/015601fc9f29c354a805fc56deef1bbe
 
-from __future__ import absolute_import
-from __future__ import print_function
+
+
 import os
 import sys
 import pickle
@@ -198,3 +198,4 @@ if __name__ == '__main__':
 	print('\nReload file')
 	if editor.get_path():
 		editor.open_file(editor.get_path())
+

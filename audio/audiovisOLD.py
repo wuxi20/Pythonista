@@ -127,7 +127,7 @@ class AVAudioRecorder(object):
       
 T=1.0 # recording length.  dont make too small, or recorder wont record.
 Nr=5  # number of recorders.  this defines frame update time:mthe frame update will be is T/(Nr-1), though this may be driven slower by other factors 
-r=[AVAudioRecorder(i) for i in xrange(Nr)]
+r=[AVAudioRecorder(i) for i in range(Nr)]
 
 Np=float(2001); # float..num points to plot on screen.. too high will lower frame rate
 import ui
@@ -139,7 +139,7 @@ if 1:
    from threading import Thread
    class Vis(sk.Scene):
       def __init__(self,dofft=False):
-         self.v=[sk.SpriteNode() for x in xrange(int(Np))]
+         self.v=[sk.SpriteNode() for x in range(int(Np))]
          for i,sp in enumerate(self.v):
             sp.size=(1.5,1.5)
             sp.position=(float(i)/Np*W,H/2)
@@ -179,7 +179,7 @@ if 1:
             iy=int(i/Np*len(y))
             n.position=(i/Np*W,y[iy]*H+H/2)
       def did_stop(self):
-         print 'stopping'
+         print('stopping')
          #raise Error()
          self['n'][0].remove_all_actions()
          [rec.stop() for rec in r]
@@ -197,7 +197,7 @@ if 1:
    
    def cleanup():
       # required b/c beta always clears globals
-      print 'cleaning up'
+      print('cleaning up')
       del globals()['r']
       del globals()['sc']
       del globals()['v']

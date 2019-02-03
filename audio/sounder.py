@@ -51,7 +51,7 @@ class MyScene(scene.Scene):
     def draw(self):
         if not self.frameCount % framesPerSound:
             try:
-                self.soundName = getSoundName.next()
+                self.soundName = next(getSoundName)
                 #sound.load_effect(self.soundName)
                 sound.play_effect(self.soundName)
             except StopIteration:
@@ -65,3 +65,4 @@ class MyScene(scene.Scene):
             scene.text(self.soundName, x=x, y=y, font_size=self.fontSize)
 
 MyScene()
+

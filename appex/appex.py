@@ -6,9 +6,9 @@ from _appex import finish, is_running_extension, get_input
 import _appex
 
 def _path2url(path):
-    import urlparse
-    import urllib
-    return urlparse.urljoin('file:', urllib.pathname2url(path))
+    import urllib.parse
+    import urllib.request, urllib.parse, urllib.error
+    return urllib.parse.urljoin('file:', urllib.request.pathname2url(path))
 
 def get_attachments(uti='public.data'):
     output_attachments = []
@@ -45,7 +45,7 @@ def _image_from_attachment(image_attachment, image_type='pil', raw_data=False):
                 return img
         except:
             return None
-    elif isinstance(image_attachment, unicode):
+    elif isinstance(image_attachment, str):
         # image path
         if raw_data:
             with open(image_attachment, 'r') as f:
@@ -150,3 +150,4 @@ def get_vcard():
     if vcard_attachments:
         return vcard_attachments[0]
     return None
+

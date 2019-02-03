@@ -2,7 +2,7 @@
 
 # https://gist.github.com/roger-/4192561
 
-from __future__ import division
+
 import numbers
 import operator
 import math
@@ -102,7 +102,7 @@ patch_array()
 
 
 def arange(*args, **kwargs):
-	return array(xrange(*args, **kwargs))
+	return array(range(*args, **kwargs))
 	
 def linspace(start, stop, num=50, endpoint=True, retstep=False):
 	if num == 1:
@@ -141,7 +141,7 @@ def vectorize(func):
 	return new_func
 	
 def vectorize_all(namespace):
-	for func in namespace.__dict__.keys():
+	for func in list(namespace.__dict__.keys()):
 		namespace.__dict__[func] = vectorize(namespace.__dict__[func])
 		
 		
@@ -151,15 +151,16 @@ from math import *
 def main():
 	x = arange(20)
 	
-	print x[(x >= 5) & (x <= 15)]
+	print(x[(x >= 5) & (x <= 15)])
 	
 	x[x > 5] += 4
-	print x[[6,7,11]]
+	print(x[[6,7,11]])
 	
-	print sin(linspace(0, 2*pi, 5))
-	print linspace(0, 7, 5, retstep=True)
+	print(sin(linspace(0, 2*pi, 5)))
+	print(linspace(0, 7, 5, retstep=True))
 	
 	
 if __name__ == '__main__':
 	main()
+
 

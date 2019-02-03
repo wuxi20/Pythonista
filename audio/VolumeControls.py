@@ -19,11 +19,11 @@ def get_system_volume():
 	
 def upAction():
 	#Volume Up button has been pressed
-	print 'Up!'
+	print('Up!')
 	
 def downAction():
 	#Volume Down button has been pressed
-	print 'Down!'
+	print('Down!')
 	
 	
 default = get_system_volume()
@@ -41,4 +41,5 @@ def main():
 		
 if __name__ == '__main__':
 	main()
+
 

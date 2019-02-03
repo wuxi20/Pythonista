@@ -1,7 +1,7 @@
-print """
+print("""
 ****************************************
 *   Script gestartet, bitte warten     *
-****************************************"""
+****************************************""")
 
 import requests, random, datetime, sys, webbrowser, console, urllib, clipboard, bs4
 
@@ -13,7 +13,7 @@ def main():
         except Exception:
             song_page = None
     if not song_page:
-        print repr(sys.argv)
+        print(repr(sys.argv))
         return
     console.clear()
     
@@ -24,10 +24,10 @@ def main():
     console.hide_activity()
     console.clear()
     clipboard.set(pageTitle)
-    print "Dateiname: " pageTitle
+    print("Dateiname: " pageTitle)
     
     
-    print "Grabbing:", song_page
+    print("Grabbing:", song_page)
     sess = requests.Session()
     sess.headers.update({'User-Agent': 'Mozilla/5.0 (iPhone; U; CPU iPhone OS 4_3_3 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko) Version/5.0.2 Mobile/8J2 Safari/6533.18.5'})
     print " .. getting xtsite and js .. "

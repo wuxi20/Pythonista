@@ -6,7 +6,7 @@ import reminders
 import sys
 import dialogs
 import webbrowser
-from urllib import quote
+from urllib.parse import quote
 
 def completeReminder():
 
@@ -36,7 +36,7 @@ def completeReminder():
 			return dialogs.hud_alert('You don\'t have any reminder matching these terms.')
 		else:
 			todomap = {x.title: x for x in this}
-			this = dialogs.list_dialog('Multiple matches', todomap.keys())
+			this = dialogs.list_dialog('Multiple matches', list(todomap.keys()))
 			
 			if not this:
 				return dialogs.hud_alert('You gotta pick the correct reminder.')
@@ -45,7 +45,7 @@ def completeReminder():
 				
 	else:
 		todomap = {x.title: x for x in todo}
-		this = dialogs.list_dialog('Multiple matches', todomap.keys())
+		this = dialogs.list_dialog('Multiple matches', list(todomap.keys()))
 			
 		if not this:
 			return dialogs.hud_alert('You gotta pick the correct reminder.')
@@ -60,3 +60,4 @@ def completeReminder():
 if __name__ == '__main__':
 	completeReminder()
 		
+

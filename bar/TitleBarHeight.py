@@ -11,11 +11,12 @@ for m in presentmodes:
 	v.present(m[0],hide_title_bar=m[1])
 	orientation=w.eval_js('window.orientation')
 	
-	print m, orientation, v.frame
+	print(m, orientation, v.frame)
 	time.sleep(1.0)
 	v.close()
 	time.sleep(1.0)
 	
 time.sleep(1.0)
-print 'complete'
+print('complete')
+
 

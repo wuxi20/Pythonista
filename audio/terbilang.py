@@ -108,5 +108,5 @@ v = rand_digit(12)
 s = '{:,}'.format(v).replace(',','.')
 bilang = terbilang(v)
 
-print s+' = '+bilang
+print(s+' = '+bilang)
 ngomong(bilang)

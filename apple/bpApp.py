@@ -18,7 +18,7 @@
 
 import ui
 import os
-import cPickle as pickle
+import pickle as pickle
 import datetime
 import re
 import console
@@ -183,3 +183,4 @@ class bloodAppView(object):
       return cell
 
 bloodAppView()
+

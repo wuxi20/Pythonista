@@ -1,7 +1,7 @@
 import console
 console.show_activity()
-import urllib
-from urllib import urlencode
+import urllib.request, urllib.parse, urllib.error
+from urllib.parse import urlencode
 import bs4
 import requests
 import webbrowser
@@ -19,7 +19,7 @@ if numArgs < 2:
 	
 	console.show_activity()
 	
-	soup = bs4.BeautifulSoup(urllib.urlopen(url))
+	soup = bs4.BeautifulSoup(urllib.request.urlopen(url))
 	title = soup.title.string
 	text = title.encode('utf-8')
 	
@@ -49,13 +49,14 @@ r = requests.get(pinboard_url, auth=(USER, PASSWORD))
 console.clear()
 
 if r.status_code != 200:
-	print 'Could not post:', r.text
+	print('Could not post:', r.text)
 	
 elif r.status_code == 200:
 	tags = tags.split(' ')
 	tags = ','.join(tags)
 	sound.play_effect('Powerup_2')
-	print 'Link saved successfully'
-	print text
-	print "tags: " + tags
+	print('Link saved successfully')
+	print(text)
+	print("tags: " + tags)
+
 

@@ -34,8 +34,8 @@ def twisted(img, strength):
 	mesh = []
 	m = 16
 	w, h = img.size
-	for x in xrange(w / m):
-		for y in xrange(h / m):
+	for x in range(w / m):
+		for y in range(h / m):
 			target_rect = (x * m, y * m, x * m + m, y * m + m)
 			quad_points = ((x * m, y * m), (x * m, y * m + m),
 		                 (x * m + m, y * m + m), (x * m + m, y * m))
@@ -64,3 +64,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
+

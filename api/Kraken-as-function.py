@@ -2,8 +2,8 @@
 
 # https://www.macstories.net/reviews/pythonista-2-0-brings-action-extension-ipad-pro-support-code-editor-improvements-and-more/
 
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import json
 import console
 import keychain
@@ -33,15 +33,15 @@ def kraken(image_link):
 	
 	console.hud_alert('Uploading lossy image to Kraken...', 'success')
 	data = json.dumps(params)
-	request = urllib2.Request(url, data)
-	response = urllib2.urlopen(request)
+	request = urllib.request.Request(url, data)
+	response = urllib.request.urlopen(request)
 	jsonRes = json.loads(str(response.read()))
 	
 	if (jsonRes['success']):
-		print 'Success. Saved ' + str((jsonRes['original_size']-jsonRes['kraked_size'])/1000) + 'kb in total.' + '\n' + 'Optimized image URL: ' + jsonRes['kraked_url']
+		print('Success. Saved ' + str((jsonRes['original_size']-jsonRes['kraked_size'])/1000) + 'kb in total.' + '\n' + 'Optimized image URL: ' + jsonRes['kraked_url'])
 		return jsonRes['kraked_url']
 	else:
-		print 'Fail. Error message: %s ' % jsonRes['error']
+		print('Fail. Error message: %s ' % jsonRes['error'])
 		
 		
 def main():
@@ -53,4 +53,5 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
 

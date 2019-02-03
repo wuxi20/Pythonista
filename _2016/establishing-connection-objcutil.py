@@ -44,5 +44,6 @@ def get(root=None, method=None, headers={}):
 headers = {"es":"Accept-Language"}
 data = get(root=root1, method=method, headers=headers)
 
-print data
+print(data)
+
 

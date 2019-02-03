@@ -10,6 +10,7 @@ appWorkspace = ObjCClass('LSApplicationWorkspace')
 default = (appWorkspace.defaultWorkspace())
 apps = list(default.allInstalledApplications())
 for app in apps:
-	print app
+	print(app)
 	#print app.applicationIdentifier()
+
 

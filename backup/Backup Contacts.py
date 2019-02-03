@@ -19,4 +19,5 @@ VCARD = "".join(person.vcard for person in contacts.get_all_people())
 console.clear()
 
 dropbox_client.put_file(BACKUP_PATH + '/contacts {}.vcf'.format(TODAY), VCARD)
-print 'Backup complete!'
+print('Backup complete!')
+

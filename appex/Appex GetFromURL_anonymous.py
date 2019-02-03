@@ -10,9 +10,9 @@
 Pythonista app extension for use on share sheet of other apps to import file from URL into Pythonista
 The file is saved at HOME/DESTINATION without user interaction (no 'save as' dialog) unless duplicate'''
 
-from __future__ import print_function
+
 try:
-    import appex, console, contextlib, itertools, os, os.path, sys, time, urllib, urlparse
+    import appex, console, contextlib, itertools, os, os.path, sys, time, urllib.request, urllib.parse, urllib.error, urllib.parse
 except ImportError:
     assert False, 'This script needs the appex module in Pythonista version > 1.5'
 
@@ -59,9 +59,9 @@ def parse_into_paths(input_url, HOME=HOME, DESTINATION=DESTINATION):
     >>> parse_into_paths('http://test.org/x.py', DESTINATION='TEST') # doctest: +ELLIPSIS
     ('x.py', 'http://test.org', 'Documents/TEST', '/private/var/.../TEST', '/priv.../TEST/x.py', True)'''
 
-    url_tuple = urlparse.urlparse(input_url)
+    url_tuple = urllib.parse.urlparse(input_url)
     scheme, netloc, basename = url_tuple.scheme, url_tuple.netloc, os.path.basename(url_tuple.path)
-    input_short = urlparse.urlunparse(iter_pad(len(url_tuple), scheme, netloc, ''))
+    input_short = urllib.parse.urlunparse(iter_pad(len(url_tuple), scheme, netloc, ''))
     output_short = os.path.join(HOME, DESTINATION)
     output_dir = os.path.join(left_subpath_upto(sys.argv[0], HOME), DESTINATION)
     output_path = os.path.join(output_dir, basename)
@@ -87,7 +87,7 @@ def copy_url(input_url):
         except KeyboardInterrupt:
             return
 
-    with contextlib.closing(urllib.urlopen(input_url)) as input:
+    with contextlib.closing(urllib.request.urlopen(input_url)) as input:
         data = input.read()
         console.hud_alert('Got {} ({} chars) from {}'.format(basename, len(data), input_short))
     with open(output_path, 'wb') as output:
@@ -113,3 +113,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
