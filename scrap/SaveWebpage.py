@@ -2,8 +2,8 @@
 
 # https://forum.omz-software.com/topic/2450/save-webpage-for-offline
 
-import urllib2
-page = urllib2.urlopen("http://amdouni.com")
+import urllib.request, urllib.error, urllib.parse
+page = urllib.request.urlopen("http://amdouni.com")
 with open("out.html", "w") as outfile:
     outfile.write(page.read())
 

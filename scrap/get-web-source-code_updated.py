@@ -9,13 +9,13 @@ import ui
 import console
 import webbrowser
 import clipboard
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 import time
 
 def path2url(path):
 	w = os.path.join(os.path.expanduser("~/Documents"),path )
-	return urlparse.urljoin('file:', urllib.pathname2url(w))
+	return urllib.parse.urljoin('file:', urllib.request.pathname2url(w))
 	
 class MyView(ui.View):
 	def will_close(self):
@@ -45,7 +45,7 @@ def main():
 		console.alert('Nothing in the ClipBoard','','Ok',hide_cancel_button=True)
 		return
 		
-	if url[:7] <> 'http://' and url[:8] <> 'https://':
+	if url[:7] != 'http://' and url[:8] != 'https://':
 		console.alert('ClipBoard does not contain a valid URL','','Ok',hide_cancel_button=True)
 		return
 		
@@ -152,4 +152,5 @@ else:
 	# Back to home screen
 	webbrowser.open('launcher://crash')
 # --------------------
+
 

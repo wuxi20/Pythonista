@@ -23,12 +23,12 @@ class Scraper (object):
 
 # Example:
 def parse_response(response):
-    print 'Webview finished loading - ' + response
+    print('Webview finished loading - ' + response)
 
 def main():
     s = Scraper(parse_response, 'https://www.google.com', 'document.title;')
     # How can I wait for the Web View to finish loading here and return the HTML of the webpage before proceeding on the main thread?
-    print 'Main thread finished executing'
+    print('Main thread finished executing')
 if __name__ == '__main__':
     main()
 

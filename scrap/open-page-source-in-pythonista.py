@@ -3,7 +3,7 @@
 # https://forum.omz-software.com/topic/2711/open-page-source-in-pythonista
 
 import appex
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 from objc_util import *
 #Helper functions
 def openUrl(url):
@@ -18,7 +18,7 @@ def getDocPath():
 #Get the url
 url=appex.get_url()
 #Read page contents
-f=urllib2.urlopen(url)
+f=urllib.request.urlopen(url)
 source=f.read()
 f.close()
 #Detect the type of page we're viewing
@@ -49,4 +49,5 @@ ct = r.headers['Content-Type']
 # A fancier version could use the mimetypes module to guess the proper file extension...
 extension = '.html' if ct.startswith('text/html') else '.txt'
 # ...
+
 

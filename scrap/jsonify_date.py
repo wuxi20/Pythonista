@@ -18,8 +18,8 @@ class JSONDateTimeEncoder(json.JSONEncoder):
 
 def datetime_decoder(d):
     result = []
-    for k,v in (enumerate(d) if isinstance(d, list) else d.items()):
-        if isinstance(v, basestring):
+    for k,v in (enumerate(d) if isinstance(d, list) else list(d.items())):
+        if isinstance(v, str):
             try:
                 v = datetime.strptime(v, '%Y-%m-%dT%H:%M:%S.%f')
             except ValueError:
@@ -33,3 +33,4 @@ def datetime_decoder(d):
 
 dumps = lambda obj: json.dumps(obj, cls=JSONDateTimeEncoder)
 loads = lambda obj: json.loads(obj, object_hook=datetime_decoder)
+

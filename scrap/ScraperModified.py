@@ -21,12 +21,12 @@ class Scraper (object):
 
 # Example:
 def parse_response(response):
-    print 'Webview finished loading - ' + response
+    print('Webview finished loading - ' + response)
 
 def main():
     s = Scraper(parse_response, 'https://www.google.com', 'document.title;')
     # Wait until scraper finished loading
     s.ready_event.wait()
-    print 'Main thread finished executing'
+    print('Main thread finished executing')
 if __name__ == '__main__':
     main()

@@ -9,4 +9,5 @@ url = 'http://www.cheese.com'
 
 soup = BeautifulSoup(requests.get(url).text)
 
-print soup.find('div', id='abstract') #find one div with id 'abstract' and print
+print(soup.find('div', id='abstract')) #find one div with id 'abstract' and print
+

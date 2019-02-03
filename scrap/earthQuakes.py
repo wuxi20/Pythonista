@@ -11,7 +11,7 @@ def soda2FieldDictFromHeaders(inRequestsHeader):
     fieldNames = eval(inRequestsHeader['x-soda2-fields'])
     fieldTypes = eval(inRequestsHeader['x-soda2-types'])
     fieldDict  = {}
-    for i in xrange(len(fieldNames)):
+    for i in range(len(fieldNames)):
         fieldDict[fieldNames[i]] = fieldTypes[i]
     return fieldDict
 
@@ -24,5 +24,6 @@ print('')
 
 for quakeDict in json.loads(theRequest.text):
     # pprint.pprint(quakeDict)
-    print(fmt.format(**quakeDict))
-print('=' * 75)
+    print((fmt.format(**quakeDict)))
+print(('=' * 75))
+

@@ -17,13 +17,13 @@
 # computers.
 
 from bs4 import BeautifulSoup as BS
-import urllib 
+import urllib.request, urllib.parse, urllib.error 
 
 def clearJunk(BSobj):
 	[s.extract() for s in BSobj(['style', 'script'])]
 
 def makeSoup(url):
-	r = urllib.urlopen(url)
+	r = urllib.request.urlopen(url)
 	soup = BS(r)
 	clearJunk(soup)
 	return soup
@@ -37,10 +37,10 @@ def stripAnchor(url):
 		return url[:badness]
 	return url
 	
-url = raw_input('URL to crawl: ')
+url = input('URL to crawl: ')
 soup = makeSoup(url)
 
-links = filter(lambda x: 'mailto:' not in x, [url + stripAnchor(alink['href']) for alink in soup.find_all('a', href=True)])
+links = [x for x in [url + stripAnchor(alink['href']) for alink in soup.find_all('a', href=True)] if 'mailto:' not in x]
 uniques = [s for (i,s) in enumerate(links) if s not in links[0:i]]
 
 texts = [getBody(makeSoup(aurl)) for aurl in uniques]
@@ -50,4 +50,4 @@ filename = 'scrape' + str(strftime("%Y%m%d%H%M%S", gmtime())) + '.html'
 with open(filename, 'w') as outfile:
 	outfile.write('<br><br>'.join(texts))
 
-print 'scraping complete!'
+print('scraping complete!')

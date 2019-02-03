@@ -21,7 +21,7 @@ class Scraper (object):
 
 def main():
     r = Scraper('https://www.google.com', 'document.title;').response
-    print 'Response: ' + r
+    print('Response: ' + r)
 
 if __name__ == '__main__':
     main()

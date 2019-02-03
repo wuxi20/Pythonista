@@ -6,7 +6,7 @@
 # If you find any bug, you can find me @silouane20 on Twitter.
 
 from PIL import Image
-from StringIO import StringIO
+from io import StringIO
 import re
 import requests
 
@@ -20,7 +20,7 @@ def find_icon(terms):
 		return found
 		
 def main():
-	terms = raw_input("Input app name: ")
+	terms = input("Input app name: ")
 	icon_url = find_icon(terms)
 	
 	if icon_url:
@@ -28,9 +28,10 @@ def main():
 		image = Image.open(StringIO(file.content))
 		image.show()
 	else:
-		print "Failed to get iTunes url"
+		print("Failed to get iTunes url")
 		
 		
 if __name__ == "__main__":
 	main()
+
 

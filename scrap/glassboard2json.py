@@ -94,7 +94,8 @@ def main():
     with open(output_path, 'w') as f:
       json.dump(output, f, indent=2)
   else:
-    print json.dumps(output, indent=2)
+    print(json.dumps(output, indent=2))
 
 if __name__ == '__main__':
   main()
+

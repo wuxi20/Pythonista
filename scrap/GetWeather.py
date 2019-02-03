@@ -7,7 +7,7 @@ import time
 from datetime import datetime
 import location
 import webbrowser
-import BaseHTTPServer
+import http.server
 
 ########################## Functions ############################
 
@@ -121,7 +121,7 @@ loc = location.get_location()
 html = wuHTML(loc['latitude'], loc['longitude'], wukey)
 
 # Create the request handler.
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class MyHandler(http.server.BaseHTTPRequestHandler):
 	def do_GET(s):
 		"""Respond to a GET request."""
 		s.send_response(200)
@@ -130,7 +130,8 @@ class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 		s.wfile.write(html)
 		
 # Start the server and show the page.
-server = BaseHTTPServer.HTTPServer(('', 8888), MyHandler)
+server = http.server.HTTPServer(('', 8888), MyHandler)
 webbrowser.open('http://localhost:8888')
 server.handle_request()
+
 

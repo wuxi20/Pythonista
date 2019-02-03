@@ -28,13 +28,13 @@ console.log("logging activated");
 '''
 
 # coding: utf-8
-import ui,os,urllib
+import ui,os,urllib.request,urllib.parse,urllib.error
 class debugDelegate (object):
     def webview_should_start_load(self,webview, url, nav_type):
        if url.startswith('ios-log'):
-          print urllib.unquote(url)
+          print(urllib.parse.unquote(url))
        else:
-          print url
+          print(url)
        return True
 w=ui.WebView()
 w.eval_js(jslogging)

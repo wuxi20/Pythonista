@@ -13,8 +13,8 @@ import datetime
 import keychain
 import console
 import sys
-import cPickle
-from urllib import quote, unquote
+import pickle
+from urllib.parse import quote, unquote
 
 class NoResultsError (Exception): pass
 class NoMoviePickError (Exception): pass
@@ -53,9 +53,9 @@ class MovieDiary():
 				config['airtable_db'] = self.validate_config(config['airtable_db'], 'Insert your Airtable database ID', 'You need the ID of your database')
 				config['airtable_table'] = self.validate_config(config['airtable_table'], 'Insert the name of yout Airtable table', 'You must insert the name of the table in your database.', 'Table 1', True)
 				
-				keychain.set_password('Movie Diary', 'Config', cPickle.dumps(config))
+				keychain.set_password('Movie Diary', 'Config', pickle.dumps(config))
 		else:
-			config = cPickle.loads(config)
+			config = pickle.loads(config)
 
 		self.moviedb_api = config.get('moviedb_api', '')
 		self.airtable_api = config.get('airtable_api', '')
@@ -83,11 +83,11 @@ class MovieDiary():
 	@staticmethod
 	def getairtable(api, db, table):
 		import mechanize
-		import cookielib
+		import http.cookiejar
 		from bs4 import BeautifulSoup as bs
 		
 		browser = mechanize.Browser()
-		jar = cookielib.LWPCookieJar()
+		jar = http.cookiejar.LWPCookieJar()
 		browser.set_cookiejar(jar)
 		browser.open('https://airtable.com/login?continue=/api')
 
@@ -278,7 +278,7 @@ class MovieDiary():
 			config['airtable_db'] = self.validate_config(config['airtable_db'], 'Insert your Airtable database ID', 'You need the ID of your database')
 			config['airtable_table'] = self.validate_config(config['airtable_table'], 'Insert the name of yout Airtable table', 'You must insert the name of the table in your database.', 'Table 1', True)
 
-			keychain.set_password('Movie Diary', 'Config', cPickle.dumps(config))
+			keychain.set_password('Movie Diary', 'Config', pickle.dumps(config))
 			console.hud_alert('Movie Diary Configuration Successfully Edited')
 		else:
 			raise MissingConfigError('You must setup and confirm the Movie Diary configuration before continuing.')
@@ -346,3 +346,4 @@ if __name__ == '__main__':
 		console.alert('No API key available', 'You gotta generate an API key at https://airtable.com/account.')
 	except ProbablyBadLoginError:
 		console.alert('Probably a bad login', 'Something went wrong while crawling for your data. The host, connection or script may have failed, but most probably you used the wrong credentials')
+

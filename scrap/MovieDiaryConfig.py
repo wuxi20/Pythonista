@@ -7,14 +7,14 @@
 import dialogs
 import keychain
 import console
-import cPickle
-from urllib import quote, unquote
+import pickle
+from urllib.parse import quote, unquote
 
 class NoConfigError (Exception): pass
 class MissingConfigError (Exception): pass
 
 try:
-	moviediary_config = cPickle.loads(keychain.get_password('Movie Diary', 'Config'))
+	moviediary_config = pickle.loads(keychain.get_password('Movie Diary', 'Config'))
 	if moviediary_config == None:
 		raise MissingConfigError('There\'s no config for the Movie Diary to edit. Run the Movie Diary to generate one.' )
 	else:
@@ -49,9 +49,10 @@ try:
 				else:
 					moviediary_edit['airtable_table'] = quote(airtable_table)
 			
-			keychain.set_password('Movie Diary', 'Config', cPickle.dumps(moviediary_edit))
+			keychain.set_password('Movie Diary', 'Config', pickle.dumps(moviediary_edit))
 			console.hud_alert('Movie Diary Configuration Successfully Edited')
 except NoConfigError as e:
 	console.alert('No Config', e)
 except MissingConfigError as e:
 	console.alert('Missing Config Field', e)
+

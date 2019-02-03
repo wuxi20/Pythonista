@@ -10,7 +10,7 @@
 # iOS 7 masks by @pgruneich on Twitter.
 
 from PIL import Image
-from StringIO import StringIO
+from io import StringIO
 import re
 import requests
 
@@ -27,15 +27,15 @@ def find_icon(terms, platform):
 		return found
 		
 def main():
-	print "Select chosen platform \n"
-	print "[1] iPhone"
-	print "[2] iPad\n"
-	platform = raw_input("")
+	print("Select chosen platform \n")
+	print("[1] iPhone")
+	print("[2] iPad\n")
+	platform = input("")
 	
 	if platform == "x":
-		print "Exited"
+		print("Exited")
 	else:
-		terms = raw_input("Input app name: ")
+		terms = input("Input app name: ")
 		icon_url = find_icon(terms, platform)
 		
 		if icon_url:
@@ -56,9 +56,10 @@ def main():
 			image.paste(mask,(0,0,width,width),mask)
 			image.show()
 		else:
-			print "Failed to get iTunes url"
+			print("Failed to get iTunes url")
 			
 			
 if __name__ == "__main__":
 	main()
+
 
