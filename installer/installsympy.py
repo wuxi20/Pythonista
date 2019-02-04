@@ -1,6 +1,6 @@
 # Install SimPy
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import tarfile
 import shutil
 import console
@@ -15,18 +15,19 @@ version = '0.7.5'
 
 fullname = name+'-'+version
 
-print 'Downloading '+name+'...'
+print('Downloading '+name+'...')
 url = 'https://pypi.python.org/packages/source/s/'+name+'/'+fullname+'.tar.gz'
-urllib.urlretrieve(url, 'packget.tar.gz')
+urllib.request.urlretrieve(url, 'packget.tar.gz')
 
-print 'Extracting...'
+print('Extracting...')
 t = tarfile.open('packget.tar.gz')
 t.extractall()
 if os.path.isdir(name):
 	shutil.rmtree(name)
 shutil.move(fullname+'/'+name, './'+name)
 
-print 'Cleaning up...'
+print('Cleaning up...')
 shutil.rmtree(fullname)
 os.remove('packget.tar.gz')
-print 'Done.'
+print('Done.')
+

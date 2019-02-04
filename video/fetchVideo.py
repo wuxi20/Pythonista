@@ -10,7 +10,7 @@ from pytube import YouTube
 def downloadURL(fileName, qurl):
 	rq = urllib.request.urlopen(qurl)
 	fSize = int(rq.info()['Content-Length'])
-	print("File szie: {} bytes.".format(fSize))
+	print(("File szie: {} bytes.".format(fSize)))
 	qf = os.path.join(os.getcwd(), fileName)
 	downloadedChunk = 0
 	blockSize = 2048
@@ -19,7 +19,7 @@ def downloadURL(fileName, qurl):
 		while True:
 			chunk = rq.read(blockSize)
 			if not chunk:
-				print("Download Complete. Stored as {}.".format(qf))
+				print(("Download Complete. Stored as {}.".format(qf)))
 				break
 			downloadedChunk += len(chunk)
 			sura.write(chunk)
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 		if len(sys.argv[1]) > 0 and sys.argv[1].startswith("http://www.youtube"):
 			targetVid.url = sys.argv[1]
 	except Exception:
-		targetVid.url = input("Video URL:> ")
+		targetVid.url = eval(input("Video URL:> "))
 		
 	print("Available Formats:")
 	vDict = {}
@@ -44,20 +44,20 @@ if __name__ == "__main__":
 		e = x.extension
 		r = x.resolution
 		vDict.update({count:[v, e, r]})
-		print("{}. Format: {:<20} || Extension: .{:<20} || Resolution: {:^10}".format(count, v, e, r))
+		print(("{}. Format: {:<20} || Extension: .{:<20} || Resolution: {:^10}".format(count, v, e, r)))
 		
 	try:
-		videoKey = input("Select the number of the video:> ")
+		videoKey = eval(input("Select the number of the video:> "))
 		assert re.match(r"^[^a-zA-Z]", videoKey), "Ambiguous Entry."
 		videoKey = int(videoKey)
-		assert videoKey in vDict.keys(), "Invalid Number"
+		assert videoKey in list(vDict.keys()), "Invalid Number"
 	except (AssertionError, ValueError):
 		print("Expected a number from the provided list.")
 		sys.exit()
-	targetVid.filename = input("Save file as:> ")
+	targetVid.filename = eval(input("Save file as:> "))
 	targetVid.filename = targetVid.filename + "." + vDict[videoKey][1]
 	video = targetVid.get(vDict[videoKey][1], vDict[videoKey][2])
-	downloadOK = input("Download(yes-ok/no):> ")
+	downloadOK = eval(input("Download(yes-ok/no):> "))
 	if not re.match(r"(yes|ok)", downloadOK):
 		sys.exit()
 	else:
@@ -69,4 +69,5 @@ if __name__ == "__main__":
 			os.remove(targetVid.filename)
 			sys.stdout.write(chr(27) + "[?25h")
 			sys.exit()
+
 

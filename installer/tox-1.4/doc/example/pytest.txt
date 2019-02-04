@@ -1,0 +1,100 @@
+
+py.test and tox
+=================================
+
+It is easy to integrate `py.test`_ runs with tox.  If you encounter
+issues, please check if they are `listed as a known issue`_ and/or use
+the :doc:`support channels <../support>`.
+
+Basic example
+--------------------------
+
+Assuming the following layout::
+
+    tox.ini      # see below for content
+    setup.py     # a classic distutils/setuptools setup.py file
+
+and the following ``tox.ini`` content::
+
+    [tox]
+    envlist = py26,py31
+
+    [testenv]
+    deps=pytest       # PYPI package providing py.test
+    commands=
+      py.test \
+            []        # substitute with tox' positional arguments
+
+you can now invoke ``tox`` in the directory where your ``tox.ini`` resides.
+``tox`` will sdist-package your project, create two virtualenv environments
+with the ``python2.6`` and ``python3.1`` interpreters, respectively, and will
+then run the specified test command in each of them.
+
+Extended example: change dir before test and use per-virtualenv tempdir
+--------------------------------------------------------------------------
+
+Assuming the following layout::
+
+    tox.ini      # see below for content
+    setup.py     # a classic distutils/setuptools setup.py file
+    tests        # the directory containing tests
+
+and the following ``tox.ini`` content::
+
+    [tox]
+    envlist = py26,py31
+    [testenv]
+    changedir=tests
+    deps=pytest
+    commands=
+      py.test \
+        --basetemp={envtmpdir}  \ # py.test tempdir setting
+        []                        # substitute with tox' positional arguments
+
+you can invoke ``tox`` in the directory where your ``tox.ini`` resides.
+Differently than in the previous example the ``py.test`` command
+will be executed with a current working directory set to ``tests``
+and the test run will use the per-virtualenv temporary directory.
+
+.. _`passing positional arguments`:
+
+Using multiple CPUs for test runs
+-----------------------------------
+
+``py.test`` supports distributing tests to multiple processes and hosts
+through the `pytest-xdist`_ plugin.  Here is an example configuration
+to make ``tox`` use this feature::
+
+    [testenv]
+    deps=pytest-xdist
+    changedir=tests
+    commands=
+        py.test \
+            --basetemp={envtmpdir}  \
+            --confcutdir=..         \
+            -n 3                    \ # use three sub processes
+            []
+
+.. _`listed as a known issue`:
+
+Known Issues and limitations
+-----------------------------
+
+**Too long filenames**. you may encounter "too long filenames" for temporarily
+created files in your py.test run.  Try to not use the "--basetemp" parameter.
+
+**installed-versus-checkout version**.  ``py.test`` collects test
+modules on the filesystem and then tries to import them under their
+`fully qualified name`_. This means that if your test directory contains
+an ``__init__.py`` file then your ``py.test`` invocation may end up
+importing the package from the checkout directory rather than the
+installed package.  Therefore it is better to try to avoid
+``__init__.py`` files in test directories and also try to avoid custom
+``PYTHONPATH`` settings.  After all, it is the job of your ``setup.py``
+file and the install tools to care for making the package properly
+available for importing.
+
+.. _`fully qualified name`: http://pytest.org/latest/goodpractises.html#package-name
+
+
+.. include:: ../links.txt

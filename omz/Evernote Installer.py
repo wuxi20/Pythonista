@@ -14,7 +14,7 @@
 
 import tarfile
 import shutil
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os
 
 try:
@@ -22,9 +22,9 @@ try:
 except:
 	pass
 
-print 'Downloading evernote...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/e/evernote/evernote-1.23.2.tar.gz')
-print 'Installing evernote...'
+print('Downloading evernote...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/e/evernote/evernote-1.23.2.tar.gz')
+print('Installing evernote...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
@@ -32,18 +32,18 @@ shutil.move('evernote-1.23.2/lib/evernote', 'evernote-sdk/evernote')
 shutil.move('evernote-1.23.2/lib/thrift', 'evernote-sdk/thrift')
 shutil.rmtree('evernote-1.23.2')
 
-print 'Downloading httplib2...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.7.tar.gz')
-print 'Installing httplib2...'
+print('Downloading httplib2...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.7.tar.gz')
+print('Installing httplib2...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
 shutil.move('httplib2-0.7.7/python2/httplib2', 'evernote-sdk/httplib2')
 shutil.rmtree('httplib2-0.7.7')
 
-print 'Downloading oauth2...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/o/oauth2/oauth2-1.5.211.tar.gz')
-print 'Installing oauth2...'
+print('Downloading oauth2...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/o/oauth2/oauth2-1.5.211.tar.gz')
+print('Installing oauth2...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
@@ -53,4 +53,4 @@ shutil.rmtree('oauth2-1.5.211')
 import editor
 editor.reload_files()
 
-print 'Done.'
+print('Done.')

@@ -35,7 +35,7 @@ def show_mail_controller(subject='', recipients=[], body='', filename=None, mime
 	#mail_vc.setSubject_(subject)
 	#if isinstance(recipients,list):
 	# cclauss's comment 
-	isHTML = isinstance(body, basestring) and body.strip().startswith('<html>')
+	isHTML = isinstance(body, str) and body.strip().startswith('<html>')
 	
 	mail_vc.setToRecipients_(recipients)
 	#isHTML = isinstance(body,basestring) and body.startswith('<html>'):
@@ -51,8 +51,8 @@ def show_mail_controller(subject='', recipients=[], body='', filename=None, mime
 
 def main():
 	import ui
-	import urllib
-	urllib.urlretrieve('http://www.heathersanimations.com/fireworks/22_1.gif','test.gif')
+	import urllib.request, urllib.parse, urllib.error
+	urllib.request.urlretrieve('http://www.heathersanimations.com/fireworks/22_1.gif','test.gif')
 	v=ui.View(bg_color=(1,1,1), frame=( 0,0,555,555))
 	v.present()
 	b=ui.Button(title='Mail', frame=(25,25,200,200))
@@ -66,3 +66,4 @@ def main():
 
 if __name__=='__main__':
 	main()
+

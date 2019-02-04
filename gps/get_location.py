@@ -118,7 +118,8 @@ if __name__ == '__main__':
 
 	try:
 		loc = get_location(enableHighAccuracy=False)
-		print 'loc: ', loc
+		print('loc: ', loc)
 	except GeoLocationError as error:
-		print 'failed: ', error.message
+		print('failed: ', error.message)
+
 

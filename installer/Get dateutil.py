@@ -1,5 +1,5 @@
 import os
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import tarfile
 import shutil
 
@@ -14,7 +14,7 @@ try:
 except OSError:
 	pass
 
-dateutilArchiveUrl = urllib2.urlopen('http://labix.org/download/python-dateutil/' + dateutilArchive)
+dateutilArchiveUrl = urllib.request.urlopen('http://labix.org/download/python-dateutil/' + dateutilArchive)
 localArchive = open(dateutilArchivePath, 'w')
 localArchive.write(dateutilArchiveUrl.read())
 localArchive.close()
@@ -36,3 +36,4 @@ dateutilPath = os.path.join(workingPath, dateutilDir)
 shutil.rmtree(dateutilPath, True)
 shutil.copytree(tempDateutilPath, dateutilPath)
 shutil.rmtree(tempPath)
+

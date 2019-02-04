@@ -8,7 +8,7 @@
 
 import eyed3
 import soundcloud
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
 import time
 import os

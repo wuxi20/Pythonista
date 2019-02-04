@@ -21,7 +21,7 @@ if p.netloc.startswith('gist.github.com'):
 		for pth in [gistpath, destpath]:
 			if not os.path.exists(pth):
 				os.mkdir(pth)
-		for f in data['files'].values():
+		for f in list(data['files'].values()):
 			filename=f['filename']
 			console.hud_alert('writing '+filename)
 			url=f['raw_url']
@@ -39,3 +39,4 @@ else:
 console.hud_alert(urlfilename +' complete')
 console.hide_activity()
 appex.finish()
+

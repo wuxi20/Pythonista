@@ -10,7 +10,7 @@ import os
 import platform
 import shutil
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zipfile
 
 print('=' * 31)
@@ -21,7 +21,7 @@ zip_filename = module_name + '.zip'
 url = 'https://github.com/671620616/PhantomChess/archive/master.zip'
 
 print('Downloading {}...'.format(zip_filename))
-urllib.urlretrieve(url, zip_filename)
+urllib.request.urlretrieve(url, zip_filename)
 print('Unzipping {}...'.format(zip_filename))
 with zipfile.ZipFile(zip_filename, 'r') as zipped:
     zipped.extractall()
@@ -69,3 +69,4 @@ def unix_chmod_plus_x(file_path='Phantom/Run_this.py'):
 
 unix_chmod_plus_x(module_name + '/Run_this.py')
 print('Done! {}'.format('=' * 25))
+

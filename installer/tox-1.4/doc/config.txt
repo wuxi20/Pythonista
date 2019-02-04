@@ -1,0 +1,294 @@
+.. be in -*- rst -*- mode!
+
+tox configuration specification
+================================
+
+.. _ConfigParser: http://docs.python.org/library/configparser.html
+
+``tox.ini`` files uses the standard ConfigParser_ "ini-style" format.
+Below you find the specification, but you might want to skim some
+:doc:`examples` first and use this page as a reference.
+
+Tox global settings
+----------------------
+
+List of optional global options::
+
+    [tox]
+    minversion=ver    # minimally required tox version
+    toxworkdir=path   # tox working directory, defaults to {toxinidir}/.tox
+    setupdir=path     # defaults to {toxinidir}
+    distdir=path      # defaults to {toxworkdir}/dist
+    distshare=path    # defaults to {homedir}/.tox/distshare
+    envlist=ENVLIST   # defaults to the list of all environments
+
+
+``tox`` autodetects if it is running in a Jenkins_ context
+(by checking for existence of the ``JENKINS_URL`` environment variable)
+and will first lookup global tox settings in this section::
+
+    [tox:hudson]
+    ...               # override [tox] settings for the hudson context
+    # note: for hudson distshare defaults to ``{toxworkdir}/distshare``.
+
+
+envlist setting
++++++++++++++++++++++++++
+
+Determining the environment list that ``tox`` is to operate one
+happens in this order:
+
+* command line option ``-eENVLIST``
+* environment variable ``TOXENV``
+* ``tox.ini`` file's ``envlist``
+
+
+Virtualenv test environment settings
+-------------------------------------------
+
+Test environments are defined by a::
+
+    [testenv:NAME]
+    ...
+
+section.  The ``NAME`` will be the name of the virtual environment.
+Defaults for each setting in this section are looked up in the::
+
+    [testenv]
+    ...
+
+testenvironment default section.
+
+Complete list of settings that you can put into ``testenv*`` sections:
+
+.. confval:: basepython=NAME-OR-PATH
+
+    name or path to a Python interpreter which will be used for creating
+    the virtual environment. **default**: interpreter used for tox invocation.
+
+.. confval:: commands=ARGVLIST
+
+    the commands to be called for testing. Each command is defined
+    by one or more lines; a command can have multiple lines if a line
+    ends with the ``\`` character in which case the subsequent line
+    will be appended (and may contain another ``\`` character ...).
+    For eventually performing a call to ``subprocess.Popen(args, ...)``
+    ``args`` are determined by splitting the whole command by whitespace.
+
+.. confval:: changedir=path
+
+    change to this working directory when executing the test command.
+    **default**: ``{toxinidir}``
+
+.. confval:: deps=MULTI-LINE-LIST
+
+    test-specific dependencies -.to be installed into the environment prior to project
+    package installation.  Each line defines a dependency, which will be
+    passed to easy_install/pip for processing.  A line specify a file,
+    an URL or a package name.  You can additionally specify
+    an :confval:`indexserver` to use for installing this dependency.
+    All derived dependencies (deps required by the dep) will then be
+    retrieved from the specified indexserver::
+
+        deps = :myindexserver:pkg
+
+.. confval:: setenv=MULTI-LINE-LIST
+   
+   .. versionadded:: 0.9
+
+   each line contains a NAME=VALUE environment variable setting which
+   will be used for all test command invocations as well as for installing
+   the sdist package into a virtual environment.
+
+.. confval:: recreate=True|False(default)
+
+    Always recreate virtual environment if this option is True.
+
+.. confval:: downloadcache=path
+
+    (pip only) use this directory for caching downloads - this defaults to the
+    environment variable ``PIP_DOWNLOAD_CACHE`` if it is set.
+    **default**: no download cache will be used.
+    **note**: if creating multiple environments use of a download cache greatly
+    speeds up the testing process.
+
+.. confval:: distribute=True|False
+
+    Set to ``False`` if you want to use setuptools_ instead of the default
+    distribute_ in the virtual environment.
+    **default:** True.
+
+.. confval:: sitepackages=True|False
+
+    Set to ``True`` if you want to create virtual environments that also
+    have access to globally installed packages.  **default:** False, meaning
+    that virtualenvs will be created with ``--no-site-packages`` by default.
+
+.. confval:: args_are_paths=BOOL
+
+    treat positional arguments passed to ``tox`` as file system paths
+    and - if they exist on the filesystem - rewrite them according
+    to the ``changedir``.
+    **default**: True (due to the exists-on-filesystem check it's usually
+    safe to try rewriting).
+
+.. confval:: envtmpdir=path
+
+    defines a temporary directory for the virtualenv which will be cleared
+    each time before the group of test commands is invoked.
+    **default**: ``{envdir}/tmp``
+
+.. confval:: envlogdir=path
+
+    defines a directory for logging where tox will put logs of tool
+    invocation.
+    **default**: ``{envdir}/log``
+
+.. confval:: indexserver
+
+   .. versionadded:: 0.9
+
+   Multi-line ``name = URL`` definitions of python package servers.
+   Depedencies can specify using a specified index server through the
+   ``:indexservername:depname`` pattern.  The ``default`` indexserver
+   definition determines where unscoped dependencies and the sdist install
+   installs from.  Example::
+
+        [tox]
+        indexserver =
+            default = http://mypypi.org
+
+   will make tox install all dependencies from this PYPI index server
+   (including when installing the project sdist package).
+
+
+Substitutions
+---------------------
+
+Any ``key=value`` setting in an ini-file can make use
+of value substitution through the ``{...}`` string-substitution pattern.
+
+Globally available substitutions
++++++++++++++++++++++++++++++++++++++++++++
+
+``{toxinidir}``
+    the directory where tox.ini is located
+
+``{toxworkdir}``
+    the directory where virtual environments are created and sub directories
+    for packaging reside.
+
+``{homedir}``
+    the user-home directory path.
+
+``{distdir}``
+    the directory where sdist-packages will be created in
+
+``{distshare}``
+    the directory where sdist-packages will be copied to so that
+    they may be accessed by other processes or tox runs.
+
+substitutions for virtualenv-related sections
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+``{envname}``
+    the name of the virtual environment
+``{envpython}``
+    path to the virtual Python interpreter
+``{envdir}``
+    directory of the virtualenv hierarchy
+``{envbindir}``
+    directory where executables are located
+``{envtmpdir}``
+    the environment temporary directory
+``{envlogdir}``
+    the environment log directory
+
+
+environment variable substitutions
++++++++++++++++++++++++++++++++++++++++++++
+
+If you specify a substitution string like this::
+
+    {env:KEY}
+
+then the value will be retrieved as ``os.environ['KEY']``
+and raise an Error if the environment variable
+does not exist.
+
+.. _`command positional substitution`:
+.. _`positional substitution`:
+
+substitutions for positional arguments in commands
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. versionadded:: 1.0
+
+If you specify a substitution string like this::
+
+    {posargs:DEFAULTS}
+
+then the value will be replaced with positional arguments as provided
+to the tox command::
+
+    tox arg1 arg2
+
+In this instance, the positional argument portion will be replaced with
+``arg1 arg2``. If no positional arguments were specified, the value of
+DEFAULTS will be used instead. If DEFAULTS contains other substitution
+strings, such as ``{env:*}``, they will be interpreted.,
+
+Use a double ``--`` if you also want to pass options to an underlying
+test command, for example::
+
+    tox -- --opt1 ARG1
+
+will make the ``--opt1 ARG1`` appear in all test commands where ``[]`` or
+``{posargs}`` was specified.  By default (see ``args_are_paths``
+setting), ``tox`` rewrites each positional argument if it is a relative
+path and exists on the filesystem to become a path relative to the
+``changedir`` setting.
+
+Previous versions of tox supported the ``[.*]`` pattern to denote
+positional arguments with defaults. This format has been deprecated.
+Use ``{posargs:DEFAULTS}`` to specify those.
+
+
+Substition with values from other sections
++++++++++++++++++++++++++++++++++++++++++++
+
+.. versionadded:: 1.4
+
+Values from other sections can be refered to via::
+
+   {[sectionname]valuename}
+
+which you can use to avoid repetition of config values.
+You can put default values in one section and reference them in others to avoid repeting the same values::
+
+    [base]
+    deps =
+        pytest
+        mock
+        pytest-xdist
+    
+    [testenv:dulwich]
+    deps =
+        dulwich
+        {[tools]deps}
+
+    [testenv:mercurial]
+    dep =
+        mercurial
+        {[tools]deps}
+
+
+
+Other Rules and notes
+=========================
+
+* ``path`` specifications: if a specified ``path`` is a relative path
+  it will be considered as relative to the ``toxinidir``, the directory
+  where the configuration file resides.
+
+.. include:: links.txt

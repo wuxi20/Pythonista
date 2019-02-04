@@ -11,7 +11,7 @@ enable_plot=True
 verbose=0
 
 import os, sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import argparse
 import time
 try:
@@ -31,15 +31,15 @@ if enable_plot:
 if sys.version_info[0] > 2:
   import http.client
 else:
-  import httplib
+  import http.client
 
 def urllib_parse_urlencode(*args):
   if sys.version_info[0] > 2: return urllib.parse.urlencode(args)
-  return urllib.urlencode(*args)
+  return urllib.parse.urlencode(*args)
   
 def http_client_HTTPConnection(*args):
   if sys.version_info[0] > 2: return http.client.HTTPConnection(args)
-  return httplib.HTTPConnection(*args)
+  return http.client.HTTPConnection(*args)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-v', '--verbosity', dest='verbose', help='enable verbose outout', action='store_true')
@@ -47,11 +47,11 @@ parser.add_argument('-f', '--filename',  dest='filename', help='.csv filename to
 parser.add_argument('-p', '--justplot',  dest='justplot', help='plot available .csv files', action='store_true')
 args = parser.parse_args()
 
-print "HTTPing Latency Plotter v0.9"
+print("HTTPing Latency Plotter v0.9")
 if not args.filename:
   if not args.justplot:
     parser.print_help()
-    print '\nNo arguments provided... saving to '+outfile+'.csv\n'
+    print('\nNo arguments provided... saving to '+outfile+'.csv\n')
     args.filename=outfile
 #    sys.exit(0)
 
@@ -72,10 +72,10 @@ if not args.justplot:
     conn.request(httpmethod, httppath, params, headers)
     response = conn.getresponse()
     elapsedtime=(time.time() - starttime) * 1000
-    print "httping %s  time %.3f ms" % (httpaddr, elapsedtime)
+    print("httping %s  time %.3f ms" % (httpaddr, elapsedtime))
     cy[i]=elapsedtime
     if verbose:
-      print(response.status, response.reason)
+      print((response.status, response.reason))
     #data = response.read()
   conn.close()
 
@@ -86,7 +86,7 @@ if not args.justplot:
     filetitles = [args.filename.split('.')[0]]
 
   if os.path.exists(args.filename):
-    print "Updating "+args.filename+'...'
+    print("Updating "+args.filename+'...')
     f=open(args.filename, 'r')
     buffer=f.read()
     y=[[float(i)for i in buffer.split(',')]]
@@ -96,7 +96,7 @@ if not args.justplot:
   else: y=[cy]
 
   xlen=len(y[0])
-  print 'Writing to '+args.filename+'...'
+  print('Writing to '+args.filename+'...')
   f=open(args.filename,'w')
   f.write(str(y[0][0]))
   f.write("".join([(","+str(i)) for i in y[0]]))
@@ -110,7 +110,7 @@ for file in d:
   if os.path.isfile(file):
     if file.endswith('.csv'):
       if file != args.filename:
-        print "Processing "+file
+        print("Processing "+file)
         f=open(file, 'r')
         buffer=f.read()
         ry=[float(i)for i in buffer.split(',')]
@@ -123,7 +123,7 @@ x=np.arange(xlen)
 fig = plt.figure()
 ax=plt.subplot(111)
 
-for i in xrange(len(y)):
+for i in range(len(y)):
   if len(y[i]) < xlen: y[i].extend([0] * (xlen-len(y[i])))
   ax.plot(x, y[i], next(linecycler), label=filetitles[i])
 
@@ -146,9 +146,10 @@ frame.set_facecolor('0.80')    # set the frame face color to light gray
 for t in leg.get_texts():
     t.set_fontsize('small') 
 
-print 'Writing new file '+outfile+'.pdf/png'
+print('Writing new file '+outfile+'.pdf/png')
 fig.savefig(outfile+'.png')
 pp = PdfPages(outfile+'.pdf')
 pp.savefig(fig)
 pp.close()
+
 

@@ -6,7 +6,7 @@
 # that you have not created any Folders with these names before running this script as
 # any files inside them will be irretrievably lost.
 import os
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import tarfile
 import shutil
 import traceback
@@ -27,15 +27,15 @@ def getDateutil():
 	except OSError:
 		pass
 		
-	print 'Downloading dateutil archive'
-	dateutilArchiveUrl = urllib2.urlopen('http://labix.org/download/python-dateutil/' + dateutilArchive)
+	print('Downloading dateutil archive')
+	dateutilArchiveUrl = urllib.request.urlopen('http://labix.org/download/python-dateutil/' + dateutilArchive)
 	localArchive = open(dateutilArchivePath, 'w')
 	localArchive.write(dateutilArchiveUrl.read())
 	localArchive.close()
 	dateutilArchiveUrl.close()
 	archive = tarfile.open(dateutilArchivePath, 'r:gz')
 	
-	print 'Extracting dateutil library from archive'
+	print('Extracting dateutil library from archive')
 	try:
 		os.chdir(tempPath)
 		archive.extractall()
@@ -47,12 +47,12 @@ def getDateutil():
 	tempDateutilPath = os.path.join(os.path.join(tempPath, dateutilArchiveDir), dateutilDir)
 	dateutilPath = os.path.join(workingPath, dateutilDir)
 	
-	print 'Installing dateutil'
+	print('Installing dateutil')
 	shutil.rmtree(dateutilPath, True)
 	shutil.copytree(tempDateutilPath, dateutilPath)
 	shutil.rmtree(tempPath)
 	
-	print 'dateutil installed'
+	print('dateutil installed')
 	
 # Downloads and installs the PyGithub library into a directory called 'github'
 # alongside your saved Pythonista scripts.
@@ -93,17 +93,17 @@ def getPyGithub():
 	'Repository.py', 'RepositoryKey.py', 'Requester.py', 'Tag.py',
 	'Team.py', 'UserKey.py', '__init__.py']
 	
-	print 'Downloading and installing PyGithub'
+	print('Downloading and installing PyGithub')
 	
 	for file in pyGithubFiles:
-		print 'Downloading', file
+		print('Downloading', file)
 		localFile = open(os.path.join(githubDir, file), 'w')
-		resource = urllib2.urlopen('https://raw.github.com/' + githubUser + '/PyGithub/master/github/' + file)
+		resource = urllib.request.urlopen('https://raw.github.com/' + githubUser + '/PyGithub/master/github/' + file)
 		localFile.write(resource.read())
 		localFile.close()
 		resource.close()
 		
-	print 'PyGithub downloaded and installed'
+	print('PyGithub downloaded and installed')
 	
 # Downloads and installs the githubista library into a directory called 'githubista'
 # alongside your saved Pythonista scripts.
@@ -124,17 +124,17 @@ def getGithubista():
 	# to this list in future are automatically picked up.
 	files = ['githubista.py', 'github_clone.py', 'github_commit.py', '__init__.py']
 	
-	print 'Downloading and installing githubista'
+	print('Downloading and installing githubista')
 	
 	for file in files:
-		print 'Downloading', file
+		print('Downloading', file)
 		localFile = open(os.path.join(githubDir, file), 'w')
-		resource = urllib2.urlopen('https://raw.github.com/' + githubUser + '/githubista/master/' + file)
+		resource = urllib.request.urlopen('https://raw.github.com/' + githubUser + '/githubista/master/' + file)
 		localFile.write(resource.read())
 		localFile.close()
 		resource.close()
 		
-	print 'githubista downloaded and installed'
+	print('githubista downloaded and installed')
 	
 try:
 	getDateutil()
@@ -143,4 +143,5 @@ try:
 	
 except:
 	traceback.print_exc()
+
 

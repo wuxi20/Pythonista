@@ -214,8 +214,8 @@ try:
   
   # Append date-time text to a 1Writer doc named 'Notepad.txt' stored locally.
   if app == 'onewriter':
-    import urllib
-    quoted_output = urllib.quote(date_time, safe = '')
+    import urllib.request, urllib.parse, urllib.error
+    quoted_output = urllib.parse.quote(date_time, safe = '')
     cmd = 'onewriter://x-callback-url/append?path=/Documents%2F&name=Notepad.txt&type=Local&text={}'.format(quoted_output)
   elif app == 'drafts4':
     '''
@@ -241,5 +241,6 @@ try:
   sys.exit(msg)
 except IndexError:
   # Initiated stand alone, so just display results & exit with date-time text in the iOS clipboard to paste anywhere desired.
-  print 'Date-Time Selected: {}\n'.format(date_time)
+  print('Date-Time Selected: {}\n'.format(date_time))
   sys.exit('Finished')
+

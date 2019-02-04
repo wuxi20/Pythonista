@@ -5,7 +5,7 @@ import appex
 import console
 import datetime
 import clipboard
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 
 #clipboard.set('https://youtu.be/fTTGALaRZoc')
@@ -20,7 +20,7 @@ import LKEvernoteApi
 
 def title_of_url(url):
   try:
-    soup = BeautifulSoup(urllib2.urlopen(url))
+    soup = BeautifulSoup(urllib.request.urlopen(url))
     return soup.title.string
   except:  # caution: avoid naked exceptions
     return ''
@@ -65,3 +65,4 @@ if appex.is_running_extension():
 	#utilities.quit()
 else:
 	sys.exit()
+

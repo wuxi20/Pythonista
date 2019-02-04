@@ -1,11 +1,12 @@
 # coding: utf-8
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 s = clipboard.get()
 
 s = s.encode('utf-8')
-s = urllib.quote(s, safe='')
+s = urllib.parse.quote(s, safe='')
 
-print s
+print(s)
+
 

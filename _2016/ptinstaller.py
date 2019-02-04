@@ -92,14 +92,14 @@ class PythonistaToolsRepo(object):
 				if name in tools_dict:
 					tools_dict[name]['url'] = url
 				else:
-					for tool_name, tool_content in tools_dict.items():
+					for tool_name, tool_content in list(tools_dict.items()):
 						if tool_content['url'] == name:
 							tool_content['url'] = url
 						if tool_content['description'] == '[%s]' % name:
 							tool_content['description'] = url
 							
 			# Filter out tools that has no download url
-			self.cached_tools_dict[url_md] = {k: v for k, v in tools_dict.items() if v['url']}
+			self.cached_tools_dict[url_md] = {k: v for k, v in list(tools_dict.items()) if v['url']}
 			
 		return self.cached_tools_dict[url_md]
 		
@@ -162,7 +162,7 @@ class GistInstaller(object):
 			except:
 				raise GistDownloadError()
 			file_info_list = []
-			for file_info in files.values():
+			for file_info in list(files.values()):
 				lang = file_info.get('language', None)
 				if lang != 'Python' and not file_info['filename'].endswith('.pyui'):
 					continue
@@ -398,4 +398,5 @@ class PythonistaToolsInstaller(object):
 if __name__ == '__main__':
 	ptinstaller = PythonistaToolsInstaller()
 	ptinstaller.launch()
+
 

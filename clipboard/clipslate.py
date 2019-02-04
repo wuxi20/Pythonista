@@ -35,7 +35,7 @@ Known limitation: system clipboard copies plain text from browsers, not HTML, so
 
 import sys
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 from datetime import datetime
 

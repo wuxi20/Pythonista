@@ -1,8 +1,8 @@
 # https://forum.omz-software.com/topic/3708/use-objc_util-and-nsurlconnection-to-make-a-get-request/4
 
 import objc_util
-from urlparse import urlparse
-from urllib import urlencode
+from urllib.parse import urlparse
+from urllib.parse import urlencode
 from ctypes import c_void_p
 import time
 
@@ -50,7 +50,8 @@ wait = True
 while wait:
 	data = call.return_data()
 	if data != None:
-		print data
+		print(data)
 		wait = False
-print "Done"
+print("Done")
+
 

@@ -28,7 +28,7 @@ def main():
 	dest_path_short = '~/Documents/inbox'
 	dest_path = os.path.expanduser(dest_path_short)
 	if not os.path.isdir(dest_path):
-		print('Create ' + dest_path_short)
+		print(('Create ' + dest_path_short))
 		os.mkdir(dest_path)
 	if not appex.is_running_extension():
 		print('Using clipboard content...')
@@ -49,16 +49,17 @@ def main():
 		print('Done!')
 	else:
 		file = appex.get_file_path()
-		print('Input path: %s' % file)
+		print(('Input path: %s' % file))
 		filename=os.path.join(dest_path, os.path.basename(file))
 		filename=getuniquename(filename,'')
 		shutil.copy(file,filename)
-	print('Saved in %s' % dest_path_short)
+	print(('Saved in %s' % dest_path_short))
 	if not os.path.exists(filename):
-		print(' > Error file %s not found !' % os.path.basename(filename))
+		print((' > Error file %s not found !' % os.path.basename(filename)))
 	else:
-		print(' > as %s' % os.path.basename(filename))
+		print((' > as %s' % os.path.basename(filename)))
 		
 if __name__ == '__main__':
 	main()
+
 

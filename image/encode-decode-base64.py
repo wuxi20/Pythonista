@@ -3,9 +3,9 @@
 # https://forum.omz-software.com/topic/2974/need-python-script-to-decode-or-encode-in-base64
 
 import base64
-encsting = raw_input('Encoded Value:')
+encsting = input('Encoded Value:')
 decstring = base64.b64decode(encsting)
-print decstring
+print(decstring)
 
 # ...
 
@@ -14,4 +14,5 @@ import clipboard
 encsting = clipboard.get()
 decstring = base64.b64decode(encsting)
 clipboard.set(decstring)
+
 

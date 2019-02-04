@@ -15,8 +15,8 @@ class RoomAreaView(ui.View):
 		self.add_subview(rv)
 		self.rv=rv
 	def will_close(self):
-		x,y=zip(*self.rv.pts)
-		print polygonArea(x,y,float(self.rv.scale.text))
+		x,y=list(zip(*self.rv.pts))
+		print(polygonArea(x,y,float(self.rv.scale.text)))
 class RoomAreaOverlay(ui.View):
 	def __init__(self,*args,**kwargs):
 		ui.View.__init__(self,*args,**kwargs)
@@ -34,7 +34,7 @@ class RoomAreaOverlay(ui.View):
 		self.update_area()
 		self.set_needs_display()
 	def update_area(self):
-		x,y=zip(*self.pts)
+		x,y=list(zip(*self.pts))
 		area=polygonArea(x,y,float(self.scale.text))
 		self.lbl.text='Area: {} squnits'.format(area)
 	def touch_began(self,touch):
@@ -79,4 +79,5 @@ def polygonArea(X, Y,scale):
 	
 v=RoomAreaView('203723572.jpg')
 v.present('fullscreen')
+
 

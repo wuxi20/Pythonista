@@ -2,10 +2,10 @@
 
 # python2
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 url = 'https://raw.githubusercontent.com/humberry/PhoneManager/master/PhoneManager.py'
-print urllib2.urlopen(url).read()
+print(urllib.request.urlopen(url).read())
 
 # --------------------
 
@@ -15,7 +15,7 @@ import urllib.request
 
 url = 'https://raw.githubusercontent.com/humberry/PhoneManager/master/PhoneManager.py'
 req = urllib.request.urlopen(url)
-print(req.read().decode('utf-8'))
+print((req.read().decode('utf-8')))
 
 # --------------------
 
@@ -24,6 +24,7 @@ print(req.read().decode('utf-8'))
 import requests
 
 url = 'https://raw.githubusercontent.com/humberry/PhoneManager/master/PhoneManager.py'
-print(requests.get(url).text)
+print((requests.get(url).text))
 
 # --------------------
+

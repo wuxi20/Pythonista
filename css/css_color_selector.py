@@ -80,7 +80,7 @@ class MyDataClass(object):
 def make_ui_object(ui_type, *args, **kwargs):
 	# utility to create ui object with all kwargs
 	obj = ui_type()
-	for k, v in kwargs.items():
+	for k, v in list(kwargs.items()):
 		if hasattr(obj, k):
 			setattr(obj, k, v)
 	return obj
@@ -277,4 +277,5 @@ if __name__ == '__main__':
 	mc.present(style=style, animated=animated,
 	title_color=title_color,
 	title_bar_color=title_bar_color)
+
 

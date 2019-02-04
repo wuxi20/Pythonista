@@ -5,7 +5,7 @@
 # Allows you to download files within Pythonista by providing a direct url link to the file. Will automatically detect name and extension of the file through use of the clipboard button. Made for downloading scripts from Raw links on Github but can be used for pretty much any filetype from any site.
 
 import ui
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import clipboard
 from console import hud_alert
 import console
@@ -74,8 +74,8 @@ def download_tapped(sender):
 	hud_alert('Downloading...')
 	try:
 		console.show_activity()
-		url = urllib2.urlopen(urlfield.text).read()
-	except (ValueError, urllib2.URLError):
+		url = urllib.request.urlopen(urlfield.text).read()
+	except (ValueError, urllib.error.URLError):
 		hud_alert('URL not valid', icon = 'error')
 		sys.exit()
 	hud_alert("Saving...")
@@ -100,7 +100,7 @@ def paste_tapped(sender):
 	extensionfield = sender.superview['extensionfield']
 	extensioncontrol = sender.superview['extensioncontrol']
 
-	urlfield.text = unicode(clipboard.get())
+	urlfield.text = str(clipboard.get())
 	name = parse_name(urlfield.text)
 	extension = parse_extension(name)
 	name = name[:(len(name) - (len(extension) + 1))]

@@ -19,7 +19,7 @@
 import appex
 import requests
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 from objc_util import *
 
@@ -41,7 +41,7 @@ def main():
 		# Parse and make sure this is pull request
 		m = re.compile('^https:\/\/github\.com/([^/]+)\/([^/]+)/pull/([0-9]+)$').match(url)
 		if m == None:
-			print("URL does not look like GitHub Pull Request:\n " + url)
+			print(("URL does not look like GitHub Pull Request:\n " + url))
 			quit()
 				
 				# Fetch Pull Request through API. This will only work for public repositories
@@ -64,20 +64,20 @@ def main():
 			# This can be chained into one x-	callback-url command for nicer syntax.
 		# Read more at
 		#   http://workingcopyapp.com/url-schemes.html#chain
-			callback = "working-copy://x-callback-url/chain?repo=%s&key=%s" % (urllib.quote(baseRemote), urllib.quote(key))
+			callback = "working-copy://x-callback-url/chain?repo=%s&key=%s" % (urllib.parse.quote(baseRemote), urllib.parse.quote(key))
 				
 		# make sure base branch is checked out
-		callback += "&command=checkout&branch=%s" % (urllib.quote(baseBranch))
+		callback += "&command=checkout&branch=%s" % (urllib.parse.quote(baseBranch))
 				
 		# pull to get latest commits
 		callback += "&command=pull"
 				
 		# merge with head, creating and fetching from head remote if missing
-		callback += "&command=merge&branch=%s&remote=%s&create=1" % (urllib.quote(headBranch), urllib.quote(headRemote))
+		callback += "&command=merge&branch=%s&remote=%s&create=1" % (urllib.parse.quote(headBranch), urllib.parse.quote(headRemote))
 				
 		# push back merge commit to conclude
 		callback += "&command=push"
-		print('callback: %s') % (callback)
+		print(('callback: %s') % (callback))
 				
 		# webbrowser.open does not work from action extension
 		app=UIApplication.sharedApplication()
@@ -89,3 +89,4 @@ def main():
 			
 if __name__ == '__main__':
 	main()
+

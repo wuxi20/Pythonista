@@ -9,10 +9,10 @@
 ## http://wcm1.web.rice.edu/pandoc-on-ios.html
 ## http://www.editorial-workflows.com/workflow/6394998534701056/p2vZ5Pj3570
 
-import httplib
+import http.client
 import mimetypes
 import re
-import StringIO
+import io
 import editor
 import clipboard
 import os
@@ -31,7 +31,7 @@ def post_multipart(host, selector, fields, files):
     Return the server's response page.
     """
     content_type, body = encode_multipart_formdata(fields, files)
-    h = httplib.HTTPConnection(host)
+    h = http.client.HTTPConnection(host)
     h.putrequest('POST', selector)
     h.putheader('content-type', content_type)
     h.putheader('content-length', str(len(body)))
@@ -102,8 +102,8 @@ def set_from(sender):
 
 # button
 def out_to_editor(sender):
-	request = post_multipart("c.docverter.com", "/convert", formats.items() + fields, files)
-	buffer = StringIO.StringIO(request)
+	request = post_multipart("c.docverter.com", "/convert", list(formats.items()) + fields, files)
+	buffer = io.StringIO(request)
 	output = buffer.getvalue()
 	editor.replace_text(0, 0, output)
 	buffer.close()
@@ -112,8 +112,8 @@ def out_to_editor(sender):
 
 # button
 def out_to_clipboard(sender):
-	request = post_multipart("c.docverter.com", "/convert", formats.items() + fields, files)
-	buffer = StringIO.StringIO(request)
+	request = post_multipart("c.docverter.com", "/convert", list(formats.items()) + fields, files)
+	buffer = io.StringIO(request)
 	output = buffer.getvalue()
 	clipboard.set(output)
 	buffer.close()

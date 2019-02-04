@@ -12,7 +12,7 @@
  
 import tarfile
 import shutil
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import os
  
 try:
@@ -20,9 +20,9 @@ try:
 except:
 	pass
  
-print 'Downloading google-api-client...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/g/google-api-python-client/google-api-python-client-1.0.tar.gz')
-print 'Installing google-api-client...'
+print('Downloading google-api-client...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/g/google-api-python-client/google-api-python-client-1.0.tar.gz')
+print('Installing google-api-client...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
@@ -31,9 +31,9 @@ shutil.move('google-api-python-client-1.0/oauth2client', 'google-api/oauth2clien
 shutil.move('google-api-python-client-1.0/uritemplate', 'google-api/uritemplate')
 shutil.rmtree('google-api-python-client-1.0')
 
-print 'Downloading python-gflags...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/p/python-gflags/python-gflags-2.0.tar.gz')
-print 'Installing python-gflags...'
+print('Downloading python-gflags...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/p/python-gflags/python-gflags-2.0.tar.gz')
+print('Installing python-gflags...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
@@ -42,9 +42,9 @@ shutil.move('python-gflags-2.0/gflags2man.py', 'google-api/gflags2man.py')
 shutil.move('python-gflags-2.0/gflags_validators.py', 'google-api/gflags_validators.py')
 shutil.rmtree('python-gflags-2.0')
 
-print 'Downloading httplib2...'
-filename, headers = urllib.urlretrieve('https://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.7.tar.gz')
-print 'Installing httplib2...'
+print('Downloading httplib2...')
+filename, headers = urllib.request.urlretrieve('https://pypi.python.org/packages/source/h/httplib2/httplib2-0.7.7.tar.gz')
+print('Installing httplib2...')
 t = tarfile.open(filename, 'r')
 t.extractall()
 t.close()
@@ -54,4 +54,5 @@ shutil.rmtree('httplib2-0.7.7')
 import editor
 editor.reload_files()
  
-print 'Done.'
+print('Done.')
+

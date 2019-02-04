@@ -8,4 +8,5 @@ if img:
 	console.quicklook('temp.jpg')
 	os.remove('temp.jpg')
 else:
-	print 'No image in clipboard.'
+	print('No image in clipboard.')
+

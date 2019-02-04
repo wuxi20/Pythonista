@@ -27,7 +27,7 @@ def to_abs_path(*value):
 def downloader(url, file_path, progress=True, style=1):
 	_file_path = os.path.basename(file_path)
 	with open(file_path, "wb") as f:
-		print "Downloading %s" % _file_path
+		print("Downloading %s" % _file_path)
 		response = requests.get(url, stream=True)
 		total_length = response.headers.get('content-length')
 		
@@ -43,7 +43,7 @@ if os.path.exists(script_path):
 downloader(url, script_path)
 
 assert os.path.exists(script_path), 'Error'
-print('{} was created'.format(script_path))
+print(('{} was created'.format(script_path)))
 
 if pythonista:
 	editor.open_file(script_path, True)

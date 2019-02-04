@@ -1,0 +1,154 @@
+1.4
+-----------------
+
+- fix issue26 - no warnings on absolute or relative specified paths for commands
+- fix issue33 - commentchars are ignored in key-value settings allowing
+  for specifying commands like: python -c "import sys ; print sys"
+  which would formerly raise irritating errors because the ";"
+  was considered a comment
+- tweak and improve reporting
+- refactor reporting and virtualenv manipulation 
+  to be more accessible from 3rd party tools
+- support value substitution from other sections
+  with the {[section]key} syntax
+- fix issue29 - correctly point to pytest explanation
+  for importing modules fully qualified
+- fix issue32 - use --system-site-packages and don't pass --no-site-packages
+- add python3.3 to the default env list, so early adopters can test
+- drop python2.4 support (you can still have your tests run on
+  python-2.4, just tox itself requires 2.5 or higher.
+
+1.3
+-----------------
+
+- fix: allow to specify wildcard filesystem paths when 
+  specifying dependencies such that tox searches for 
+  the highest version
+
+- fix issue issue21: clear PIP_REQUIRES_VIRTUALENV which avoids
+  pip installing to the wrong environment, thanks to bb's streeter
+
+- make the install step honour a testenv's setenv setting
+  (thanks Ralf Schmitt)
+
+
+1.2
+-----------------
+
+- remove the virtualenv.py that was distributed with tox and depend
+  on >=virtualenv-1.6.4 (possible now since the latter fixes a few bugs
+  that the inlining tried to work around)
+- fix issue10: work around UnicodeDecodeError when invoking pip (thanks
+  Marc Abramowitz)
+- fix a problem with parsing {posargs} in tox commands (spotted by goodwill)
+- fix the warning check for commands to be installed in testenvironment
+  (thanks Michael Foord for reporting)
+
+1.1
+-----------------
+
+- fix issue5 - don't require argparse for python versions that have it
+- fix issue6 - recreate virtualenv if installing dependencies failed
+- fix issue3 - fix example on frontpage
+- fix issue2 - warn if a test command does not come from the test
+  environment
+- fixed/enhanced: except for initial install always call "-U
+  --no-deps" for installing the sdist package to ensure that a package
+  gets upgraded even if its version number did not change. (reported on
+  TIP mailing list and IRC)
+- inline virtualenv.py (1.6.1) script to avoid a number of issues,
+  particularly failing to install python3 environments from a python2
+  virtualenv installation.
+- rework and enhance docs for display on readthedocs.org
+
+1.0
+-----------------
+
+- move repository and toxbootstrap links to http://bitbucket.org/hpk42/tox
+- fix issue7: introduce a "minversion" directive such that tox
+  bails out if it does not have the correct version.
+- fix issue24: introduce a way to set environment variables for
+  for test commands (thanks Chris Rose)
+- fix issue22: require virtualenv-1.6.1, obsoleting virtualenv5 (thanks Jannis Leidel)
+  and making things work with pypy-1.5 and python3 more seamlessly
+- toxbootstrap.py (used by jenkins build slaves) now follows the latest release of virtualenv
+- fix issue20: document format of URLs for specifying dependencies
+- fix issue19: substitute Hudson for Jenkins everywhere following the renaming
+  of the project.  NOTE: if you used the special [tox:hudson]
+  section it will now need to be named [tox:jenkins].
+- fix issue 23 / apply some ReST fixes
+- change the positional argument specifier to use {posargs:} syntax and
+  fix issues #15 and #10 by refining the argument parsing method (Chris Rose)
+- remove use of inipkg lazy importing logic -
+  the namespace/imports are anyway very small with tox.
+- fix a fspath related assertion to work with debian installs which uses
+  symlinks
+- show path of the underlying virtualenv invocation and bootstrap
+  virtualenv.py into a working subdir
+- added a CONTRIBUTORS file
+
+0.9
+-----------------
+
+- fix pip-installation mixups by always unsetting PIP_RESPECT_VIRTUALENV
+  (thanks Armin Ronacher)
+- issue1: Add a toxbootstrap.py script for tox, thanks to Sridhar
+  Ratnakumar
+- added support for working with different and multiple PyPI indexservers.
+- new option: -r|--recreate to force recreation of virtualenv
+- depend on py>=1.4.0 which does not contain or install the py.test
+  anymore which is now a separate distribution "pytest".
+- show logfile content if there is an error (makes CI output
+  more readable)
+
+0.8
+-----------------
+
+- work around a virtualenv limitation which crashes if
+  PYTHONDONTWRITEBYTECODE is set.
+- run pip/easy installs from the environment log directory, avoids
+  naming clashes between env names and dependencies (thanks ronny)
+- require a more recent version of py lib
+- refactor and refine config detection to work from a single file
+  and to detect the case where a python installation overwrote
+  an old one and resulted in a new executable. This invalidates
+  the existing virtualenvironment now.
+- change all internal source to strip trailing whitespaces
+
+0.7
+-----------------
+
+- use virtualenv5 (my own fork of virtualenv3) for now to create python3
+  environments, fixes a couple of issues and makes tox more likely to
+  work with Python3 (on non-windows environments)
+
+- add ``sitepackages`` option for testenv sections so that environments
+  can be created with access to globals (default is not to have access,
+  i.e. create environments with ``--no-site-packages``.
+
+- addressing issue4: always prepend venv-path to PATH variable when calling subprocesses
+
+- fix issue2: exit with proper non-zero return code if there were
+  errors or test failures.
+
+- added unittest2 examples contributed by Michael Foord
+
+- only allow 'True' or 'False' for boolean config values
+  (lowercase / uppercase is irrelevant)
+
+- recreate virtualenv on changed configurations
+
+0.6
+-----------------
+
+- fix OSX related bugs that could cause the caller's environment to get
+  screwed (sorry).  tox was using the same file as virtualenv for tracking
+  the Python executable dependency and there also was confusion wrt links.
+  this should be fixed now.
+
+- fix long description, thanks Michael Foord
+
+0.5
+-----------------
+
+- initial release

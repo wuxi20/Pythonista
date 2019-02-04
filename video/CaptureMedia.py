@@ -1,4 +1,4 @@
-import BaseHTTPServer, cgi, editor, os, ui
+import http.server, cgi, editor, os, ui
 
 class CaptureMedia(ui.View):
 	def __init__(self):
@@ -11,7 +11,7 @@ class CaptureMedia(ui.View):
 		self.present('popover')
 		global gCaptureMedia
 		gCaptureMedia = self
-		self.httpsrvr = BaseHTTPServer.HTTPServer(('', 0), TransferRequestHandler)
+		self.httpsrvr = http.server.HTTPServer(('', 0), TransferRequestHandler)
 		self._wv.load_url('http://localhost:' + str(self.httpsrvr.server_address[1]))
 		ui.delay(self._start, 0.5)
 		self.httpsrvr.serve_forever()
@@ -36,7 +36,7 @@ class CaptureMedia(ui.View):
 	def will_close(self):
 		self.httpsrvr.shutdown()
 		
-class TransferRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class TransferRequestHandler(http.server.BaseHTTPRequestHandler):
 	'''--------ideas from OMZ's File Transfer script--------'''
 	HTML = '''<!DOCTYPE html><html><body><form id="form" action="/" method="POST"
 	enctype="multipart/form-data"><input id="file" name="file" type="file"></input>
@@ -72,7 +72,7 @@ class TransferRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
 		editor.reload_files()
 		samename = form_file.filename == dest_filename
 		rename_msg = '' if samename else ' (renamed to {})'.format(dest_filename)
-		print('{} uploaded{}.'.format(form_file.filename, rename_msg))
+		print(('{} uploaded{}.'.format(form_file.filename, rename_msg)))
 		'''--------end omz--------'''
 		ui.delay(gCaptureMedia.close, 0)
 		ui.delay(self.server.shutdown, 0)
@@ -94,4 +94,5 @@ class MyCaptureMedia(CaptureMedia):
 if __name__ == "__main__":
 	#CaptureMedia()
 	MyCaptureMedia()
+
 

@@ -32,5 +32,6 @@ for dirpath, dirnames, filenames in os.walk(rootDir):
 	for fname in filenames:
 		if peek(os.path.join(dirpath, fname)):
 			addcss(os.path.join(dirpath, fname))
-			print 'Added to: ' + fname
+			print('Added to: ' + fname)
+
 

@@ -244,7 +244,7 @@ def file_picker(title=None, root_dir=None, multiple=False,
         old_len = len(self.flat_entries)
         self.rebuild_flat_entries()
         num_deleted = old_len - len(self.flat_entries)
-        deleted_rows = range(row + 1, row + num_deleted + 1)
+        deleted_rows = list(range(row + 1, row + num_deleted + 1))
         self.table_view.delete_rows(deleted_rows)
       else:
         if self.async_mode:
@@ -262,7 +262,7 @@ def file_picker(title=None, root_dir=None, multiple=False,
       old_len = len(self.flat_entries)
       self.rebuild_flat_entries()
       num_inserted = len(self.flat_entries) - old_len
-      inserted_rows = range(row + 1, row + num_inserted + 1)
+      inserted_rows = list(range(row + 1, row + num_inserted + 1))
       self.table_view.insert_rows(inserted_rows)
 
     def tableview_did_select(self, tv, section, row):
@@ -468,8 +468,9 @@ def main():
   clipboard.set('')
   clipboard.set(attribs)
   
-  print attribs
+  print(attribs)
   console.hud_alert('Attributes Successfully Copied to Clipboard', 'success', 2)
 if __name__ == '__main__':
   main()
+
 

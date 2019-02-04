@@ -1,6 +1,6 @@
 # https://forum.omz-software.com/topic/4214/urllib-request-python-2-vs-3
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import time,datetime
 
 class Quote(object):
@@ -25,7 +25,7 @@ class Quote(object):
 		return ''.join(["{0},{1},{2},{3:.2f},{4:.2f},{5:.2f},{6:.2f},{7}\n".format(self.symbol,
 		self.date[bar].strftime('%Y-%m-%d'),self.time[bar].strftime('%H:%M:%S'),
 		self.open_[bar],self.high[bar],self.low[bar],self.close[bar],self.volume[bar])
-		for bar in xrange(len(self.close))])
+		for bar in range(len(self.close))])
 		
 	def write_csv(self,filename):
 		with open(filename,'w') as f:
@@ -55,10 +55,10 @@ class GoogleQuote(Quote):
 		url_string = "http://www.google.com/finance/historical?q={0}".format(self.symbol)
 		url_string += "&startdate={0}&enddate={1}&output=csv".format(
 		start.strftime('%b %d, %Y'),end.strftime('%b %d, %Y'))
-		print url_string
-		csv = urllib.urlopen(url_string).readlines()
+		print(url_string)
+		csv = urllib.request.urlopen(url_string).readlines()
 		csv.reverse()
-		for bar in xrange(0,len(csv)-1):
+		for bar in range(0,len(csv)-1):
 			ds,open_,high,low,close,volume = csv[bar].rstrip().split(',')
 			open_,high,low,close = [float(x) for x in [open_,high,low,close]]
 			dt = datetime.datetime.strptime(ds,'%d-%b-%y')
@@ -67,4 +67,5 @@ class GoogleQuote(Quote):
 if __name__ == '__main__':
 	q = GoogleQuote('aapl','2011-01-01','2011-01-03')              # download year to date Apple data
 	print(q)
+
 

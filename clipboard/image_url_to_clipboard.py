@@ -7,12 +7,13 @@
 #
 
 import clipboard
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import webbrowser
-from cStringIO import StringIO
+from io import StringIO
 from PIL import Image
 
-img_download = urllib2.urlopen(clipboard.get())
+img_download = urllib.request.urlopen(clipboard.get())
 img_string = StringIO(img_download.read())
 img = Image.open(img_string)
 clipboard.set_image(img)
+

@@ -38,7 +38,7 @@
     Thanks to @cclauss for code tightening and cleanup
 '''
 import sys
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import webbrowser
 
 # Fast fail if Fantastical2 is not installed
@@ -77,10 +77,11 @@ for task in tasks.split(','):
   success followed by the URL-encoded url. This
   respects the requirement for nested encoding.
   '''
-  task = urllib2.quote(task, '')
+  task = urllib.parse.quote(task, '')
   if url:
-    url = fmt.format(task, save, urllib2.quote(url, ''))
+    url = fmt.format(task, save, urllib.parse.quote(url, ''))
   else:
     url = fmt.format(task, save, caller) + '://'
 
 webbrowser.open(url)
+

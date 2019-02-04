@@ -25,7 +25,7 @@ class Quote(object):
 		return ''.join(["{0},{1},{2},{3:.2f},{4:.2f},{5:.2f},{6:.2f},{7}\n".format(self.symbol,
 		self.date[bar].strftime('%Y-%m-%d'),self.time[bar].strftime('%H:%M:%S'),
 		self.open_[bar],self.high[bar],self.low[bar],self.close[bar],self.volume[bar])
-for bar in xrange(len(self.close))])
+for bar in range(len(self.close))])
 
 	def write_csv(self,filename):
 		with open(filename,'w') as f:
@@ -59,7 +59,7 @@ print(url_string)
 req = urllib.request.Request(url_string)
 csv = urllib.request.urlopen(req).readlines()
 csv.reverse()
-for bar in xrange(0,len(csv)-1):
+for bar in range(0,len(csv)-1):
 	ds,open_,high,low,close,volume = csv[bar].rstrip().split(',')
 	open_,high,low,close = [float(x) for x in [open_,high,low,close]]
 	dt = datetime.datetime.strptime(ds,'%d-%b-%y')
@@ -68,4 +68,5 @@ for bar in xrange(0,len(csv)-1):
 if name == 'main':
 	q = GoogleQuote('aapl','2011-01-01','2011-01-03') # download year to date Apple data
 	print(q) # print it out
+
 

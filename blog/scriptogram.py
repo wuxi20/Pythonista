@@ -55,10 +55,10 @@ Tags: instagram
 
 
 def pushover(title, message):
-    import httplib, urllib
-    conn = httplib.HTTPSConnection("api.pushover.net:443")
+    import http.client, urllib.request, urllib.parse, urllib.error
+    conn = http.client.HTTPSConnection("api.pushover.net:443")
     conn.request("POST", "/1/messages.json",
-            urllib.urlencode({
+            urllib.parse.urlencode({
                 "token": "", # Pushover token
                 "user": "", # Pushover user
                 "title": title,
@@ -155,3 +155,4 @@ for IFTTT_PATH in IFTTT_PATHS:
 
         # Scriptogr.am limits 1 API call per 10 seconds. Being nice to their API.
         sleep(10)
+

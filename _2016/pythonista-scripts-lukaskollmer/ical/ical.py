@@ -127,7 +127,7 @@ def save_event(event):
 	error_ref = c_void_p(None)
 	success = event_store.saveEvent_span_error_(objc_event, 0, ctypes.byref(error_ref))
 	if error_ref and debug:
-		print('error', ObjCInstance(error_ref))
+		print(('error', ObjCInstance(error_ref)))
 	return success
 
 
@@ -143,7 +143,7 @@ def delete_event(event, delete_future_occurencies=False):
 	success = event_store.removeEvent_span_error_(_event, int(delete_future_occurencies), ctypes.byref(error_ref))
 	if error_ref and debug:
 		# Do something with the error
-		print(ObjCInstance(error_ref))
+		print((ObjCInstance(error_ref)))
 	return success
 
 
@@ -190,7 +190,7 @@ def get_events(count=10, calendar=DEFAULT_CALENDAR_SPECIFIER, include_past=False
 				cal = store.calendarWithIdentifier_(cal_id)
 	
 	if debug:
-		print('will load {} events for calendar {}'.format(count, cal.title()))
+		print(('will load {} events for calendar {}'.format(count, cal.title())))
 	if include_past:
 		time_inverval_for_two_years = 60*60*24*365*2 # seconds(60) * minutes(60) * hours(24) * days(365)
 		start_date = NSDate.dateWithTimeIntervalSinceNow_((time_inverval_for_two_years)*(-1))
@@ -208,7 +208,7 @@ def get_events(count=10, calendar=DEFAULT_CALENDAR_SPECIFIER, include_past=False
 		else:
 			objc_events = list(events_matching_predicate)[:count]
 		
-		events = map(_event_from_objc_event, objc_events)
+		events = list(map(_event_from_objc_event, objc_events))
 		return events
 
 
@@ -229,28 +229,29 @@ if __name__ == '__main__':
 	
 	
 	
-	print('has access:', has_access())
-	print('event store:', _get_event_store())
+	print(('has access:', has_access()))
+	print(('event store:', _get_event_store()))
 	#get_calendars()
 	#get_events(1, 'Personal')
 	test_calendar = get_calendar('Pythonista Test')
 	print(test_calendar)
-	print(get_events(10, test_calendar))
+	print((get_events(10, test_calendar)))
 	#print(get_calendars()[0].objc_object)
 	all_events = get_events(0, test_calendar)
 	
 	for event in all_events:
 		print(event)
-		print(delete_event(event))
+		print((delete_event(event)))
 	
 	print('will save test event')
 	test_event = Event()
 	test_event.title = 'testevent tbd'
 	test_event.calendar = get_calendar('Pythonista Test')
-	test_event.start_date = datetime.datetime(2016, 06, 02, 20, 00, 00)
-	test_event.end_date = datetime.datetime(2016, 06, 02, 20, 15, 00)
+	test_event.start_date = datetime.datetime(2016, 0o6, 0o2, 20, 00, 00)
+	test_event.end_date = datetime.datetime(2016, 0o6, 0o2, 20, 15, 00)
 	
 	save_event_success = save_event(test_event)
-	print('saved event', save_event_success)
+	print(('saved event', save_event_success))
 	
 	
+

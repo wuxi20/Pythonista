@@ -592,7 +592,7 @@ if __name__ == '__main__':
       yield
       # Combine a primitive with a lambda and
       # target the contained Label instead of self
-      set_value(self.l, 'text', range(1, 101), lambda count: f'Count: {count}')
+      set_value(self.l, 'text', list(range(1, 101)), lambda count: f'Count: {count}')
       yield
       yield 'wait'
       # Transformations
@@ -618,7 +618,7 @@ if __name__ == '__main__':
       slide_color(self, 'background_color', 'transparent')
       slide_color(self.l, 'text_color', 'black')
       v.start_point = SimpleNamespace(x=self.x+15, y=self.y+20)
-      set_value(v, 'axes_counter', range(1, 210, 3), func=v.trigger_refresh)
+      set_value(v, 'axes_counter', list(range(1, 210, 3)), func=v.trigger_refresh)
       yield
       yield 'wait'
       slide_value(v, 'curve_point_x', 200, start_value=1, duration=2.0)
@@ -706,3 +706,4 @@ if __name__ == '__main__':
   b.tint_color = 'white'
   b.action = cancel_demo
   v.add_subview(b)
+

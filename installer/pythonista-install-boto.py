@@ -23,8 +23,8 @@ packages = ['https://pypi.python.org/packages/source/b/boto/boto-2.8.0.tar.gz',
 configparser_src = 'http://hg.python.org/cpython/raw-file/70274d53c1dd/Lib/ConfigParser.py'
 
 import shutil
-import urllib
-from urlparse import urlparse
+import urllib.request, urllib.parse, urllib.error
+from urllib.parse import urlparse
 import tarfile
 import zipfile
 import os
@@ -49,9 +49,9 @@ def is_targzfile(f):
 
 def download_packages():
     for f in packages:
-        print('Downloading %s' % f)
-        filepath, headers = urllib.urlretrieve(f)
-        print('Extracting %s' % filepath)
+        print(('Downloading %s' % f))
+        filepath, headers = urllib.request.urlretrieve(f)
+        print(('Extracting %s' % filepath))
         filename = get_filename_from_url(f)
         if is_targzfile(filename):
             t = tarfile.open(filepath, 'r')
@@ -64,7 +64,7 @@ def download_packages():
 
 def install_configparser_src():
     print('Installing ConfigParser...')
-    filepath, headers = urllib.urlretrieve(configparser_src)
+    filepath, headers = urllib.request.urlretrieve(configparser_src)
     shutil.move(filepath, 'boto-module/ConfigParser.py')
 
 def install_packages():
@@ -114,5 +114,6 @@ if __name__ == '__main__':
     reload_pythonista_editor()
     print('All done!')
     
+
 
 

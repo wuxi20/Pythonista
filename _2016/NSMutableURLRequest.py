@@ -2,8 +2,8 @@
 
 # https://gist.github.com/tlinnet/adf0b255615fdb671e3a82216ee6611a
 
-from urlparse import urlparse
-from urllib import urlencode
+from urllib.parse import urlparse
+from urllib.parse import urlencode
 from ctypes import c_void_p
 import json
 import base64
@@ -96,12 +96,13 @@ auth = (APIKEY, "x")
 
 try:
 	data = Requests().get(url=url, auth=auth, headers=headers, params=params)
-	print data
-	print type(data)
-	print "Done"
+	print(data)
+	print(type(data))
+	print("Done")
 	
 except RequestsException as e:
 	emessg = str(e.message[-1])
-	print "ERROR!!! \n"
-	print emessg
+	print("ERROR!!! \n")
+	print(emessg)
+
 

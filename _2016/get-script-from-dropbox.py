@@ -8,5 +8,6 @@ filename = urlparse(url).path.rpartition("/")[-1].replace(".py", "-downloaded.py
 with open(filename, "wb") as outfile:
 	#outfile.write(r.content)
 	outfile.write(requests.get(url).content)
-print("script downloaded as " + filename)
+print(("script downloaded as " + filename))
+
 

@@ -28,4 +28,5 @@ root='http://validate.jsontest.com'
 url=root+''
 params = {'json':str({"key":"value"})}
 r = requests.get(url, params=params)
-print r.json()
+print(r.json())
+

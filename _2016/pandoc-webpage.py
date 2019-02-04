@@ -8,7 +8,7 @@
 # (Change path to pandoc binary in core.py before installing package)
 # TODO: Preserve span formatting from original webpage
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import pandoc
 from bs4 import BeautifulSoup
 
@@ -19,7 +19,7 @@ urls = urls.splitlines()
 # Loop through the URLs, converting each page to markdown.
 for url in urls:
  
- 	response = urllib2.urlopen(url)
+ 	response = urllib.request.urlopen(url)
  	webContent = response.read()
  	
  	# Prepare the downloaded webContent for parsing with Beautiful Soup
@@ -53,3 +53,4 @@ for url in urls:
 
  	# Write to file, getting rid of any literal linebreaks
  	f = open('calebpost.txt','a').write(webConverted.replace("\\\n","\n"))
+

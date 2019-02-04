@@ -14,7 +14,7 @@
 
 import clipboard
 import datetime
-import httplib
+import http.client
 import mimetypes
 
 ## https://gist.github.com/omz/4034526
@@ -35,7 +35,7 @@ def post_multipart(host, selector, fields, files):
 	Return the server's response page.
 	"""
 	content_type, body = encode_multipart_formdata(fields, files)
-	h = httplib.HTTPConnection(host)
+	h = http.client.HTTPConnection(host)
 	h.putrequest('POST', selector)
 	h.putheader('content-type', content_type)
 	h.putheader('content-length', str(len(body)))
@@ -117,4 +117,5 @@ o = open(outfile, "w").write(output)
 ## Upload file to Dropbox, appending timestamp to filename
 o = open(outfile)
 upload = dropbox_client.put_file(outfile, o)
+
 

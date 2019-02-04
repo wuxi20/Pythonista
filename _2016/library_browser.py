@@ -77,7 +77,7 @@ dyld_all_image_infos = c._dyld_get_all_image_infos()
 def print_libs():
 	for infoidx in range(dyld_all_image_infos[0].infoArrayCount):
 		image=dyld_all_image_infos[0].infoArray[infoidx]
-		print(infoidx, image.imageFilePath)
+		print((infoidx, image.imageFilePath))
 
 def syms_for_idx(idx):
 	image=dyld_all_image_infos[0].infoArray[idx]
@@ -190,4 +190,5 @@ t.frame=(0,0,400,700)
 t.data_source=LoadedLibrariesDataSource()
 t.delegate=t.data_source
 t.present()
+
 

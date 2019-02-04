@@ -16,17 +16,17 @@
 # and the iOS integration of MyFonts (http://meta.myfonts.com/post/80802984786/install-fonts-from-myfonts-on-ios-7-devices)
 
 import plistlib
-import BaseHTTPServer
+import http.server
 import webbrowser
 import uuid
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import sys
 import console
 import clipboard
 import os
 
 # Request handler for serving the config profile:
-class ConfigProfileHandler (BaseHTTPServer.BaseHTTPRequestHandler):
+class ConfigProfileHandler (http.server.BaseHTTPRequestHandler):
 	config = None
 	def do_GET(s):
 		s.send_response(200)
@@ -40,7 +40,7 @@ class ConfigProfileHandler (BaseHTTPServer.BaseHTTPRequestHandler):
 def run_server(config):
 	ConfigProfileHandler.config = config
 	server_address = ('', 0)
-	httpd = BaseHTTPServer.HTTPServer(server_address, ConfigProfileHandler)
+	httpd = http.server.HTTPServer(server_address, ConfigProfileHandler)
 	sa = httpd.socket.getsockname()
 	# Point Safari to the local http server:
 	webbrowser.open('safari-http://localhost:' + str(sa[1]))
@@ -56,14 +56,14 @@ def main():
 		if clip and clip.startswith('http'):
 			default_url = clip
 		font_url = console.input_alert('Font URL', 'Please enter the full URL of the TTF file.', default_url)
-		font_data = urllib.urlopen(font_url).read()
+		font_data = urllib.request.urlopen(font_url).read()
 		label = font_url.split('/')[-1].split('.')[0]
 	else:
 		# The script was triggered by the 'Open in...' menu:
 		font_path = sys.argv[1]
 		label = os.path.split(font_path)[1]
 		if os.path.splitext(font_path)[1].lower() != '.ttf':
-			print 'Not a ttf file.'
+			print('Not a ttf file.')
 			return
 		with open(font_path, 'r') as f:
 			font_data = f.read()
@@ -87,4 +87,5 @@ def main():
 	
 if __name__ ==  '__main__':
 	main()
+
 

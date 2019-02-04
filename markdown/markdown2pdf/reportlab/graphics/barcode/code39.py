@@ -115,7 +115,7 @@ class _Code39Base(Barcode):
     stop = 1
     def __init__(self, value = "", **args):
         value = asNative(value)
-        for k, v in args.items():
+        for k, v in list(args.items()):
             setattr(self, k, v)
 
         if self.quiet:
@@ -243,3 +243,4 @@ class Extended39(_Code39Base):
                 raise ValueError
         self.encoded = _encode39(self.encoded, self.checksum,self.stop)
         return self.encoded
+

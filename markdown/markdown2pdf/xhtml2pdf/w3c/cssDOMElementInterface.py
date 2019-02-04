@@ -13,7 +13,7 @@
 #~ Imports
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-import css
+from . import css
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #~ Definitions
@@ -140,4 +140,5 @@ class CSSDOMElementInterface(css.CSSElementInterfaceAbstract):
 
     def setInlineStyle(self, style):
         self.style = style
+
 

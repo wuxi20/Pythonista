@@ -1,0 +1,47 @@
+Metadata-Version: 1.1
+Name: tox
+Version: 1.4
+Summary: virtualenv-based automation of test activities
+Home-page: http://codespeak.net/tox
+Author: holger krekel
+Author-email: holger@merlinux.eu
+License: GPLv2 or later
+Description: 
+        What is Tox?
+        ==========================
+        
+        Tox as is a generic virtualenv management and test command line tool you can
+        use for:
+        
+        * checking your package installs correctly with different
+          Python versions and interpreters
+        
+        * running your tests in each of the
+          environments, configuring your test tool of choice
+        
+        * acting as a frontend to Continuous Integration
+          servers, greatly reducing boilerplate and merging
+          CI and shell-based testing.
+        
+        For more information, docs and many examples please checkout the `home page`_:
+        
+            http://tox.testrun.org/
+        
+        .. _`home page`: http://tox.testrun.org/
+        
+Platform: unix
+Platform: linux
+Platform: osx
+Platform: cygwin
+Platform: win32
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License (GPL)
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Utilities
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3

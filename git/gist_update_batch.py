@@ -46,11 +46,11 @@ dummystr = 'xxxxxx'
 #                                                                #
 ##################################################################
 
-print """
+print("""
 ****************************************
 *          Gist Auto Updater           *
 ****************************************
-"""
+""")
 
 # get the list of files--may need to change the walk directory if this file is moved
 filelist = list()
@@ -85,7 +85,7 @@ for fil in filelist:
 	if '#GISTINFO' in fl:
 		gistid = re.search(r"""id:(?P<gistid>\w+)""",fl).group('gistid')
 		if gistid not in gistidlist:
-			print 'Gist id %s for file %s not found in your gists.' % (gistid,fil)
+			print('Gist id %s for file %s not found in your gists.' % (gistid,fil))
 		else:
 			# get the gist instance
 			gist = [y for (x,y) in zip(gistidlist,gistlist) if x==gistid][0]
@@ -106,7 +106,7 @@ for fil in filelist:
 			gistattrdict[fil] = {'gist':gist, 'name':gistname, 'id':gistid, 'strip':striplist}
 			
 # update the gists with cleaned files
-for fil in gistattrdict.keys():
+for fil in list(gistattrdict.keys()):
 
 	# get the file data except for the GISTINFO line
 	fh = open(fil,'r')
@@ -123,9 +123,10 @@ for fil in gistattrdict.keys():
 	gistname = gistattr['name']
 	success = gistup.edit(files={gistname:{'content':filstr}})
 	if success:
-		print 'Gist %s was succcessfully updated.' % gistname
+		print('Gist %s was succcessfully updated.' % gistname)
 	else:
-		print 'Gist %s was not updated.' % gistname
+		print('Gist %s was not updated.' % gistname)
 		
-print '\nGist update is complete.\n'
+print('\nGist update is complete.\n')
+
 

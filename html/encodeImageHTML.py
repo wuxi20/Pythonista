@@ -15,9 +15,10 @@ final = "<img src=" + '"' + image + '"' + " " + "alt=" + '"' + alts + '"' + " " 
 
 console.clear()
 
-print final
+print(final)
 
 clipboard.set(final)
 
-print "\n \n HTML set to clipboard"
+print("\n \n HTML set to clipboard")
+
 
