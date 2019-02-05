@@ -17,7 +17,7 @@ others can build on it.
 
 stophlong at gmail.com 2014 Feb 02 """
 
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import sound
 import time
 import os
@@ -53,16 +53,16 @@ def parseText(text):
 
 def SayIt(folderPath,toSay,language='en'):
  google_translate_url = 'http://translate.google.com/translate_tts'
- opener = urllib2.build_opener()
+ opener = urllib.request.build_opener()
  opener.addheaders = [('User-agent', 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)')]
  next_step=''
  phrase_out = list()
- print 'q = quit. a = all without pause. or write translation. return = next.'
+ print('q = quit. a = all without pause. or write translation. return = next.')
  for i,phrase in enumerate(toSay):
   #print i,len(phrase), phrase
-  print phrase
+  print(phrase)
 
-  tts_string = urllib2.quote(urllib2.unquote(phrase.encode('utf-8')))
+  tts_string = urllib.parse.quote(urllib.parse.unquote(phrase.encode('utf-8')))
   response = opener.open(google_translate_url+'?q='+tts_string+'&tl=' + language)
   #see
   #https://gist.github.com/adc2874aa09640237f6f
@@ -77,7 +77,7 @@ def SayIt(folderPath,toSay,language='en'):
   sound.play_effect(filename)
 
   if next_step!='a' and next_step!='A':
-			next_step = raw_input('(q,a,ret):')
+			next_step = eval(input('(q,a,ret):'))
 			if next_step == 'q' or next_step == 'Q':
 				return phrase_out
 			if next_step!='a' and next_step!='A':
@@ -105,7 +105,9 @@ if __name__ == '__main__':
  text = clipboard.get()
  toSay = parseText(text)
  phrase_out = SayIt(folderPath,toSay,language)
- print toSay
- print phrase_out
+ print(toSay)
+ print(phrase_out)
 '''El mundo. Geografía.  La historia de Canción de Hielo y Fuego tiene lugar principalmente en el continente de Poniente.  Es aproximadamente equivalente en extensión a Sudamérica, aunque el autor quiso recrear una especie de Inglaterra medieval.  Sin embargo, hay una gran extensión de tierra al norte sin cartografiar, debido a las temperaturas extremadamente bajas y los habitantes hostiles conocidos como salvajes.   Las tierras del norte de Poniente están menos habitadas que las del sur a pesar de su extensión aproximadamente igual.   Las cinco ciudades principales de Poniente son, en orden de tamaño: Desembarco del Rey, Antigua, Lannisport, Puerto Gaviota, y Puerto Blanco.'''
+
+
 

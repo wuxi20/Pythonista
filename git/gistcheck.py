@@ -76,7 +76,7 @@ def get_token():
 def commit_or_create(gist, files, token, message=None):
     payload = {"files":{}}
     if message is not None: payload['description'] = message
-    for f, c in files.items():
+    for f, c in list(files.items()):
         payload['files'][os.path.basename(f)] = {"content":c}
     headers = {
         'Content-Type':'application/json',
@@ -197,7 +197,7 @@ def download_gist(gist_url):
         files = gist_info['files']
     except:
         raise GistDownloadError()
-    for file_info in files.values():
+    for file_info in list(files.values()):
         lang =  file_info.get('language', None)
         if lang != 'Python': 
             continue 
@@ -237,7 +237,7 @@ def setup():
             'Gist Set ID'  :'gistcheck.set()',
             'Gist Download':'if __name__ == "__main__" : gistcheck.download_from_args( sys.argv )'
             }
-	for s,c in script_map.items():
+	for s,c in list(script_map.items()):
 		with open(s+'.py','w') as f:
 			f.writelines(['import gistcheck\n','%s\n'%c])
 

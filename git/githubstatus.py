@@ -2,7 +2,8 @@
 from console import alert
 from json import loads
 from sys import exit
-from urllib import urlopen, quote
+from urllib.request import urlopen
+from urllib.parse import quote
 import webbrowser
 
 def error_dialog(title, message):
@@ -50,4 +51,5 @@ def github_status():
 	
 if __name__ == '__main__':
 	github_status()
+
 

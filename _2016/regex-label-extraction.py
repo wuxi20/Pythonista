@@ -11,7 +11,8 @@ def pattern_extractor(instance, pattern, textlabel, newlabel):
 		if isinstance(found[0], (list, tuple)):
 			matches = [filter(None, x)[0] for x in found]
 		else:
-			matches = filter(None, found)
+			matches = [_f for _f in found if _f]
 		instance[newlabel] = sorted(Counter(matches).most_common())
 	return instance
+
 

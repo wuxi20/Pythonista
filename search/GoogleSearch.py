@@ -26,9 +26,9 @@ def google(terms):
 			return output_title, output_url
 			
 if __name__ == '__main__':
-	terms = raw_input('Enter search terms:')
+	terms = input('Enter search terms:')
 	title, url = google(terms)
-	print 'First Google Result:'
-	print 'Title:', title
-	print 'URL:', url
+	print('First Google Result:')
+	print('Title:', title)
+	print('URL:', url)
 	clipboard.set('[' + title + ']' + '(' + url + ')')

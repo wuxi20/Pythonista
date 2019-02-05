@@ -5,7 +5,7 @@
 # A python script written for Pythonista so that you can access and manage your GitHub account from your mobile device
 
 import ui
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zipfile
 
 mb_isopen = False
@@ -83,7 +83,7 @@ def getrepo(sender):
 	usr = sender.superview["usr"].text
 	rep = sender.superview["rep"].text
 	url = 'https://codeload.github.com/{}/{}/zip/master'.format(usr, rep)
-	filename, headers = urllib.urlretrieve(url)
+	filename, headers = urllib.request.urlretrieve(url)
 	with zipfile.ZipFile(filename) as zip_file:
 		zip_file.extractall()
 		
@@ -111,4 +111,5 @@ def sb_clicked(sender):
 gui["view2"]["sb"].delegate.action=sb_clicked
 
 gui.present("fullscreen", hide_title_bar=True)
+
 

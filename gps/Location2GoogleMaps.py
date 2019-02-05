@@ -28,8 +28,8 @@ Open URLs
 '''
 
 import sys
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 import location
 import webbrowser
 from string import Template
@@ -37,13 +37,14 @@ from string import Template
 def locationToUrl(lat, long):
 	
 	tpl = Template ("https://google.com/maps/place/$lat,$long/@$lat,$long,12z");
-	params = {"lat" : lat, "long" : long};
+	params = {"lat" : lat, "long" : int};
 	return tpl.substitute(params);
 	
 url = sys.argv[1];
 #url="http://maps.apple.com/maps?address=31%20Stanton%20Road%20Bristol%20England%20BS10%205SJ%20United%20Kingdom&ll=51.504456,-2.590899&q=51.504456,-2.590899&t=m";
-ll = urlparse.parse_qsl(url, True)[2][1].split(",");
+ll = urllib.parse.parse_qsl(url, True)[2][1].split(",");
 lat = float(ll[0]);
 long = float(ll[1]);
-url = locationToUrl (lat, long);
+url = locationToUrl (lat, int);
 webbrowser.open(url);
+

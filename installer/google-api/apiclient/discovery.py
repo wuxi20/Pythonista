@@ -32,29 +32,29 @@ import os
 import random
 import re
 import uritemplate
-import urllib
-import urlparse
-import mimeparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
+from . import mimeparse
 import mimetypes
 
 try:
-    from urlparse import parse_qsl
+    from urllib.parse import parse_qsl
 except ImportError:
     from cgi import parse_qsl
 
-from apiclient.errors import HttpError
-from apiclient.errors import InvalidJsonError
-from apiclient.errors import MediaUploadSizeError
-from apiclient.errors import UnacceptableMimeTypeError
-from apiclient.errors import UnknownApiNameOrVersion
-from apiclient.errors import UnknownLinkType
-from apiclient.http import HttpRequest
-from apiclient.http import MediaFileUpload
-from apiclient.http import MediaUpload
-from apiclient.model import JsonModel
-from apiclient.model import MediaModel
-from apiclient.model import RawModel
-from apiclient.schema import Schemas
+from .apiclient.errors import HttpError
+from .apiclient.errors import InvalidJsonError
+from .apiclient.errors import MediaUploadSizeError
+from .apiclient.errors import UnacceptableMimeTypeError
+from .apiclient.errors import UnknownApiNameOrVersion
+from .apiclient.errors import UnknownLinkType
+from .apiclient.http import HttpRequest
+from .apiclient.http import MediaFileUpload
+from .apiclient.http import MediaUpload
+from .apiclient.model import JsonModel
+from .apiclient.model import MediaModel
+from .apiclient.model import RawModel
+from .apiclient.schema import Schemas
 from email.mime.multipart import MIMEMultipart
 from email.mime.nonmultipart import MIMENonMultipart
 from oauth2client.util import positional
@@ -109,11 +109,11 @@ def _add_query_parameter(url, name, value):
   if value is None:
     return url
   else:
-    parsed = list(urlparse.urlparse(url))
+    parsed = list(urllib.parse.urlparse(url))
     q = dict(parse_qsl(parsed[4]))
     q[name] = value
-    parsed[4] = urllib.urlencode(q)
-    return urlparse.urlunparse(parsed)
+    parsed[4] = urllib.parse.urlencode(q)
+    return urllib.parse.urlunparse(parsed)
 
 
 def key2param(key):
@@ -200,7 +200,7 @@ def build(serviceName,
 
   try:
     service = simplejson.loads(content)
-  except ValueError, e:
+  except ValueError as e:
     logger.error('Failed to parse as JSON: ' + content)
     raise InvalidJsonError()
 
@@ -244,7 +244,7 @@ def build_from_document(
   future = {}
 
   service = simplejson.loads(service)
-  base = urlparse.urljoin(service['rootUrl'], service['servicePath'])
+  base = urllib.parse.urljoin(service['rootUrl'], service['servicePath'])
   schema = Schemas(service)
 
   if model is None:
@@ -270,7 +270,7 @@ def _cast(value, schema_type):
     A string representation of 'value' based on the schema_type.
   """
   if schema_type == 'string':
-    if type(value) == type('') or type(value) == type(u''):
+    if type(value) == type('') or type(value) == type(''):
       return value
     else:
       return str(value)
@@ -281,7 +281,7 @@ def _cast(value, schema_type):
   elif schema_type == 'boolean':
     return str(bool(value)).lower()
   else:
-    if type(value) == type('') or type(value) == type(u''):
+    if type(value) == type('') or type(value) == type(''):
       return value
     else:
       return str(value)
@@ -377,7 +377,7 @@ def _createResource(http, baseUrl, model, requestBuilder,
       methodDesc['parameters'] = {}
 
     # Add in the parameters common to all methods.
-    for name, desc in rootDesc.get('parameters', {}).iteritems():
+    for name, desc in rootDesc.get('parameters', {}).items():
       methodDesc['parameters'][name] = desc
 
     # Add in undocumented query parameters.
@@ -419,7 +419,7 @@ def _createResource(http, baseUrl, model, requestBuilder,
 
 
     if 'parameters' in methodDesc:
-      for arg, desc in methodDesc['parameters'].iteritems():
+      for arg, desc in methodDesc['parameters'].items():
         param = key2param(arg)
         argmap[param] = arg
 
@@ -447,12 +447,12 @@ def _createResource(http, baseUrl, model, requestBuilder,
     def method(self, **kwargs):
       # Don't bother with doc string, it will be over-written by createMethod.
 
-      for name in kwargs.iterkeys():
+      for name in kwargs.keys():
         if name not in argmap:
           raise TypeError('Got an unexpected keyword argument "%s"' % name)
 
       # Remove args that have a value of None.
-      keys = kwargs.keys()
+      keys = list(kwargs.keys())
       for name in keys:
         if kwargs[name] is None:
           del kwargs[name]
@@ -461,9 +461,9 @@ def _createResource(http, baseUrl, model, requestBuilder,
         if name not in kwargs:
           raise TypeError('Missing required parameter "%s"' % name)
 
-      for name, regex in pattern_params.iteritems():
+      for name, regex in pattern_params.items():
         if name in kwargs:
-          if isinstance(kwargs[name], basestring):
+          if isinstance(kwargs[name], str):
             pvalues = [kwargs[name]]
           else:
             pvalues = kwargs[name]
@@ -473,13 +473,13 @@ def _createResource(http, baseUrl, model, requestBuilder,
                   'Parameter "%s" value "%s" does not match the pattern "%s"' %
                   (name, pvalue, regex))
 
-      for name, enums in enum_params.iteritems():
+      for name, enums in enum_params.items():
         if name in kwargs:
           # We need to handle the case of a repeated enum
           # name differently, since we want to handle both
           # arg='value' and arg=['value1', 'value2']
           if (name in repeated_params and
-              not isinstance(kwargs[name], basestring)):
+              not isinstance(kwargs[name], str)):
             values = kwargs[name]
           else:
             values = [kwargs[name]]
@@ -491,7 +491,7 @@ def _createResource(http, baseUrl, model, requestBuilder,
 
       actual_query_params = {}
       actual_path_params = {}
-      for key, value in kwargs.iteritems():
+      for key, value in kwargs.items():
         to_type = param_type.get(key, 'string')
         # For repeated parameters we cast each member of the list.
         if key in repeated_params and type(value) == type([]):
@@ -519,14 +519,14 @@ def _createResource(http, baseUrl, model, requestBuilder,
           actual_path_params, actual_query_params, body_value)
 
       expanded_url = uritemplate.expand(pathUrl, params)
-      url = urlparse.urljoin(self._baseUrl, expanded_url + query)
+      url = urllib.parse.urljoin(self._baseUrl, expanded_url + query)
 
       resumable = None
       multipart_boundary = ''
 
       if media_filename:
         # Ensure we end up with a valid MediaUpload object.
-        if isinstance(media_filename, basestring):
+        if isinstance(media_filename, str):
           (media_mime_type, encoding) = mimetypes.guess_type(media_filename)
           if media_mime_type is None:
             raise UnknownFileType(media_filename)
@@ -545,7 +545,7 @@ def _createResource(http, baseUrl, model, requestBuilder,
 
         # Use the media path uri for media uploads
         expanded_url = uritemplate.expand(mediaPathUrl, params)
-        url = urlparse.urljoin(self._baseUrl, expanded_url + query)
+        url = urllib.parse.urljoin(self._baseUrl, expanded_url + query)
         if media_upload.resumable():
           url = _add_query_parameter(url, 'uploadType', 'resumable')
 
@@ -600,10 +600,10 @@ def _createResource(http, baseUrl, model, requestBuilder,
       docs.append('Args:\n')
 
     # Skip undocumented params and params common to all methods.
-    skip_parameters = rootDesc.get('parameters', {}).keys()
+    skip_parameters = list(rootDesc.get('parameters', {}).keys())
     skip_parameters.extend(STACK_QUERY_PARAMETERS)
 
-    all_args = argmap.keys()
+    all_args = list(argmap.keys())
     args_ordered = [key2param(s) for s in methodDesc.get('parameterOrder', [])]
 
     # Move body to the front of the line.
@@ -686,14 +686,14 @@ Returns:
       request = copy.copy(previous_request)
 
       pageToken = previous_response['nextPageToken']
-      parsed = list(urlparse.urlparse(request.uri))
+      parsed = list(urllib.parse.urlparse(request.uri))
       q = parse_qsl(parsed[4])
 
       # Find and remove old 'pageToken' value from URI
       newq = [(key, value) for (key, value) in q if key != 'pageToken']
       newq.append(('pageToken', pageToken))
-      parsed[4] = urllib.urlencode(newq)
-      uri = urlparse.urlunparse(parsed)
+      parsed[4] = urllib.parse.urlencode(newq)
+      uri = urllib.parse.urlunparse(parsed)
 
       request.uri = uri
 
@@ -705,7 +705,7 @@ Returns:
 
   # Add basic methods to Resource
   if 'methods' in resourceDesc:
-    for methodName, methodDesc in resourceDesc['methods'].iteritems():
+    for methodName, methodDesc in resourceDesc['methods'].items():
       createMethod(Resource, methodName, methodDesc, rootDesc)
       # Add in _media methods. The functionality of the attached method will
       # change when it sees that the method name ends in _media.
@@ -736,14 +736,14 @@ Returns:
       setattr(methodResource, '__is_resource__', True)
       setattr(theclass, methodName, methodResource)
 
-    for methodName, methodDesc in resourceDesc['resources'].iteritems():
+    for methodName, methodDesc in resourceDesc['resources'].items():
       createResourceMethod(Resource, methodName, methodDesc, rootDesc)
 
   # Add _next() methods
   # Look for response bodies in schema that contain nextPageToken, and methods
   # that take a pageToken parameter.
   if 'methods' in resourceDesc:
-    for methodName, methodDesc in resourceDesc['methods'].iteritems():
+    for methodName, methodDesc in resourceDesc['methods'].items():
       if 'response' in methodDesc:
         responseSchema = methodDesc['response']
         if '$ref' in responseSchema:
@@ -757,3 +757,4 @@ Returns:
                            methodName)
 
   return Resource()
+

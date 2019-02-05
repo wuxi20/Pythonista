@@ -69,4 +69,5 @@ if response.status_code == 201:
         webbrowser.open("drafts://x-callback-url/create?text={}".format(response.json['html_url']))
 else:
     console.alert("Couldn't create Gist.")
-    print response.content
+    print(response.content)
+

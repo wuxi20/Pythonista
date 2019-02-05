@@ -21,7 +21,7 @@
 
 import requests
 import appex, console, time, os
-import urllib, zipfile, sys, functools, re, os, tempfile
+import urllib.request, urllib.parse, urllib.error, zipfile, sys, functools, re, os, tempfile
 #import urllib,zipfile,sys, clipboard, functools, re, os, tempfile
 
 def extract_git_id(git):
@@ -80,7 +80,7 @@ def git_download(url):
 		try:
 			with tempfile.NamedTemporaryFile(mode='w+b',suffix='.zip') as f:
 				console.hud_alert('Downloading the zip.')
-				urllib.urlretrieve(u,f.name,reporthook=functools.partial(dlProgress,u))
+				urllib.request.urlretrieve(u,f.name,reporthook=functools.partial(dlProgress,u))
 				
 				z = zipfile.ZipFile(f)
 				githubpath = os.path.expanduser('~/Documents/Downloaded from Github/')
@@ -88,7 +88,7 @@ def git_download(url):
 					os.mkdir(githubpath)
 				z.extractall(path = githubpath)
 				console.hud_alert('Extracting zip.')
-				print z.namelist()
+				print(z.namelist())
 		except:
 			print('git url did not return zip file')
 		console.hud_alert('Files saved in "Downloaded from Github" directory.')
@@ -99,4 +99,5 @@ def git_download(url):
 if __name__=='__main__':
 	#git_download_from_args(sys.argv)
 	git_download_from_sharesheet()
+
 

@@ -128,19 +128,20 @@ if __name__ == "__main__":
     d = Documents()
     d.documents_file = __file__ if True else 'site-packages/Documents.db'
     s = d.document_read()
-    print 'Read', d.document_name, d.document_size, d.document_modified
-    print s
+    printg('Read', d.document_name, d.document_size, d.document_modified)
+    print(s)
     for image_name in d.document_images:
-        print image_name,
+        print(image_name,)
         ip = ImageP.open(io.BytesIO(d.document_images[image_name]))
         with open(image_name + '.tmp', 'w') as f: ip.save(f, ip.format)
         bR = console.show_image(image_name + '.tmp')
     d.document_write(s)
-    print 'Written', d.document_name, d.document_size, d.document_modified
+    print('Written',) 
+    d.document_name, d.document_size, d.document_modified
     for image_name in d.document_images:
         os.remove(image_name + '.tmp')
     d.document_email(s)
-    print 'Emailed', d.document_name, d.document_size, d.document_modified
+    print('Emailed', d.document_name, d.document_size, d.document_modified)
 
 '''
 <?xml version="1.0" encoding="UTF-8"?>

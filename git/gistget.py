@@ -12,11 +12,12 @@ import json
 def codeget(url):
   r = requests.get('https://api.github.com/gists/%s' % os.path.split(url.strip().split(" ")[0])[-1])
   f = json.loads(r.text)
-  for x,v in f['files'].iteritems():
+  for x,v in f['files'].items():
     with open(v['filename'],'w') as ip:
       ip.write(v['content'])
-      print 'Wrote %d chars to %s' % (len(v['content']),v['filename'])
+      print('Wrote %d chars to %s' % (len(v['content']),v['filename']))
 
 if __name__ == '__main__':
 	a = console.input_alert('URL','Enter URL',clipboard.get())
 	codeget(a)
+

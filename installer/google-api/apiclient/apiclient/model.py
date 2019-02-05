@@ -26,9 +26,9 @@ __author__ = 'jcgregorio@google.com (Joe Gregorio)'
 
 import gflags
 import logging
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
-from errors import HttpError
+from .errors import HttpError
 from oauth2client.anyjson import simplejson
 
 FLAGS = gflags.FLAGS
@@ -109,11 +109,11 @@ class BaseModel(Model):
     if FLAGS.dump_request_response:
       logging.info('--request-start--')
       logging.info('-headers-start-')
-      for h, v in headers.iteritems():
+      for h, v in headers.items():
         logging.info('%s: %s', h, v)
       logging.info('-headers-end-')
       logging.info('-path-parameters-start-')
-      for h, v in path_params.iteritems():
+      for h, v in path_params.items():
         logging.info('%s: %s', h, v)
       logging.info('-path-parameters-end-')
       logging.info('body: %s', body)
@@ -164,7 +164,7 @@ class BaseModel(Model):
     if self.alt_param is not None:
       params.update({'alt': self.alt_param})
     astuples = []
-    for key, value in params.iteritems():
+    for key, value in params.items():
       if type(value) == type([]):
         for x in value:
           x = x.encode('utf-8')
@@ -173,13 +173,13 @@ class BaseModel(Model):
         if getattr(value, 'encode', False) and callable(value.encode):
           value = value.encode('utf-8')
         astuples.append((key, value))
-    return '?' + urllib.urlencode(astuples)
+    return '?' + urllib.parse.urlencode(astuples)
 
   def _log_response(self, resp, content):
     """Logs debugging information about the response if requested."""
     if FLAGS.dump_request_response:
       logging.info('--response-start--')
-      for h, v in resp.iteritems():
+      for h, v in resp.items():
         logging.info('%s: %s', h, v)
       if content:
         logging.info(content)
@@ -363,7 +363,7 @@ def makepatch(original, modified):
       body=makepatch(original, item)).execute()
   """
   patch = {}
-  for key, original_value in original.iteritems():
+  for key, original_value in original.items():
     modified_value = modified.get(key, None)
     if modified_value is None:
       # Use None to signal that the element is deleted
@@ -383,3 +383,4 @@ def makepatch(original, modified):
       patch[key] = modified[key]
 
   return patch
+

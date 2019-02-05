@@ -8,15 +8,15 @@ import keychain
 import os.path
 import pickle
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 #Perform authorization
 def auth(username, password):
     data='{"scopes":["gist"],"note":"gistcheck"}'
-    request = urllib2.Request("https://api.github.com/authorizations",data)
+    request = urllib.request.Request("https://api.github.com/authorizations",data)
     enc = base64.standard_b64encode('%s:%s' % (username, password))
     request.add_header("Authorization", "Basic %s" % enc)   
-    result = urllib2.urlopen(request)
+    result = urllib.request.urlopen(request)
     rdata = result.read()
     result.close()
     return rdata
@@ -24,18 +24,18 @@ def auth(username, password):
 def edit(gist, files, token, message=None):
     reqdict = {"files":{}}
     if message is not None: reqdict['description']=message
-    for f, c in files.items():
+    for f, c in list(files.items()):
         reqdict['files'][f] = {"content":c}
-    request = urllib2.Request("https://api.github.com/gists/%s" % gist,json.dumps(reqdict))
+    request = urllib.request.Request("https://api.github.com/gists/%s" % gist,json.dumps(reqdict))
     request.add_header("Authorization", "token %s" % token)
     request.add_header('Content-Type','application/json')
     try:
-        result = urllib2.urlopen(request)
+        result = urllib.request.urlopen(request)
         rdata = result.read()
         result.close()
         return rdata
-    except Exception, e:
-        print e
+    except Exception as e:
+        print(e)
     return None
     
 def get_gist_id(fname):
@@ -59,18 +59,18 @@ def set_gist_id(fname, gist):
 
 #load a file from a gist		
 def load(gist, fname):
-	request = urllib2.Request("https://api.github.com/gists/%s" % gist)
+	request = urllib.request.Request("https://api.github.com/gists/%s" % gist)
 	try:
-		result = urllib2.urlopen(request)
+		result = urllib.request.urlopen(request)
 		rdata = json.loads(result.read())
 		result.close()
 		url = rdata['files'][fname]['raw_url']
-		result = urllib2.urlopen(url)
+		result = urllib.request.urlopen(url)
 		rdata = result.read()
 		result.close()
 		return rdata
-	except Exception, e:
-		print e
+	except Exception as e:
+		print(e)
 	return None
 
 def pull():
@@ -88,7 +88,7 @@ def commit():
 		if token is None:
 			u, p = console.login_alert('GitHub Login')
 			r = json.loads(auth(u, p))
-			print r
+			print(r)
 			token = r['token']
 			keychain.set_password('gistcheck','gistcheck',token)
 		fname = os.path.basename(editor.get_path())

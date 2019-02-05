@@ -2,10 +2,9 @@
 import urllib.request, urllib.parse, urllib.error
 import re
 
-url = input('Enter - ')
+url = eval(input('Enter - '))
 html = urllib.request.urlopen(url).read()
 links = re.findall('href="(http://.*?)"', html)
 for link in links:
     print(link)
-
 

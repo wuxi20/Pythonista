@@ -15,11 +15,11 @@ Pythonista and run this script.
 import os
 import re
 import tempfile
-import urllib2
-import urlparse
+import urllib.request, urllib.error, urllib.parse
+import urllib.parse
 
 from os.path import basename, exists
-from urllib import unquote
+from urllib.parse import unquote
 
 import console
 import editor
@@ -41,7 +41,7 @@ def download(args):
             return
 
     # convert github file viewer URLs into raw file URLs
-    urlparts = urlparse.urlparse(url)
+    urlparts = urllib.parse.urlparse(url)
     try:
         auth, server = urlparts.netloc.split('@')
     except:
@@ -52,17 +52,17 @@ def download(args):
         urlparts = list(urlparts)
         urlparts[1] = urlparts[1].replace('github.com', 'raw.githubusercontent.com')
         urlparts[2] = urlparts[2].replace('/blob', '')
-        url = urlparse.urlunparse(urlparts)
+        url = urllib.parse.urlunparse(urlparts)
 
     try:
-        r = urllib2.urlopen(url)
-    except urllib2.URLError as exc:
+        r = urllib.request.urlopen(url)
+    except urllib.error.URLError as exc:
         print(exc)
         console.hud_alert("Download error (see console)", 'error')
         return
 
     content_type = r.info().get('content-type')
-    urlparts = urlparse.urlparse(r.geturl())
+    urlparts = urllib.parse.urlparse(r.geturl())
     fn = basename(unquote(urlparts.path))
 
     while True:

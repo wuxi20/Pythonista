@@ -46,7 +46,7 @@ import keychain
 import os.path
 import pickle
 import re
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 class InvalidGistURLError (Exception): pass
 class NoFilesInGistError (Exception): pass
@@ -56,11 +56,11 @@ class InvalidGistIDError (Exception): pass
 #Perform authorization
 def auth(username, password):
 	data='{"scopes":["gist"],"note":"gistcheck"}'
-	request = urllib2.Request("https://api.github.com/authorizations",data)
+	request = urllib.request.Request("https://api.github.com/authorizations",data)
 	import base64
 	enc = base64.standard_b64encode('%s:%s' % (username, password))
 	request.add_header("Authorization", "Basic %s" % enc)
-	result = urllib2.urlopen(request)
+	result = urllib.request.urlopen(request)
 	rdata = result.read()
 	result.close()
 	return rdata
@@ -68,18 +68,18 @@ def auth(username, password):
 def edit(gist, files, token, message=None):
 	reqdict = {"files":{}}
 	if message is not None: reqdict['description']=message
-	for f, c in files.items():
+	for f, c in list(files.items()):
 		reqdict['files'][f] = {"content":c}
-	request = urllib2.Request("https://api.github.com/gists/%s" % gist,json.dumps(reqdict))
+	request = urllib.request.Request("https://api.github.com/gists/%s" % gist,json.dumps(reqdict))
 	request.add_header("Authorization", "token %s" % token)
 	request.add_header('Content-Type','application/json')
 	try:
-		result = urllib2.urlopen(request)
+		result = urllib.request.urlopen(request)
 		rdata = result.read()
 		result.close()
 		return rdata
-	except Exception, e:
-		print e
+	except Exception as e:
+		print(e)
 	return None
 	
 def get_gist_id(fname):
@@ -113,9 +113,9 @@ def extract_gist_id(gist):
 		
 #load a file from a gist
 def load(gist, fname):
-	request = urllib2.Request("https://api.github.com/gists/%s" % gist)
+	request = urllib.request.Request("https://api.github.com/gists/%s" % gist)
 	try:
-		result = urllib2.urlopen(request)
+		result = urllib.request.urlopen(request)
 		rdata = json.loads(result.read())
 		result.close()
 		return rdata['files'][fname]['content']
@@ -124,8 +124,8 @@ def load(gist, fname):
 		# rdata = result.read()
 		# result.close()
 		# return rdata
-	except Exception, e:
-		print e
+	except Exception as e:
+		print(e)
 	return None
 	
 def pull():
@@ -145,7 +145,7 @@ def commit():
 		if token is None:
 			u, p = console.login_alert('GitHub Login')
 			r = json.loads(auth(u, p))
-			print r
+			print(r)
 			token = r['token']
 			keychain.set_password('gistcheck','gistcheck',token)
 		fname = os.path.basename(editor.get_path())
@@ -168,7 +168,7 @@ def download_gist(gist_url):
 	raw_match = re.match('http(s?)://raw.github.com/gist/', gist_url)
 	if raw_match:
 		import requests
-		from urlparse import urlparse
+		from urllib.parse import urlparse
 		filename = os.path.split(urlparse(gist_url).path)[1]
 		try:
 			r = requests.get(gist_url)
@@ -189,7 +189,7 @@ def download_gist(gist_url):
 				files = gist_info['files']
 			except:
 				raise GistDownloadError()
-			for file_info in files.values():
+			for file_info in list(files.values()):
 				lang =  file_info.get('language', None)
 				if lang != 'Python':
 					continue
@@ -256,4 +256,5 @@ def setup():
 		
 if __name__ == '__main__':
 	setup()
+
 

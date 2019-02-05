@@ -20,9 +20,9 @@ def test_split(self):
 
 # example from https://docs.python.org/2/library/socketserver.html
 
-import SocketServer
+import socketserver
 
-class MyTCPHandler(SocketServer.BaseRequestHandler):
+class MyTCPHandler(socketserver.BaseRequestHandler):
 	"""
 	The request handler class for our server.
 	
@@ -34,9 +34,9 @@ class MyTCPHandler(SocketServer.BaseRequestHandler):
 	def handle(self):
 		# self.request is the TCP socket connected to the client
 		self.data = self.request.recv(1024).strip()
-		print "ron jeffries has gotten something working part 2"
-		print "{} wrote:".format(self.client_address[0])
-		print self.data
+		print("ron jeffries has gotten something working part 2")
+		print("{} wrote:".format(self.client_address[0]))
+		print(self.data)
 		# just send back the same data, but upper-cased
 		back = "here you go\n" + self.data.upper()
 		self.request.sendall(back)
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 	HOST, PORT = "localhost", 9999
 	
 	# Create the server, binding to localhost on port 9999
-	server = SocketServer.TCPServer((HOST, PORT), MyTCPHandler)
+	server = socketserver.TCPServer((HOST, PORT), MyTCPHandler)
 	
 	# Activate the server; this will keep running until you
 	# interrupt the program with Ctrl-C
@@ -56,4 +56,5 @@ if __name__ == "__main__":
 # localhost:9999/?add&key=k1&val=v1
 
 # --------------------
+
 

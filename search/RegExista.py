@@ -16,8 +16,8 @@ import clipboard
 import cgi
 import re
 import webbrowser
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 from string import Template
 from FormElements import *
 
@@ -140,4 +140,5 @@ if __name__ == '__main__':
 	server = HTTPServer(('', 80), RequestHandler)
 	webbrowser.open('http://localhost', stop_when_done = True)
 	server.serve_forever()
+
 
