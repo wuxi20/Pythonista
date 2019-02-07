@@ -25,8 +25,9 @@ if url:
 # Editorial.app will use the clipboard and paste it at the end of a document
 	webbrowser.open('editorial://x-callback-url/open/path-to-file.txt?root=dropbox&command=PasteLink&x-success=pythonista://')
 else:
-	print 'No input URL found.'
+	print('No input URL found.')
 	
 if __name__ == '__main__':
 	main()
+
 

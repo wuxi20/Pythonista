@@ -7,7 +7,7 @@
 #
 
 import contacts
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 
 DRAFTS_ACTION = "Backup Contacts"
@@ -18,8 +18,9 @@ for person in people:
   VCARD = VCARD + person.vcard
 
 base = "drafts://x-callback-url/create?text="
-text = urllib.quote(VCARD, safe='')
-action = "&action=" + urllib.quote(DRAFTS_ACTION, safe='')
+text = urllib.parse.quote(VCARD, safe='')
+action = "&action=" + urllib.parse.quote(DRAFTS_ACTION, safe='')
 success = "&x-success="
 
 webbrowser.open(base + text + action + success)
+

@@ -134,13 +134,13 @@ class Evernote_Processor(object):
 					# back to reauthorization
 					user_store = client.get_user_store()
 					user = user_store.getUser().username
-				except Exception, e:
-					print 'Authorization error: ', e
-					print 'Will need to re-authorize.'
+				except Exception as e:
+					print('Authorization error: ', e)
+					print('Will need to re-authorize.')
 					client = self.authorize(storage_name)
 					
-			except IOError, e:
-				print 'Error while reading the auth token: ', e
+			except IOError as e:
+				print('Error while reading the auth token: ', e)
 				client = None
 			finally:
 				storage.close()
@@ -162,12 +162,12 @@ class Evernote_Processor(object):
 		
 		request_token = client.get_request_token('http://localhost')
 		#Prompt the user to open the request URL in their browser
-		print "Paste this URL in your browser and login\n"
-		print client.get_authorize_url(request_token) + '\n'
+		print("Paste this URL in your browser and login\n")
+		print(client.get_authorize_url(request_token) + '\n')
 		# Have the user paste the resulting URL so we can pull it
 		# apart
-		print "Paste the URL after login here:"
-		authurl = raw_input()
+		print("Paste the URL after login here:")
+		authurl = input()
 		## Parse the URL to get the OAuth verifier
 		vals = self.parse_query_string(authurl)
 		# Use the OAuth verifier and the values from request_token
@@ -183,18 +183,18 @@ class Evernote_Processor(object):
 		try:
 			storage = open(storage_name, 'w')
 			storage.write(auth_token)
-		except ImportError, e:
+		except ImportError as e:
 			# Should never happen
-			print 'Error while saving the auth token: ', e
-			print 'Your auth token is: ', auth_token
+			print('Error while saving the auth token: ', e)
+			print('Your auth token is: ', auth_token)
 		finally:
 			storage.close()
 		# We will proceed anyway
 		try:
 			# NB: sandbox=False for production
 			client = EvernoteClient(token=auth_token, sandbox=False)
-		except Exception, e:
-			print 'Cannot create EN client: ', e
+		except Exception as e:
+			print('Cannot create EN client: ', e)
 			client = None
 		return client
 		
@@ -202,8 +202,8 @@ class Evernote_Processor(object):
 		'''Clear storage file on the client'''
 		try:
 			os.remove(storage_name)
-		except OSError, e:
-			print 'Cannot delete storage file: ', e
+		except OSError as e:
+			print('Cannot delete storage file: ', e)
 			
 			
 	def check_version(self):
@@ -244,9 +244,9 @@ class Evernote_Processor(object):
 		try:
 			user = self.user_store.getUser(self.token)
 		except (Errors.EDAMUserException,
-		Errors.EDAMSystemException), e:
-			print "Exception while getting user's shardID:"
-			print type(e), e
+		Errors.EDAMSystemException) as e:
+			print("Exception while getting user's shardID:")
+			print(type(e), e)
 			return None
 			
 		if hasattr(user, 'shardId'):
@@ -258,16 +258,16 @@ class Evernote_Processor(object):
 		'''Post a note to Evernote'''
 		ver = self.check_version()
 		if ver < 0:
-			print '*** VERSION ERROR: Update client to the latest version.'
+			print('*** VERSION ERROR: Update client to the latest version.')
 		else:
 			note = self._make_note(title, note, url)
 			try:
 				created_note = self.note_store.createNote(note)
 				
 			except (Errors.EDAMUserException,
-			Errors.EDAMSystemException), e:
-				print "Exception while getting user's shardID:"
-				print type(e), e
+			Errors.EDAMSystemException) as e:
+				print("Exception while getting user's shardID:")
+				print(type(e), e)
 				return None
 				
 			if hasattr(created_note, 'guid'):
@@ -287,7 +287,7 @@ class Evernote_Processor(object):
 				guid = matched_notebook.guid
 			else:
 				guid = None
-				print '*** Warning: notebook {0} was not found.'.format(notebook_name)
+				print('*** Warning: notebook {0} was not found.'.format(notebook_name))
 		else:
 			guid = self.note_store.getDefaultNotebook().guid
 		return guid
@@ -311,8 +311,8 @@ class Evernote_Processor(object):
 				filter,
 				0,
 				max_num)
-			except Exception, e:
-				print 'Exception while finding notes: ', e
+			except Exception as e:
+				print('Exception while finding notes: ', e)
 				notes_list = None
 		else:
 			notes_list = None
@@ -332,9 +332,9 @@ class Evernote_Processor(object):
 			share_key = self.note_store.shareNote(self.token, guid)
 		except (EDAMNotFoundException,
 		EDAMSystemException,
-		EDAMUserException), e:
-			print "Error sharing note:"
-			print type(e), e
+		EDAMUserException) as e:
+			print("Error sharing note:")
+			print(type(e), e)
 			return None
 		return "%s/shard/%s/sh/%s/%s" % \
 		(EN_URL, self.shard_id, guid, share_key)
@@ -359,8 +359,8 @@ class Evernote_Processor(object):
 		try:
 			updated_note = self.note_store.updateNote(note)
 			return updated_note.guid
-		except Exception, e:
-			print 'Exception while updating note: ', e
+		except Exception as e:
+			print('Exception while updating note: ', e)
 			return None
 			
 			
@@ -428,8 +428,8 @@ class GCal_Event(object):
 			created_evt = events.insert(body=evt,
 			calendarId=cal_id).execute()
 			return created_evt['htmlLink']
-		except Exception, e:
-			print 'Exception while creating event: ', e
+		except Exception as e:
+			print('Exception while creating event: ', e)
 			return None
 			
 			
@@ -510,10 +510,10 @@ class Green_Calendar(object):
 		# Flatten the note list
 		notes_list = [item for sublist in notes_list for item in sublist]
 		fmt ='{:<5}{:<24}{:<45}{:<5}'.format('No.', 'Due date/time', 'Note title', 'Result')
-		print '\nPROCESSING REPORT'
-		print '-'*len(fmt)
-		print fmt
-		print '-'*len(fmt)
+		print('\nPROCESSING REPORT')
+		print('-'*len(fmt))
+		print(fmt)
+		print('-'*len(fmt))
 		# Start processing here
 		for i, note in enumerate(notes_list):
 			title, ddate = self.ep.get_note_due_date(note)
@@ -548,7 +548,7 @@ class Green_Calendar(object):
 				start,
 				title_,
 				result)
-				print fmt
+				print(fmt)
 			else:
 				# We cannot parse the date; no events created
 				result = 'Error'
@@ -557,11 +557,11 @@ class Green_Calendar(object):
 				'UNDEFINED',
 				title_,
 				result)
-				print fmt
-		print '-'*len(fmt)
+				print(fmt)
+		print('-'*len(fmt))
 		e_time = time.time() - self.start_time
-		print 'Elapsed time: {0:f}'.format(e_time)
-		print 'The number of processed notes is: {0:d}'.format(len(notes_list))
+		print('Elapsed time: {0:f}'.format(e_time))
+		print('The number of processed notes is: {0:d}'.format(len(notes_list)))
 		
 		
 if __name__ == '__main__':
@@ -630,4 +630,5 @@ if __name__ == '__main__':
 	max_age=args.max_age,
 	cal_id=args.cal_id)
 	gc.run(forget=args.forget)
+
 

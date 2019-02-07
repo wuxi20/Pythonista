@@ -33,6 +33,7 @@ def spiral(angle):
 		t.fd(x)
 		t.left(angle)
 spiral(89)
-print "done!"
+print("done!")
 turtle.getscreen().getcanvas().postscript(file="output.eps")
+
 

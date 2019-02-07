@@ -40,7 +40,7 @@ def flip_button(img_on, img_off, state = False,
 	btn.action = btn_action
 	
 	# apply the kwargs to the btn
-	for k, v in kwargs.items():
+	for k, v in list(kwargs.items()):
 		if hasattr(btn, k):
 			setattr(btn, k, v)
 			
@@ -103,4 +103,5 @@ if __name__ == '__main__':
 	mc = MyClass(frame=f, bg_color='white', name = 'flip_button example')
 	mc.present('sheet', animated=False)
 # --------------------
+
 

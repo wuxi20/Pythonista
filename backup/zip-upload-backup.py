@@ -19,7 +19,7 @@ def dropbox(APP_KEY, APP_SECRET, ACCESS_TYPE, upload_file):
 	
 	# Make the user sign in and authorize this token
 	webbrowser.open(url, modal=False, stop_when_done=False)
-	raw_input()
+	input()
 	
 	# This will fail if the user didn't visit the above URL and hit 'Allow'
 	access_token = sess.obtain_access_token(request_token)
@@ -77,4 +77,5 @@ def make_zipfile(output_filename, source_dir, excludelist):
 			
 if __name__ == "__main__":
 	main()
+
 

@@ -9,7 +9,7 @@ def PythonistaVersion():
 	except ImportError:
 		return 1.5
 		
-print 'Pythonista Version is {}'.format(PythonistaVersion())
+print('Pythonista Version is {}'.format(PythonistaVersion()))
 
 
 #==============================
@@ -34,9 +34,9 @@ def PythonistaVersion2():
 		
 		
 		
-print timeit.Timer('PythonistaVersion',setup="from __main__ import PythonistaVersion").timeit()
+print(timeit.Timer('PythonistaVersion',setup="from __main__ import PythonistaVersion").timeit())
 
-print timeit.Timer('PythonistaVersion2',setup="from __main__ import PythonistaVersion2").timeit()
+print(timeit.Timer('PythonistaVersion2',setup="from __main__ import PythonistaVersion2").timeit())
 
 
 #==============================

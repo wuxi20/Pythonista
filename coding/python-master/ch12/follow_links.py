@@ -17,7 +17,7 @@ for i in range(0,count):
         url = tag.get('href')
         tags =soup.findAll('a')
         url = tags[position-1].get('href')
-print url 
+print(url )
 
 
 
@@ -30,4 +30,4 @@ print url
 
 #A simple option is to wrap all of your parsing code in a for statement with python's built-in function range(). 
 
-When your loops are done, use a print statement to see how your variables changed.
+When your loops are done, use a print( statement to see how your variables changed.)

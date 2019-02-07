@@ -25,7 +25,7 @@ eng2esp = {'one':'uno', 'two':'dos', 'three':'tres', 'four':'cuatro'}
 
 # to see whether something appears as a value in a dictionary, use the method called values. it returns the values as a list. then use the in operator. 
 
-my_values = eng2esp.values()
+my_values = list(eng2esp.values())
 
 #print my_values
 #if 'uno' in my_values:
@@ -97,4 +97,4 @@ for line in fhand:
         #    counts[word] = 1
         #else:
         #    counts[word] += 1
-print counts
+print(counts)

@@ -12,7 +12,7 @@ import console
 import codecs
 from os import remove
 import webbrowser
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import dropboxlogin
 
 # Convert title to slug
@@ -38,7 +38,7 @@ def makefile(slug, url, title):
 	
 # Upload draft to Dropbox
 def upload(slug, dropbox_draft_path):
-	print '\nUploading ' + slug +'.md'
+	print('\nUploading ' + slug +'.md')
 	f = open(slug + '.md')
 	db = dropboxlogin.get_client()
 	response = db.put_file(dropbox_draft_path + slug + '.md', f)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
 	# Path to drafts folder
 	dropbox_draft_path = '/Blog/blog/drafts/'
 	
-	print sys.argv[1]
+	print(sys.argv[1])
 	url = sys.argv[1]
 	title = sys.argv[2]
 	title = console.input_alert('Edit Title', '', title)
@@ -60,4 +60,5 @@ if __name__ == '__main__':
 	# Open draft in Nebulous Notes
 	nebulous = 'nebulous:/' + dropbox_draft_path + slug + '.md'
 	webbrowser.open(nebulous)
+
 

@@ -4,7 +4,7 @@
 # Drafts Action Open URL: pythonista://Location?action=run&argv=[[draft]]
 import sys
 import location, time
-import urllib, webbrowser
+import urllib.request, urllib.parse, urllib.error, webbrowser
 
 # Handle argument, if present.
 try:
@@ -28,4 +28,4 @@ spot = '''%s%s
    loc['latitude'], loc['longitude'])
 
 # Send output to Drafts.
-webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.quote(spot.encode('utf-8')))
+webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.parse.quote(spot.encode('utf-8')))

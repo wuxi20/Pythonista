@@ -186,7 +186,7 @@ class Evernote_Poster(object):
 		'''Post a note to Evernote'''
 		ver = self.check_version()
 		if ver < 0:
-			print '*** VERSION ERROR: Update client to the latest version.'
+			print('*** VERSION ERROR: Update client to the latest version.')
 		else:
 			note = self._make_note(title, note, url)
 			created_note = self.note_store.createNote(note)	
@@ -213,7 +213,7 @@ class Content_Creator(object):
 			txt = preamble + html2text.html2text(html)
 			enml = self.html2enml(markdown2.markdown(txt))
 		else:
-			title = raw_input('Enter note title: ').decode('utf-8')
+			title = input('Enter note title: ').decode('utf-8')
 			url = ''
 			# Make sure we escape characthers not allowed in ENML
 			enml = self.wrap_in_div(cgi.escape(self.clip))
@@ -266,15 +266,16 @@ if __name__ == '__main__':
 		ep = Evernote_Poster(EN_TOKEN)
 		guid = ep.post_note(title, enml, url)
 		if guid is not None:
-			print '=== Success. Posted note with GUID: ', guid
+			print('=== Success. Posted note with GUID: ', guid)
 		else:
-			print '*** ERROR: Cannot post to Evernote.'
+			print('*** ERROR: Cannot post to Evernote.')
 	else:
-		print '*** ERROR: Nothing to post.'
+		print('*** ERROR: Nothing to post.')
 	
 	
 	
 	
+
 
 
 

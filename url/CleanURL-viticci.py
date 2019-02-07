@@ -2,7 +2,7 @@
 import re
 import string
 import console
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import sys
 import clipboard
 import webbrowser
@@ -29,13 +29,14 @@ if match:
 	for x in match:
 		console.show_activity()
 		# Get the first match without redirects
-		cleaned = urllib.urlopen(x[0]).geturl()
+		cleaned = urllib.request.urlopen(x[0]).geturl()
 		# Get direct image link
 		cleaned = cleaned.replace('www.dropbox.com', 'dl.dropboxusercontent.com')
 		title = console.input_alert('Image text', 'Type the image alt text below.')
 		final = '![' + title + '](' + cleaned + ')'
 		clipboard.set(final)
-		print 'Done.'
+		print('Done.')
 elif not match:
 	console.alert('No match found')
+
 

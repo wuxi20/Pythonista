@@ -22,7 +22,7 @@ def main():
 	try:
 		img.save("pymgur_tmp.png", 'PNG')
 	except AttributeError:
-		print "There is no image on the clipboard'"
+		print("There is no image on the clipboard'")
 		sys.exit()
 	f = open("pymgur_tmp.png", "rb")
 	binary_data = f.read()
@@ -34,7 +34,7 @@ def main():
 	           'type': 'base64',
 	           'title': 'Pymgur Upload {}'.format(datetime.datetime.today().strftime("%c"))
 	           }
-	print "Uploading..."
+	print("Uploading...")
 	try:
 		r = requests.post(url, headers = headers, data = payload)
 	except requests.ConnectionError:
@@ -45,7 +45,7 @@ def main():
 	clipboard.set(link)
 	hud_alert('Link Copied!')
 	notification.schedule("Pymgur Upload Complete!", delay=0, action_url=link)
-	print "The image link ({}) has been copied to the clipboard!".format(link)
+	print("The image link ({}) has been copied to the clipboard!".format(link))
 
 if __name__ == "__main__":
 	main()

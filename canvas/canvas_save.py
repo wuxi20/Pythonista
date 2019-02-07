@@ -12,7 +12,7 @@ def save_canvas_to_png(filename):
 		data=ObjCInstance(c.UIImagePNGRepresentation(image))
 		data.writeToFile_atomically_(os.path.abspath(filename),True)
 	else:
-		print 'canvas was empty'
+		print('canvas was empty')
 if __name__=='__main__':
 	#Draw a red circle filling the entire canvas
 	import canvas
@@ -21,4 +21,5 @@ if __name__=='__main__':
 	canvas.set_fill_color(1, 0, 0)
 	canvas.fill_ellipse(0, 0, w, h)
 	save_canvas_to_png('canvas.png')
+
 

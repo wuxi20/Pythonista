@@ -23,12 +23,12 @@ input = '''[
 info = json.loads(input)
 
 #Check out the length of the list
-print 'User count:', len(info)
+print('User count:', len(info))
 
 #Loop through list. Since item is in curly braces 
 #its an object and we can use it like a dictionary. 
 
 for item in info:
-    print 'Name', item['name']
-    print 'Id', item['id']
-    print 'Attribute', item['x']
+    print('Name', item['name'])
+    print('Id', item['id'])
+    print('Attribute', item['x'])

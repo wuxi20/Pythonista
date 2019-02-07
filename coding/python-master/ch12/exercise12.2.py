@@ -26,7 +26,7 @@ while True:
     count += len(data)
     if (len(data) < 1) or count >= 3000:
         break
-    print data
+    print(data)
 
 mysock.close()
-print count
+print(count)

@@ -14,8 +14,8 @@ import ftplib
 from string import Template
 import datetime
 from io import BytesIO
-import cStringIO
-import urllib
+import io
+import urllib.request, urllib.parse, urllib.error
 from unicodedata import normalize
 import sys
 import keychain
@@ -86,7 +86,7 @@ try:
 	ftp = ftplib.FTP(host, userName, userPass)
 	console.hide_activity()
 except Exception as e:
-	print "Unable to connect to FTP"
+	print("Unable to connect to FTP")
 
 # trying to retrieve the folders used in the 'txtRemotePath' directory
 # returns a simple dictionary with folders info separated. 
@@ -116,7 +116,7 @@ def get_folders():
 		return folders
 
 	except Exception as e:
-		print "Unable to get folder listing"
+		print("Unable to get folder listing")
 
 # Generates the actual text for the article with YAML headers
 def make_file(template,values):
@@ -133,29 +133,29 @@ def slug(text, encoding=None, permitted_chars='abcdefghijklmnopqrstuvwxyz0123456
 	while '--' in clean_text:
 		clean_text = clean_text.replace('--','-')
 	ascii_text = normalize('NFKD', clean_text).encode('ascii', 'ignore')
-	strict_text = map(lambda x: x if x in permitted_chars else '', ascii_text)
+	strict_text = [x if x in permitted_chars else '' for x in ascii_text]
 	return ''.join(strict_text)
 
 # David's code to resize your clipboard image
 def customSize(img):
     w, h = img.size
-    print 'w: ' + str(w)
-    print 'h: '+ str(h)
+    print('w: ' + str(w))
+    print('h: '+ str(h))
     if w > 600:
         wsize = 600/float(w)
-        print 'wsize: '+str(wsize)
+        print('wsize: '+str(wsize))
         hsize = int(float(h)*float(wsize))
-        print 'hsize: ' + str(hsize)
+        print('hsize: ' + str(hsize))
  
         img = img.resize((600, hsize), Image.ANTIALIAS)
     return img
 
 # Nothing to see here. Just the fun stuff coming together.
 image = customSize(image)
-print image.size
+print(image.size)
 image.show()
-print title + " (" + status + ")"
-print words
+print(title + " (" + status + ")")
+print(words)
  
 imgBuffer = BytesIO()
 image.save(imgBuffer, 'png')
@@ -181,7 +181,7 @@ txtRemoteFilePath = txtRemotePath + folders[folder_slug-1][1] + "/"
 title_slug = slug(title)
 txtFileName = today.strftime("%Y-%m-%d-%H%M") +'_'+ title_slug +'.md'
 
-fileURL = urllib.quote(imgFileName)
+fileURL = urllib.parse.quote(imgFileName)
 imageLink = imgRemoteFilePath+fileURL
 imgMarkdownFilePath = imgBase + folders[folder_slug-1][2] + "/" + fileURL
 
@@ -200,7 +200,7 @@ values = {
 
 txtData = make_file(template,values)
  
-txtBuffer = cStringIO.StringIO()
+txtBuffer = io.StringIO()
 txtBuffer.write(txtData)
 txtBuffer.seek(0)
 
@@ -211,7 +211,7 @@ try:
 	ftp.storbinary('STOR '+imgFileName, imgBuffer)
 	console.hide_activity()
 except Exception as e:
-	print "Unable save image file"
+	print("Unable save image file")
 
 try:
 	console.show_activity()
@@ -219,8 +219,9 @@ try:
 	ftp.storbinary('STOR '+txtFileName, txtBuffer)
 	console.hide_activity()
 except Exception as e:
-	print "Unable save article file"
+	print("Unable save article file")
 
 ftp.quit()
 
-print "\n=================\nFinished"
+print("\n=================\nFinished")
+

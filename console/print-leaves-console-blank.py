@@ -3,9 +3,9 @@
 # https://forum.omz-software.com/topic/3091/print-leaves-console-blank
 
 import webbrowser
-import httplib
+import http.client
 import sys
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 
 class MyHTMLParser(HTMLParser):
 	t=''
@@ -18,7 +18,7 @@ class MyHTMLParser(HTMLParser):
 class textfromweb:
 	def get_weather_text(self):
 		text = ''
-		hc=httplib.HTTPConnection('prognoza.hr:80', timeout=50)
+		hc=http.client.HTTPConnection('prognoza.hr:80', timeout=50)
 		hc.connect()
 		hc.request("GET","http://prognoza.hr/prognoze_e.php?id=jadran_n")
 		r = hc.getresponse()
@@ -30,13 +30,13 @@ class textfromweb:
 		return self.text
 		
 t = textfromweb()
-print t.get_weather_text()
+print(t.get_weather_text())
 
 # -------------------
 
 # @omz
 
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 import requests
 
 class MyHTMLParser(HTMLParser):
@@ -57,5 +57,6 @@ class textfromweb:
 		return self.text
 		
 t = textfromweb()
-print t.get_weather_text()
+print(t.get_weather_text())
+
 

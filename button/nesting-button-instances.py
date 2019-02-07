@@ -18,9 +18,10 @@ class ButtonAction(Extender):
 	def __init__(self, msg = None):
 		self.msg = msg
 	def action(self, sender):
-		print self.msg
+		print(self.msg)
 		
 button = BorderedStyle(ButtonAction(ui.Button(title = 'Click me'), 'Clicked'))
 
 button.present()
+
 

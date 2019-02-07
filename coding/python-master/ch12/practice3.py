@@ -23,19 +23,19 @@ with open('TSE_sample_data.csv') as fhand:
             start_date = int(row[13])
             my_list.append(start_date)
             my_list.sort()
-            a_list = date2words.keys()
+            a_list = list(date2words.keys())
         
         #else:
             
             #print "skip"
             
-print my_list
-print date2words
+print(my_list)
+print(date2words)
 
 a_list.sort()
 
 for key in a_list:
-    print key, date2words[key]
+    print(key, date2words[key])
 
 #for key in date2words:
 #   print int(key), date2words[key]
@@ -52,3 +52,4 @@ for key in a_list:
 #        if float(time) < 1283731200:
 #            rows.append(line)
 #            print line
+

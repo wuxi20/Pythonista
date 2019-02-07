@@ -18,7 +18,7 @@ print("[7] Strip All")
 print("[8] URL Quote")
 print("[x] Exit")
 
-formatType = input("Select Conversion: ")
+formatType = eval(input("Select Conversion: "))
 if formatType == "x":
 	print("Exited")
 else:
@@ -46,5 +46,6 @@ elif formatType == "8":
 print (outString)
 print("\nThe text was copied to the clipboard")
 clipboard.set(outString)
+
 
 

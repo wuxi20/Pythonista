@@ -22,9 +22,9 @@ stuff = ET.fromstring(input)
 
 #Find everything on this path. 
 lst = stuff.findall('users/user')
-print 'User count:', len(lst)
+print('User count:', len(lst))
 
 for item in lst:
-    print 'Name', item.find('name').text
-    print 'Id', item.find('id').text
-    print 'Attribute', item.get("x")
+    print('Name', item.find('name').text)
+    print('Id', item.find('id').text)
+    print('Attribute', item.get("x"))

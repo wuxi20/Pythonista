@@ -12,14 +12,15 @@ import sys
 
 long_url = sys.argv[1]
 if long_url is not None and re.match('http(s)?://.*', long_url):
-	import urllib
-	short_url = urllib.urlopen('http://is.gd/create.php?format=simple&url=' + urllib.quote(long_url, '')).read()
+	import urllib.request, urllib.parse, urllib.error
+	short_url = urllib.request.urlopen('http://is.gd/create.php?format=simple&url=' + urllib.parse.quote(long_url, '')).read()
 	if re.match('http://is.gd.*', short_url):
 		clipboard.set(short_url)
 		import webbrowser
 		webbrowser.open('safari-' + long_url)
 	else:
-		print 'Error:', short_url
+		print('Error:', short_url)
 else:
-	print 'Invalid/missing URL argument.'
+	print('Invalid/missing URL argument.')
+
 

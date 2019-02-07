@@ -12,12 +12,12 @@ NSFileManager = ObjCClass('NSFileManager')
 
 UIDevice = ObjCClass('UIDevice')
 
-print 'Enter directory'
+print('Enter directory')
 
-path = raw_input()
+path = eval(input())
 
 files = NSFileManager.defaultManager().contentsOfDirectoryAtPath_error_(path,None)
-print files
+print(files)
 
 
 @ui.in_background
@@ -45,4 +45,6 @@ def find_ios(sender):
 v = ui.load_view()
 v.present('sheet')
 # --------------------
+
+
 

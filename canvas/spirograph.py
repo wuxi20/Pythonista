@@ -3,8 +3,8 @@
 # https://github.com/The-Penultimate-Defenestrator/Python/blob/master/Spirograph.py
 
 from math import *
-from Tkinter import *
-import tkColorChooser
+from tkinter import *
+import tkinter.colorchooser
 import time
 
 thecolor = "#000000"
@@ -100,7 +100,7 @@ def createSpiral(armOne, armTwo, color):
 		iteration += 1
 		
 		point1 = rotate((0,len1), x)
-		point2 = map(sum,zip(rotate((0, len2), y), point1))
+		point2 = list(map(sum,list(zip(rotate((0, len2), y), point1))))
 		
 		#Detection of whether pattern is repeating itself
 		if point2 not in previousPositions:
@@ -110,7 +110,7 @@ def createSpiral(armOne, armTwo, color):
 			inarow += 1
 			
 		if inarow > 5:
-			print "Pattern is detected to be repeating itself"
+			print("Pattern is detected to be repeating itself")
 			run = 0
 			
 			
@@ -133,13 +133,13 @@ def createSpiral(armOne, armTwo, color):
 			canvas.delete(line)
 		lines = []
 		time.sleep(0.005)
-	print "Done!"
+	print("Done!")
 	clearbutton.config(text="Clear Canvas")
 	
 def getColor():
 	global thecolor
-	thecolor = tkColorChooser.askcolor("black")[1]
-	print thecolor
+	thecolor = tkinter.colorchooser.askcolor("black")[1]
+	print(thecolor)
 	
 def graph():
 	len1 = scale3.get()
@@ -177,4 +177,5 @@ clearbutton.pack(side=LEFT, padx=5)
 border()
 while 1:
 	tk.update()
+
 

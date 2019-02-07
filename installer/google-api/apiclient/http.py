@@ -1011,7 +1011,7 @@ class BatchHttpRequest(object):
     if 'content-type' in headers:
       del headers['content-type']
 
-    for key, value in headers.items():
+    for key, value in list(headers.items()):
       msg[key] = value
     msg['Host'] = parsed.netloc
     msg.set_unixfrom(None)
@@ -1507,4 +1507,5 @@ def tunnel_patch(http):
 
   http.request = new_request
   return http
+
 

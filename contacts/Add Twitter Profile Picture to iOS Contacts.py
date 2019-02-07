@@ -8,7 +8,7 @@
 
 import twitter
 import json
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import contacts
 import console
 from objc_util import *
@@ -95,7 +95,7 @@ def profile_picture_for_account(username):
 			avatar_url = user_info['profile_image_url']
 			# Get the URL for the original size:
 			avatar_url = avatar_url.replace('_normal', '')
-			filename, headers = urllib.urlretrieve(avatar_url)
+			filename, headers = urllib.request.urlretrieve(avatar_url)
 			img = Image.open(filename)
 			format = img.format.lower()
 			path = os.path.expanduser('~/Documents/{}.{}'.format(username, format))

@@ -8,7 +8,8 @@
 
 # Pretty slow:
 for line in some_list:
-	print line
+	print(line)
 # Faster:
-print '\n'.join(some_list)
+print('\n'.join(some_list))
+
 

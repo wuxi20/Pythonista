@@ -41,9 +41,10 @@ def fill_triangles(x, y, size, theme):
 	canvas.add_line(x, y)
 	canvas.fill_path()
 	
-for gx in xrange(int(width / square_size) + 1):
-	for gy in xrange(int(height / square_size) + 1):
+for gx in range(int(width / square_size) + 1):
+	for gy in range(int(height / square_size) + 1):
 		#func = random.choice((fill_square, fill_triangles, fill_triangles, fill_triangles))
 		fill_triangles(gx * square_size, gy * square_size, square_size, palette)
 
 canvas.end_updates()
+

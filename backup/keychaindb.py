@@ -44,4 +44,4 @@ class KeychainDB (DictMixin):
     return [s[1] for s in keychain.get_services() if s[0] == DB_NAME]
 
   def values(self):
-    return [keychain.get_password(DB_NAME, k) for k in self.keys()]
+    return [keychain.get_password(DB_NAME, k) for k in list(self.keys())]

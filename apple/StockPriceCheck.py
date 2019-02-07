@@ -21,7 +21,7 @@ def quote_grab(symbol):
 	# Another option: namestr = re.compile('.*name:\"' + symbol + '\",cp:(.*),p:(.*?),cid(.*)}.*')
 	namestr = re.compile('.*name:\"' + symbol + '\",cp:(.*),p:(.*?),cid(.*)') # "?" used as there is a second string "cid" in the page and the Match was being done up to that one. The "?" keeps it to the 1st occurrence.
 	
-	print('Checking quotes for ' + symbol)
+	print(('Checking quotes for ' + symbol))
 	
 	for line in urlData:
 	
@@ -95,5 +95,6 @@ if chg:
 	pushover(body)
 	
 csvFile.close()
+
 
 

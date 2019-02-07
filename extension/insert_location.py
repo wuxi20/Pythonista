@@ -9,7 +9,7 @@
 import location
 import re
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
  
 a = re.sub(r"(.*\S)$", "\\1 ", sys.argv[1])
@@ -31,4 +31,4 @@ else:
  
 c = a + b
  
-webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.quote(c))
+webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.parse.quote(c))

@@ -198,7 +198,7 @@ FILE_TYPES = {
                     readme rst rtf txt version xls xlsx xlt xltx yml""",
     "video":     "avi m4v mov mp4"
               }
-FILE_TYPES = {k:tuple(v.split()) for k,v in FILE_TYPES.items()}
+FILE_TYPES = {k:tuple(v.split()) for k,v in list(FILE_TYPES.items())}
 
 # dict of descriptions and icons for all file type groups
 FILE_DESCS_ICONS = {
@@ -217,13 +217,13 @@ FILE_DESCS_ICONS = {
     "video":     ("Video File",      "ionicons-ios7-film-outline-32"),
                    }
 FILE_DESCS_ICONS = {k:(d,ui.Image.named(i)) for k,(d,i)
-                        in FILE_DESCS_ICONS.items()}
+                        in list(FILE_DESCS_ICONS.items())}
 
 fileinfo = collections.namedtuple('fileinfo',
             'file_ext recognized_ext filetype filedesc icon')
 
 def get_filetype(file_ext):
-    for filetype, exts in FILE_TYPES.items():
+    for filetype, exts in list(FILE_TYPES.items()):
         if file_ext in exts:
             return filetype
     return None
@@ -753,4 +753,5 @@ def run(path="~", mode="popover"):
 
 if __name__ == "__main__":
     run(sys.argv[1] if len(sys.argv) > 1 else "~")
+
 

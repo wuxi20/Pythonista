@@ -9,7 +9,7 @@ import socket
 #import os
 
 #Prompt use for a web address
-users_url = raw_input('Enter a url - ')
+users_url = input('Enter a url - ')
 
 try:
     #Split with an optional arguement called a delimiter that
@@ -22,7 +22,7 @@ try:
     
 #If an exception occurs Python will execute the following sequence of statements.    
 except:
-    print "Please enter a properly formatted & existing URL."
+    print("Please enter a properly formatted & existing URL.")
 
 count = 0
 while True:
@@ -30,11 +30,12 @@ while True:
     count += len(data)
     if (len(data) < 1) or count >= 3000:
         break
-    print data
+    print(data)
 
 mysock.close()
-print count
+print(count)
     
+
 
 
 

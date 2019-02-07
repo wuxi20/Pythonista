@@ -15,5 +15,6 @@ v.present('sheet')
 
 # As a function:
 def button_tapped(sender):
-	print 'button tapped'
+	print('button tapped')
+
 

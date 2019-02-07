@@ -9,7 +9,7 @@ lst = list() #create an empty list
 
 while True:
 
-	userinp = raw_input("Enter number:")
+	userinp = input("Enter number:")
 	if userinp == 'done': break
 	
 	try:
@@ -22,9 +22,10 @@ while True:
 				#largest = num
 				
 	except:
-		print "Invalid input"
+		print("Invalid input")
 		continue
 		
-print "Maximum is", max(lst)
-print "Minimum is", min(lst)
+print("Maximum is", max(lst))
+print("Minimum is", min(lst))
+
 

@@ -46,7 +46,7 @@ def main():
     print_menu(instruments)
     try:
         fmt = 'Enter a number between 0 and {}: '
-        i = int(input(fmt.format(len(instruments)-1)) or 4)
+        i = int(eval(input(fmt.format(len(instruments)-1))) or 4)
     except ValueError:
         i = 4
     try:
@@ -69,4 +69,5 @@ if __name__ == '__main__':
 #    url = fmt.format(base_url.replace('/tree/', '/blob/'), filepath)
 #    with open(filepath, 'wb') as out_file:
 #        out_file.write(requests.get(url).content)
+
 

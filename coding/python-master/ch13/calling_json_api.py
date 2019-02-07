@@ -7,13 +7,13 @@
 
 #Please run your program to find the place_id for Univeristy of Stellenbosch. Make sure to enter the name and case exactly
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import json
 
 serviceurl = 'http://python-data.dr-chuck.net/geojson?'
 
 #Prompt for a location
-address = raw_input('Enter location: ')
+address = input('Enter location: ')
 
 #Friendly note: A web API is an interface with URLs as the controls. 
 #In that respect, the entire web is a sort of API. 
@@ -29,18 +29,18 @@ address = raw_input('Enter location: ')
 
 #Parameters are information you can supply as part of the URL in order to define what you want.
 
-url = serviceurl + urllib.urlencode({'sensor':'false', 'address': address})
+url = serviceurl + urllib.parse.urlencode({'sensor':'false', 'address': address})
 
-print 'Retrieving', url
+print('Retrieving', url)
 
-uh = urllib.urlopen(url)
+uh = urllib.request.urlopen(url)
 
 data = uh.read()
 
-print 'Retrieved',len(data),'characters'
+print('Retrieved',len(data),'characters')
 
 js = json.loads(data)
 
 place_id = js['results'][0]['place_id']
 
-print place_id
+print(place_id)

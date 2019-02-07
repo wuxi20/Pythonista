@@ -125,6 +125,7 @@ images = []
 for x in range(0,360,5):
     images.append(c.make_frame(x))
     console.clear()
-    print str((x/360.0)*100.0)[:5]+'%'
+    print(str((x/360.0)*100.0)[:5]+'%')
 
 writeGif('cube.gif', images, 0.01)
+

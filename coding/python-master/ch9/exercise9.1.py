@@ -11,4 +11,5 @@ for line in fhand:
     for word in words:
         my_dictionary[word] = 1
 
-print my_dictionary.keys()
+print(list(my_dictionary.keys()))
+

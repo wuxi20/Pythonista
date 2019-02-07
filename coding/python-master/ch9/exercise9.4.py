@@ -9,11 +9,11 @@ email_senders = dict()
 
 for line in fhand:
     if line.startswith('From '):
-        print line.split()[1]
+        print(line.split()[1])
         emails = line.split()[1]
         email_senders[emails] = email_senders.get(emails,0) + 1
         
-print email_senders
+print(email_senders)
 
 #largest_value = None
 #largest_key = None
@@ -24,4 +24,5 @@ print email_senders
 #        largest_key = key
 
 #print largest_key, largest_value
+
 

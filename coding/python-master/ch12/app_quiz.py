@@ -31,9 +31,9 @@ with open('TSE_sample_data.csv') as my_csv_file:
             date_and_word[start_date] = words_column_word         
                                                         
     #Make a list of the keys then sort it.                                                     
-    a_list = date_and_word.keys()                       
+    a_list = list(date_and_word.keys())                       
     a_list.sort()                                       
         
 #Loop through the sorted list of keys and print out corresponding values. 
 for key in a_list:                                      
-    print key, date_and_word[key]                       
+    print(key, date_and_word[key])                       

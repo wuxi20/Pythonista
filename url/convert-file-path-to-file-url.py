@@ -6,9 +6,10 @@
 
 # You can load local files in a web view using a file:// URL. Here's a snippet for converting from a file path to a file URL
 
-import urlparse, urllib
+import urllib.parse, urllib.request, urllib.parse, urllib.error
 
 def path2url(path):
-	return urlparse.urljoin(
-	'file:', urllib.pathname2url(path))
+	return urllib.parse.urljoin(
+	'file:', urllib.request.pathname2url(path))
+
 

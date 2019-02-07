@@ -9,7 +9,7 @@ import json
 import urllib.request, urllib.parse, urllib.error
 
 #prompt for a URL
-users_url = input("Please enter a url: ")
+users_url = eval(input("Please enter a url: "))
 
 #Open our updated url
 uh = urllib.request.urlopen(users_url)
@@ -32,7 +32,8 @@ for item in info['comments']:
     #print item['count']
     num = num + int(item['count'])
 
-print("The sum of the numbers in the file is:", num)
+print(("The sum of the numbers in the file is:", num))
 
  
+
 

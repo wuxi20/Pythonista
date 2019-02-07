@@ -65,11 +65,12 @@ def hexacircle(start_x, start_y):
 	rstrokedline(start_x - (3.0 * step), start_y + (0.5 * circle_size), start_x + (3.0 * step), start_y - (0.5 * circle_size))
 	rstrokedline(start_x - (3.0 * step), start_y - (0.5 * circle_size), start_x + (3.0 * step), start_y + (0.5 * circle_size))
 
-for x in xrange(int(math.ceil(width/circle_size))+1):
-	for y in xrange(int(math.ceil(height/circle_size))+1):
+for x in range(int(math.ceil(width/circle_size))+1):
+	for y in range(int(math.ceil(height/circle_size))+1):
 		center_x = x * (2.0 * step)
 		center_y = y * circle_size
 		hexacircle(center_x, center_y)
 		hexacircle(center_x + step, center_y + (0.5 * circle_size))
 
 canvas.end_updates()
+

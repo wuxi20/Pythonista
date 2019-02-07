@@ -1,4 +1,4 @@
-from __future__ import division
+
 from scene import *
 from math import sqrt, pi
 import sound
@@ -20,8 +20,8 @@ class Calculator (Scene):
 	
 	def create_buttons(self):
 		width, height = self.size
-		for y in xrange(len(button_pad)):
-			for x in xrange(len(button_pad[y])):
+		for y in range(len(button_pad)):
+			for x in range(len(button_pad[y])):
 				w = (width)/len(button_pad[y])
 				h = (height-height/5)/len(button_pad)
 				r = Rect(x * w, (height-height/5-h)-(y*h), w, h)
@@ -85,3 +85,4 @@ class Calculator (Scene):
 			button.touched = False 
 
 run(Calculator())
+

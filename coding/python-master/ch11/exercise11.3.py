@@ -12,8 +12,8 @@ for line in hand:
     x = re.findall('([0-9]+)', line)
     if len(x) > 0:
         for i in x:
-            print i
+            print(i)
             num = float(i)
             numlist.append(num)
 
-print sum(numlist)
+print(sum(numlist))

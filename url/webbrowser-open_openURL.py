@@ -18,7 +18,7 @@ def main():
 			webbrowser.open('editorial://x-callback-url/open/path-to-file.txt?root=dropbox&command=PasteLink&x-success=pythonista3://')
 			
 		else:
-			print 'No input URL found.'
+			print('No input URL found.')
 			
 if __name__ == '__main__':
 	main()
@@ -29,4 +29,5 @@ app = UIApplication.sharedApplication()
 app.openURL_(nsurl('editorial://...'))
 
 # --------------------
+
 

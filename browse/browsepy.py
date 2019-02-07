@@ -11,6 +11,7 @@ import shutil
 import console
 import warnings
 import bz2, base64
+import imp
 
 appsfn  = "apps.json"
 appsdir = "apps"
@@ -29,18 +30,18 @@ if not os.path.exists(appsdir):
 
 import apps
 def reload_all(mod, name):
-    reload(mod)
+    imp.reload(mod)
     for mod in sys.modules:
         if mod.startswith("{}.".format(name)):
             rmod = sys.modules[mod]
             if rmod:
-                reload(rmod)
+                imp.reload(rmod)
 
 reload_all(apps, "apps")
 
 apps = {}
-_apps = __import__("apps", fromlist=[str(i) for i in appnames.keys()])
-for name, exts in appnames.items():
+_apps = __import__("apps", fromlist=[str(i) for i in list(appnames.keys())])
+for name, exts in list(appnames.items()):
     app = getattr(_apps, name, None)
     if not app:
         warnings.warn("App {} not found".format(name))
@@ -72,7 +73,7 @@ class Delegate(object):
         else:
             if os.path.isfile(abspath):
                 _, ext = os.path.splitext(abspath)
-                for App, exts in apps.items():
+                for App, exts in list(apps.items()):
                     if ext in exts:
                         return App(view, abspath)
     

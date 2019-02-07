@@ -134,15 +134,15 @@ def converter():
 	
 	print('\nWelcome to the binary converter. This converts your text(without punctuation) into binary code and the binary output back to text.\n')
 	
-	confirm = input('Would you like to:\n1.Convert text to binary (Enter -> 1 or \'text\')\tor\n2.Convert binary to text (Enter -> 2 or \'binary\')\n> ')
+	confirm = eval(input('Would you like to:\n1.Convert text to binary (Enter -> 1 or \'text\')\tor\n2.Convert binary to text (Enter -> 2 or \'binary\')\n> '))
 	
 	if confirm == '1' or confirm == 'text':
-		message = input('Enter the text message you would like to convert to binary?\n>')
+		message = eval(input('Enter the text message you would like to convert to binary?\n>'))
 		converted_text = text_to_binary(message)
 		print(converted_text)
 		
 	elif confirm == '2' or confirm == 'binary':
-		message = input('enter the binary message you would like to convert to text\n>')
+		message = eval(input('enter the binary message you would like to convert to text\n>'))
 		converted_bin = binary_to_text(message)
 		print(converted_bin)
 		
@@ -153,4 +153,5 @@ def converter():
 		
 #converter run
 converter()
+
 

@@ -50,8 +50,8 @@ def createSpiral(arm1, arm2, color):
 		iteration += 10
 		
 		point1 = rotate((0,len1), x)
-		point2 = map(sum,zip(rotate((0, len2), y), point1))
-		p2 = map(sum, zip(point2, (512, 384)))
+		point2 = list(map(sum,list(zip(rotate((0, len2), y), point1))))
+		p2 = list(map(sum, list(zip(point2, (512, 384)))))
 		#Detection of whether pattern is repeating itself
 		if point2 not in previousPositions:
 			previousPositions.append(point2)
@@ -60,7 +60,7 @@ def createSpiral(arm1, arm2, color):
 			inarow += 1
 
 		if inarow >= 5:
-			print "Pattern is detected to be repeating itself"
+			print("Pattern is detected to be repeating itself")
 			run = 0
 
 

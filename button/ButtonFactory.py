@@ -7,7 +7,7 @@ import ui
 from extend import Extender
 
 def MyMother(sender):
-	print 'I love my Mums cooking'
+	print('I love my Mums cooking')
 	
 class DefaultStyle(Extender):
 	border_width = .5
@@ -22,7 +22,7 @@ class ButtonFactory(Extender):
 		(self.x, self.y) = position
 		self.width += 10
 		self.action = MyMother
-		for key, value in kwargs.iteritems():
+		for key, value in kwargs.items():
 			setattr(self, key, value)
 			
 			
@@ -34,4 +34,5 @@ button = ButtonFactory(
     parent = view, tint_color = 'yellow')
 
 view.present('sheet')
+
 

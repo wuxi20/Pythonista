@@ -6,7 +6,7 @@
 
 # Initially based on http://blog.ouseful.info/2010/10/26/more-python-floundering-stripping-google-analytics-tracking-codes-out-of-urls/
  
-import cgi, urllib, urlparse, webbrowser, sys, console, clipboard, requests, extraction
+import cgi, urllib.request, urllib.parse, urllib.error, urllib.parse, webbrowser, sys, console, clipboard, requests, extraction
 
 def choose_action(url):
 	choice = console.alert('URL Cruft', '', 'Safari', 'Instapaper', 'More')
@@ -35,7 +35,7 @@ if argLen > 1:
 else:
   url = clipboard.get()
 
-p = urlparse.urlparse(url)
+p = urllib.parse.urlparse(url)
 subdomain = p.hostname.split('.')[0]
 if subdomain == 'm' or subdomain == 'mobile' or subdomain == 'on':
   html = requests.get(url).text
@@ -74,6 +74,7 @@ else:
     if i not in stopkeys:
   		qt[i]=q[i][0]
   
-  ptwo = urllib.urlencode(qt)
+  ptwo = urllib.parse.urlencode(qt)
   ptwo = (p[0],p[1],p[2],p[3],ptwo,p[5])
-  choose_action(urlparse.urlunparse(ptwo))
+  choose_action(urllib.parse.urlunparse(ptwo))
+

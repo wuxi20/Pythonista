@@ -7,8 +7,8 @@
 import clipboard
 import re
 import sys
-import urllib
-import urllib2
+import urllib.request, urllib.parse, urllib.error
+import urllib.request, urllib.error, urllib.parse
 import webbrowser
 
 # Retrieve the input text from the clipboard:
@@ -22,7 +22,7 @@ cb_text = clipboard.get()
 
 # Special thanks to John Gruber for the succinct, precise method
 # for grabbing URLs out of a string.
-GRUBER_URLINTEXT_PAT = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
+GRUBER_URLINTEXT_PAT = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))')
 url = [ mgroups[0] for mgroups in GRUBER_URLINTEXT_PAT.findall(cb_text) ][0]
 
 # Here, we deduce whether we need to get the URL title from the
@@ -32,16 +32,16 @@ if cb_text == url:
     try:
         # Collect the URL's title via its
         # page contents:
-        req = urllib2.Request(url)
+        req = urllib.request.Request(url)
 
         # Some websites don't like bots grabbing their content;
         # get around this by using a fake user agent:
         req.add_header('User-Agent', 'Magic Browser')
 
-        page = urllib2.urlopen(req)
+        page = urllib.request.urlopen(req)
         content = page.read()
         title = re.search('<title>(.*)</title>', content).group(1)
-    except urllib2.HTTPError, e:
+    except urllib.error.HTTPError as e:
         # Something went wrong with the request, so just use
         # the URL itself as the title:
         title = url
@@ -50,8 +50,8 @@ else:
     title = cb_text.replace(url, '').strip()
 
 # URL-encode the page's title and URL:
-task_title = urllib.quote(sys.argv[1]) + ':%20' + urllib.quote(title)
-task_note = urllib.quote(url)
+task_title = urllib.parse.quote(sys.argv[1]) + ':%20' + urllib.parse.quote(title)
+task_note = urllib.parse.quote(url)
 
 if sys.argv[2] == 'Mail Drop':
     # If the user selects "Mail Drop",
@@ -70,4 +70,4 @@ elif sys.argv[2] == 'OmniFocus iOS':
     # using its URL scheme.
     webbrowser.open('omnifocus:///add?name=' + task_title + '&note=' + task_note)
 else:
-    print('Unknown task entry method: ' + sys.argv[2])
+    print(('Unknown task entry method: ' + sys.argv[2]))

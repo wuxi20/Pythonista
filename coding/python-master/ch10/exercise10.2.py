@@ -21,11 +21,12 @@ for line in fhand:
 #print my_dictionary #this is my key value dictionary
 
 lst = list()
-for key, val in my_dictionary.items():
+for key, val in list(my_dictionary.items()):
     lst.append((key, val))
 
 lst.sort()
 
 for key, val in lst: 
-    print key, val
+    print(key, val)
+
 

@@ -18,20 +18,21 @@ words = sentence.split()
 def get_verbs(s):
     for verb in verbs:
         if verb in s:
-            print verb + ' is a verb!'
+            print(verb + ' is a verb!')
 
 # This function gets the nouns of the sentence
 def get_nouns(s):
     for noun in nouns:
         if noun in s:
-            print noun + ' is a noun!'
+            print(noun + ' is a noun!')
 
 
 # Now to use the functions above:
 get_verbs(sentence)
 
-print # just adding a tab to the output
+print() # just adding a tab to the output
 
 get_nouns(sentence)
 
 # Try making a function that get's other parts of speech like adjectives out of a sentence.
+

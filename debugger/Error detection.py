@@ -38,11 +38,11 @@ class ThingWithErrors (object):
 						# Now only one error is applied per step.
 						# How can I apply more than one at a time,
 						# going through all combinations of errors?
-						print left, right
+						print(left, right)
 						le, re = compose(left_error)(left[0]), compose(right_error)(right[0])
-						print le, re
+						print(le, re)
 						result = func(le[0], re[0])
-						print result
+						print(result)
 						wrong = left[1] + right[1] + le[1] + re[1]
 						wrongs[result] = wrongs.get(result, []) + wrong
 						result = func(left[0], re[0])
@@ -66,7 +66,7 @@ class NumberWithErrors (ThingWithErrors, numbers.Number):
 	wrapped_thing = float
 	
 	def __add__(self, other):
-		print other, self
+		print(other, self)
 		return self.__propagate__(other, lambda x,y: x+y)
 		
 	def __radd__(self, other):
@@ -92,7 +92,7 @@ class SymbolWithErrors (NumberWithErrors):
 		self.wrongs = wrongs
 		
 def sign_error(x):
-	print x
+	print(x)
 	ans = -x
 	return ans, ['You may have switched the sign of ${}$ (sign-error).'.format(x)]
 	
@@ -102,12 +102,13 @@ def forgotten_error(x):
 errors = [sign_error, forgotten_error]
 
 a, b = SymbolWithErrors('x', errors), SymbolWithErrors(3, errors)
-print 'a, b =', a, b
+print('a, b =', a, b)
 
 c = a + b
-print 'c =', c
-print 'c.wrongs =', c.wrongs
+print('c =', c)
+print('c.wrongs =', c.wrongs)
 
 d = c + b
-print 'd =', d
+print('d =', d)
+
 

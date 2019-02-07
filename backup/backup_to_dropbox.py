@@ -20,8 +20,9 @@ dropbox_client = get_client()
 
 for file in os.listdir('.'):
 	if file.endswith(".py"):
-		print file
+		print(file)
 		f=open(file,'r')
 		dropbox_client.put_file('My_Backups/Pythonista/'+file,f,overwrite=True)
 		f.close()
 		
+

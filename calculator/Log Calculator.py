@@ -57,7 +57,7 @@ def button_tapped(sender):
 					labelmain.text = result
 				except Exception as error:
 					labelmain.text = str(error)
-					print error
+					print(error)
 			shows_result = True
 		elif t != '=':
 			shows_result = False
@@ -92,7 +92,7 @@ def button_tapped(sender):
 					labelmain.text = result
 				except Exception as error:
 					labelmain.text = str(error)
-					print error
+					print(error)
 			shows_result = True
 		elif t != '=':
 			shows_result = False

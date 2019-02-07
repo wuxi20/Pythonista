@@ -27,7 +27,8 @@ def PythonistaVersion2():
 		
 		
 		
-print timeit.Timer('PythonistaVersion',setup="from __main__ import PythonistaVersion").timeit()
+print(timeit.Timer('PythonistaVersion',setup="from __main__ import PythonistaVersion").timeit())
 
-print timeit.Timer('PythonistaVersion2',setup="from __main__ import PythonistaVersion2").timeit()
+print(timeit.Timer('PythonistaVersion2',setup="from __main__ import PythonistaVersion2").timeit())
+
 

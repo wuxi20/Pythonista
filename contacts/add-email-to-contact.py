@@ -2,10 +2,11 @@
 
 import contacts
 people = contacts.get_all_people()
-print people[0].full_name
+print(people[0].full_name)
 
 emails = people[0].email
-emails.append((u'$!<Other>!$', u'test@test.com'))
+emails.append(('$!<Other>!$', 'test@test.com'))
 people[0].email = emails
 
 contacts.save()
+

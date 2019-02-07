@@ -88,7 +88,7 @@ begin_updates()
 set_fill_color(*theme.darkest)
 fill_rect(0.0, 0.0, width, height)
 number_of_circles = 25
-for x in xrange(number_of_circles):
+for x in range(number_of_circles):
 	step = size / (number_of_circles * 1.0)
 	step += random.random() * step
 	draw_circle(grid_x, grid_y, size)
@@ -96,4 +96,5 @@ for x in xrange(number_of_circles):
 	grid_y += step * 0.80
 	size -= step * 2
 end_updates()
+
 

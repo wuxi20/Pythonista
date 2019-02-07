@@ -31,7 +31,7 @@ def main():
     fetch_keys = ['imageDataAvailable', 'imageData']
     people = store.unifiedContactsMatchingPredicate_keysToFetch_error_(pred, fetch_keys, None)
     if not people:
-        print 'No person found with the name "%s"' % (CONTACT_NAME,)
+        print('No person found with the name "%s"' % (CONTACT_NAME,))
         return
     p = people[0]
     has_image = p.imageDataAvailable()
@@ -57,3 +57,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

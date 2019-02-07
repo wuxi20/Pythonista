@@ -107,7 +107,7 @@ class ModelCalender(object):
 		return calendar.monthrange(dt.year, dt.month)[1]
 	
 	def help(self):
-		print(help(self))
+		print((help(self)))
 
 def get_dates_for_month(year, month):
 	# returns a list of dates for a month. provides previous and
@@ -365,7 +365,7 @@ class CalenderDays(ui.View):
 				
 			today = datetime.today()
 			if (d.year, d.month, d.day ) == (today.year, today.month, today.day):
-				print('todays date', d)
+				print(('todays date', d))
 				
 			self.curr_date = datetime(year, month, 1)
 			self.set_needs_display()
@@ -432,7 +432,7 @@ class IJCalendar(ui.View):
 		self.tool_bar = None
 		
 		self.make_view()
-		print(self.curr_date)
+		print((self.curr_date))
 		self.goto_date(self.curr_date)
 	
 		
@@ -483,7 +483,7 @@ class IJCalendar(ui.View):
 		# not very efficent, but you dont expect that many kwargs
 		for btn in self.day_btn_list:
 			lb = btn.day_lb
-			for k, v in kwargs.items():
+			for k, v in list(kwargs.items()):
 				if hasattr(lb, k):
 					setattr(lb, k, v)
 		
@@ -538,7 +538,7 @@ class IJCalendar(ui.View):
 		self.goto_date(datetime.today())
 		
 	def date_selected(self, sender , **kwargs):
-		print(kwargs.get('date', None))
+		print((kwargs.get('date', None)))
 
 	def cancel_finished(self, sender = None):
 		self.cal_view.selected_date = None
@@ -611,3 +611,4 @@ if __name__ == '__main__':
 	'Solarized Dark', 'Cool Glow', 'Gold', 'Tomorrow Night', 'Oceanic',
 	'Editorial']
 	
+

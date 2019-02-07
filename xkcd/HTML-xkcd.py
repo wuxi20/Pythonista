@@ -11,8 +11,8 @@
 
 import appex
 
-from urllib2 import urlopen
-import os, console, requests, urlparse
+from urllib.request import urlopen
+import os, console, requests, urllib.parse
 
 def write_text(name, text, writ='w'):
 	with open(name, writ) as o:
@@ -20,7 +20,7 @@ def write_text(name, text, writ='w'):
 		
 def img_page(file_list, link_list=None):
 	if link_list is None: link_list = file_list
-	links = zip(file_list, link_list)
+	links = list(zip(file_list, link_list))
 	x = '<br><br>\n'.join(['<img src="{0}" alt="{1}" >'.format(a,b) for a,b in links])
 	y = """
 	<html>
@@ -41,7 +41,7 @@ def view_doc(text):
 def open_file(file_path):
 	import ui
 	file_path = os.path.abspath(file_path)
-	file_path = urlparse.urljoin('file://', os.path.abspath(file_path))
+	file_path = urllib.parse.urljoin('file://', os.path.abspath(file_path))
 	#v = ui.View()
 	#file_path = 'http://xkcd.com'
 	wv = ui.WebView()
@@ -65,7 +65,7 @@ def get_Pic_Links_Content(content,url=None):
 	p = s.findAll('img')
 	pics = []
 	for x in p:
-		y = urlparse.urljoin(url, x['src'])
+		y = urllib.parse.urljoin(url, x['src'])
 		if y not in pics:
 			pics.append(y)
 	return pics
@@ -84,19 +84,20 @@ def pick(url):
 	elif choice == 2:
 		view_doc(img_page(pics))
 	else:
-		print '\n'.join(pics)
+		print('\n'.join(pics))
 		
 def main():
 	if not appex.is_running_extension():
-		print '\nRunning using test data...'
+		print('\nRunning using test data...')
 		url = 'http://xkcd.com'
 	else:
 		url = appex.get_url()
 	if url:
 		pick(url)
 	else:
-		print 'No input URL found.'
+		print('No input URL found.')
 		
 if __name__ == '__main__':
 	main()
+
 

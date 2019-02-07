@@ -15,7 +15,7 @@ for line in fhand:
         host = line[at_position+1 :space_position]
         senders_domain_name[host] = senders_domain_name.get(host,0) + 1
 
-print senders_domain_name
+print(senders_domain_name)
 
 {'media.berkeley.edu': 4, 'uct.ac.za': 6, 'umich.edu': 7,
 'gmail.com': 1, 'caret.cam.ac.uk': 1, 'iupui.edu': 8}

@@ -3,6 +3,7 @@ import ui
 import os
 import json
 import console
+import imp
 
 def save(fn, data):
     with open(fn, "w") as fp:
@@ -12,7 +13,7 @@ def load(fn):
     with open(fn, "r") as fp:
         data = json.load(fp)
     final = {}
-    for appname, exts in data.items():
+    for appname, exts in list(data.items()):
         final[appname] = [i for i in exts]
 
     return final
@@ -30,12 +31,12 @@ if not os.path.exists(appsdir):
 
 import apps
 def reload_all(mod, name):
-    reload(mod)
+    imp.reload(mod)
     for mod in sys.modules:
         if mod.startswith("{}.".format(name)):
             rmod = sys.modules[mod]
             if rmod:
-                reload(rmod)
+                imp.reload(rmod)
 
 reload_all(apps, "apps")
 
@@ -87,7 +88,7 @@ def makeExtTable(appname, exts, y):
     return table
 
 def makeTable():
-    lst = ListDataSource(apps.keys())
+    lst = ListDataSource(list(apps.keys()))
     delegate = Delegate()
 
     table = ui.TableView()
@@ -208,3 +209,4 @@ view.add_subview(dbutton)
 view.add_subview(sbutton)
 view.add_subview(table)
 view.present("sheet")
+

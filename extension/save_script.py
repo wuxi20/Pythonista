@@ -40,7 +40,7 @@ def main():
 	print('Wait a Moment Please!')
 	filename = save(filename, text, ext)
 	console.set_font('Futura', 16)
-	print('Done!\nFile Saved as:\n' + filename)
+	print(('Done!\nFile Saved as:\n' + filename))
 	
 if __name__ == '__main__':
 	main()

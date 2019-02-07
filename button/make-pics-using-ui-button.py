@@ -13,7 +13,7 @@ def btn_image(text, w = 256, *args, **kwargs):
 	btn.tint_color = 'white'
 	btn.font = ('Arial Rounded MT Bold', w * .4)
 	btn.corner_radius = btn.width / 2
-	for k, v in kwargs.items():
+	for k, v in list(kwargs.items()):
 		if hasattr(btn, k):
 			setattr(btn, k, v)
 			
@@ -62,4 +62,5 @@ if __name__ == '__main__':
 		mc.present('sheet', animated=False)
 	else:
 		editor.present_themed(mc, theme_name='Oceanic', style='sheet', animated=False)
+
 

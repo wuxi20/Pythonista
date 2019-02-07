@@ -50,13 +50,13 @@ def main():
 	except:
 		os.mkdir(zip_dir_full)
 	if not os.path.isdir(zip_dir_full):
-		print "could not create zip dest dir {zdf}".format(zdf=zip_dir_full)
+		print("could not create zip dest dir {zdf}".format(zdf=zip_dir_full))
 		sys.exit()
 		
 	make_zipfile(zip_file,source_dir,excludelist)
 	print
-	print "{fs} bytes written".format(fs=os.path.getsize(zip_file))
-	print "Done."
+	print("{fs} bytes written".format(fs=os.path.getsize(zip_file)))
+	print("Done.")
 	
 	if open_in_quicklook:
 		console.quicklook(zip_file)
@@ -78,7 +78,7 @@ def make_zipfile(output_filename, source_dir, excludelist):
 					break
 			if nextiter==True:
 				continue
-			print "Adding {pe}".format(pe=path_element)
+			print("Adding {pe}".format(pe=path_element))
 			zip.write(root, os.path.relpath(root, relroot))
 			for file in files:
 				filename = os.path.join(root, file)

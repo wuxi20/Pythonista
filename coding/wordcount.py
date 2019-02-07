@@ -5,6 +5,7 @@
 import nltk
 import string
 from collections import Counter
+from functools import reduce
 
 # get rid of punctuation, numbers; make all lowercase.  no stemming.
 
@@ -12,7 +13,7 @@ counterslist = []
 for onedocument in thedocslist:
 	cleanstring = onedocument[1].translate(string.maketrans("",""), string.punctuation)
 	cleanstring = cleanstring.translate(string.maketrans("",""), string.digits)
-	cleanstring = filter(lambda x: x in string.printable, cleanstring)
+	cleanstring = [x for x in cleanstring if x in string.printable]
 	wordlist = [i.lower() for i in cleanstring.split()]
 	ctupe = (onedocument[0], Counter(wordlist))
 	counterslist.append(ctupe)
@@ -36,4 +37,5 @@ totalstring = bigstring + '\n\n' + mainstring
 
 with open("wordlist.txt", 'w') as wordfile:
 	wordfile.write(totalstring)
+
 

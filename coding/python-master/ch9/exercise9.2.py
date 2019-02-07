@@ -19,6 +19,6 @@ for line in fhand:
         #else:
         #    weekday[running_count] += 1
 
-print weekday
+print(weekday)
         
         

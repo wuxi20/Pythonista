@@ -16,7 +16,7 @@ UIBarButtonItem = ObjCClass('UIBarButtonItem')
 UIBarButtonItemGroup = ObjCClass('UIBarButtonItemGroup')
 
 def btnAction(_self, _cmd):
-	print 'hello world'
+	print('hello world')
 	
 ActionTarget = create_objc_class('ActionTarget', methods=[btnAction])
 target = ActionTarget.new().autorelease()
@@ -31,4 +31,5 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
 

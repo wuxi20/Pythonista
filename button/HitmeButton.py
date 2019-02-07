@@ -14,7 +14,7 @@ def btn_action(sender):
 	lb = sender.connected_label # dynamically created attribute
 	int_val = int(lb.text)
 	the_value = int_val
-	print the_value
+	print(the_value)
 	lb.text = str(the_value + sender.increment_value)
 	
 	
@@ -38,4 +38,5 @@ btn.increment_value = 10
 v.add_subview(btn)
 v.add_subview(lb)
 v.present('sheet')
+
 

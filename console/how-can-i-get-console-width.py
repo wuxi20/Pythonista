@@ -17,11 +17,11 @@ fnt_size = 12
 fnt = (fnt_name, fnt_size)
 w = ui.get_screen_size()[0]
 char_width = ui.measure_string('M', font = fnt)[0]
-print char_width
+print(char_width)
 num_chars = math.floor((w / char_width))
-print num_chars
+print( num_chars)
 console.set_font(fnt_name, fnt_size)
-print 'M' * int(num_chars)
+print( 'M' * int(num_chars))
 
 #==============================
 
@@ -45,7 +45,7 @@ def filter_subviews(view,text=None, objcclasstext=None):
 	return matching_svs
 	
 # don't find editor window, so concatenate string
-print 'find'+'me'
+print( 'find'+'me')
 # in this case, only one entry will be returned.  otherwise, may need to look at list to figure out which view is the one you are seeking.
 console_view=filter_subviews(main_view,'find'+'me')[0]
 

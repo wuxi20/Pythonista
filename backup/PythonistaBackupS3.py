@@ -1,7 +1,7 @@
 # coding: utf-8
 '''Creates a zip archive of your Pythonista files and uploads it to S3.'''
 
-from __future__ import print_function
+
 
 import boto
 from boto.s3.key import Key
@@ -73,3 +73,4 @@ def perform_backup(quiet=True):
 
 if __name__ == '__main__':
 	perform_backup(quiet=False)
+

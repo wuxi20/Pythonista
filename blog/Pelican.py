@@ -2,14 +2,14 @@ import console
 import sys
 import webbrowser
 import datetime
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 console.clear()
 
 #The Drafts action passes two variables to Pythonista - [[title]] 
 #Use sys.argv[x] to call these variables. Remember, the script *name* takes sys.argv[0].
 
-print "Formatting the article.\n"
+print("Formatting the article.\n")
 	
 articleTitle = sys.argv[1]
 articleBody = sys.argv[2]
@@ -18,14 +18,14 @@ articleBody = sys.argv[2]
 now = datetime.datetime.now()
 now = now.strftime("%Y-%m-%d %H:%M")
 #URL Encode the date & time
-UAnow = urllib.quote(now, safe='')
+UAnow = urllib.parse.quote(now, safe='')
 
 #Convert the title to lowercase and replaces any spaces with dashes. Use that as the slug.
 articleSlug = articleTitle.lower().replace(" ","-")
 
 #URL encode the title and body
-UEArticleTitle = urllib.quote(articleTitle, safe='')
-UEArticleBody = urllib.quote(articleBody, safe='')
+UEArticleTitle = urllib.parse.quote(articleTitle, safe='')
+UEArticleBody = urllib.parse.quote(articleBody, safe='')
 
 #The crazy looking URL below will format the Pelican metadata like so:
 
@@ -48,3 +48,4 @@ toNotesy = 'notesy://x-callback-url/append?name=' + UEArticleTitle + '&text=Titl
 #print toNotesy
 
 webbrowser.open(toNotesy)
+

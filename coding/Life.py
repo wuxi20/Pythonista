@@ -32,4 +32,4 @@ class SolveTheWorldsProblems(object):
 
 if __name__ == '__main__':
     stwp = SolveTheWorldsProblems(666)
-    print help(stwp)
+    print(help(stwp))

@@ -1,12 +1,12 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import xml.etree.ElementTree as ET
 
 
 #Prompt user for a URL 
-users_url = raw_input('Enter url: ')
+users_url = input('Enter url: ')
 
 #Open URL
-webpage = urllib.urlopen(users_url)
+webpage = urllib.request.urlopen(users_url)
 
 #Read URL
 data = webpage.read()
@@ -21,13 +21,14 @@ tree = ET.fromstring(data)
 #that represents the comment structures in the XML tree.
 results = tree.findall('comments/comment')
 
-print len(results)
+print(len(results))
 
 num = 0 
 for item in results:
     num = num + int(item.find('count').text)
 
-print num
+print(num)
 
 
     
+

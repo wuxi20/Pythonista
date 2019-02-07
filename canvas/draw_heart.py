@@ -18,7 +18,7 @@ def draw_heart(scale = 18):  # 18 = full canvas
     yorigin *= 0.588  # north of center
     detail = 100
     canvas.begin_path()
-    for t in xrange(int(2 * math.pi * detail)):
+    for t in range(int(2 * math.pi * detail)):
         t *= detail
         x = scale * (16 * math.sin(t) ** 3)
         y = scale * (13 * math.cos(t) - 5*math.cos(2*t) - 2*math.cos(3*t) - math.cos(4 * t))
@@ -41,3 +41,4 @@ draw_heart(18)
 
 #for i in xrange(2, 19, 4):
 #    draw_heart(i)
+

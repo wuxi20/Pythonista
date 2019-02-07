@@ -964,7 +964,7 @@ class FlagValues:
       If no such module exists (i.e. no flag with this name exists),
       we return default.
     """
-    for module, flags in self.FlagsByModuleDict().items():
+    for module, flags in list(self.FlagsByModuleDict().items()):
       for flag in flags:
         if flag.name == flagname or flag.short_name == flagname:
           return module
@@ -983,7 +983,7 @@ class FlagValues:
       If no such module exists (i.e. no flag with this name exists),
       we return default.
     """
-    for module_id, flags in self.FlagsByModuleIdDict().items():
+    for module_id, flags in list(self.FlagsByModuleIdDict().items()):
       for flag in flags:
         if flag.name == flagname or flag.short_name == flagname:
           return module_id
@@ -995,7 +995,7 @@ class FlagValues:
     Args:
       flag_values: registry to copy from
     """
-    for flag_name, flag in flag_values.FlagDict().items():
+    for flag_name, flag in list(flag_values.FlagDict().items()):
       # Each flags with shortname appears here twice (once under its
       # normal name, and again with its short name).  To prevent
       # problems (DuplicateFlagError) with double flag registration, we
@@ -1068,7 +1068,7 @@ class FlagValues:
 
   def _AssertAllValidators(self):
     all_validators = set()
-    for flag in self.FlagDict().values():
+    for flag in list(self.FlagDict().values()):
       for validator in flag.validators:
         all_validators.add(validator)
     self._AssertValidators(all_validators)
@@ -1163,7 +1163,7 @@ class FlagValues:
         flags.
       flag_obj: A flag object.
     """
-    for unused_module, flags_in_module in flags_by_module_dict.items():
+    for unused_module, flags_in_module in list(flags_by_module_dict.items()):
       # while (as opposed to if) takes care of multiple occurrences of a
       # flag in the list for the same module.
       while flag_obj in flags_in_module:
@@ -2395,7 +2395,7 @@ class HelpFlag(BooleanFlag):
     if arg:
       doc = sys.modules["__main__"].__doc__
       flags = str(FLAGS)
-      print(doc or ("\nUSAGE: %s [flags]\n" % sys.argv[0]))
+      print((doc or ("\nUSAGE: %s [flags]\n" % sys.argv[0])))
       if flags:
         print("flags:")
         print(flags)
@@ -2425,7 +2425,7 @@ class HelpshortFlag(BooleanFlag):
     if arg:
       doc = sys.modules["__main__"].__doc__
       flags = FLAGS.MainModuleHelp()
-      print(doc or ("\nUSAGE: %s [flags]\n" % sys.argv[0]))
+      print((doc or ("\nUSAGE: %s [flags]\n" % sys.argv[0])))
       if flags:
         print("flags:")
         print(flags)
@@ -2859,4 +2859,5 @@ DEFINE_string(
     "on the command line even if the program does not define a flag "
     "with that name.  IMPORTANT: flags in this list that have "
     "arguments MUST use the --flag=value format.", _SPECIAL_FLAGS)
+
 

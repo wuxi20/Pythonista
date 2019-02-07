@@ -27,6 +27,7 @@ u = Organism('food')
 A = Species('pyhla')
 A.add_organism(u)
 
-print A.organisms
-print A.population
+print(A.organisms)
+print(A.population)
+
 
