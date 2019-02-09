@@ -9,18 +9,18 @@ def main():
 	console.alert('Motion Plot', 'When you tap Continue, accelerometer (motion) data will be recorded for 5 seconds.', 'Continue')
 	motion.start_updates()
 	sleep(0.2)
-	print 'Capturing motion data...'
+	print('Capturing motion data...')
 	num_samples = 100
 	data = []
-	for i in xrange(num_samples):
+	for i in range(num_samples):
 		sleep(0.05)
 		g = motion.get_gravity()
 		data.append(g)
 	motion.stop_updates()
-	print 'Capture finished, plotting...'	
+	print('Capture finished, plotting...')	
 	
-	x_values = [x*0.05 for x in xrange(num_samples)]
-	for i, color, label in zip(range(3), 'rgb', 'XYZ'):
+	x_values = [x*0.05 for x in range(num_samples)]
+	for i, color, label in zip(list(range(3)), 'rgb', 'XYZ'):
 		plt.plot(x_values, [g[i] for g in data], color, label=label, lw=2)
 	plt.grid(True)
 	plt.xlabel('t')

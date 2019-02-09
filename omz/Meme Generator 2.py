@@ -25,10 +25,10 @@ def draw_caption(img, text, outline=2, top=False):
 	          1, 2, 4, 2, 1,
 	          0, 1, 2, 1, 0]
 	myfilter = ImageFilter.Kernel((5, 5), kernel, scale = 0.25 * sum(kernel))
-	for i in xrange(outline):
-		print 'Processing image... ' + str(int(float(i)/outline * 100)) + '%'
+	for i in range(outline):
+		print('Processing image... ' + str(int(float(i)/outline * 100)) + '%')
 		text_img = text_img.filter(myfilter)
-	print 'Processing done.'
+	print('Processing done.')
 	draw = ImageDraw.Draw(text_img)
 	draw.text((10, text_y), text, font = font, fill = 'white')
 	mask_img = ImageChops.invert(text_img)
@@ -36,19 +36,19 @@ def draw_caption(img, text, outline=2, top=False):
 	return result_img
 
 if __name__ == '__main__':
-	print 'Loading image from clipboard...'
+	print('Loading image from clipboard...')
 	img = clipboard.get_image()
 	if img is None:
-		print 'No image in clipboard, using default image instead...'
+		print('No image in clipboard, using default image instead...')
 		img = Image.open('Test_Mandrill')
 	img.show()
-	print 'Enter the top caption (press return for none):'
-	caption_top = unicode(raw_input(), 'utf-8')
+	print('Enter the top caption (press return for none):')
+	caption_top = str(input(), 'utf-8')
 	caption_top = caption_top.upper()
 	if caption_top != '':
 		img = draw_caption(img, caption_top, outline=3, top=True)
-	print 'Enter the bottom caption (press return for none):'
-	caption_btm = unicode(raw_input(), 'utf-8')
+	print('Enter the bottom caption (press return for none):')
+	caption_btm = str(input(), 'utf-8')
 	caption_btm = caption_btm.upper()
 	if caption_btm != '':
 		img = draw_caption(img, caption_btm, outline=3, top=False)

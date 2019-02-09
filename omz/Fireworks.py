@@ -25,7 +25,7 @@ class FireworksScene (sk.Scene):
 			self.background_node.remove_from_parent()
 		self.background_node = sk.Node()
 		w, h = self.size
-		for i in xrange(NUM_STARS):
+		for i in range(NUM_STARS):
 			star = sk.SpriteNode(STAR_TEXTURE)
 			star.position = random()*w, random()*h + 150
 			star.alpha = 0.5 + random() * 0.5
@@ -89,7 +89,7 @@ class FireworksScene (sk.Scene):
 			rocket.remove_from_parent()
 			num_explosions = randint(1, 3)
 			sound.play_effect('arcade:Explosion_' + str(num_explosions))
-			for i in xrange(num_explosions):
+			for i in range(num_explosions):
 				self.add_random_explosion(x, y, choice(COLORS))
 		shoot.timing_mode = sk.TIMING_EASE_IN_EASE_OUT
 		trail.position = rocket.position

@@ -3,14 +3,14 @@ import console
 import webbrowser
 import string
 from glob import glob
-from urlparse import urlparse
+from urllib.parse import urlparse
 import sys
 
 twitter_name = 'jayhickey'
 
 try:
 	mytext = sys.argv[1]
-	print clipboard.get()
+	print(clipboard.get())
 except IndexError:
 	mytext = clipboard.get()
 	
@@ -26,7 +26,8 @@ if mytext.count('/') < 3 or mytext.find('tweets') != -1:
 	mytext = 'tweetbot://' + twitter_name + '/user_profile' + u.path
 	
 # console.clear()
-print mytext
+print(mytext)
 
 webbrowser.open(mytext)
+
 

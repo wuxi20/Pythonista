@@ -10,7 +10,7 @@ def extract_file(path, to_directory='.'):
 	elif path.endswith('.tar.bz2') or path.endswith('.tbz'):
 		opener, mode = tarfile.open, 'r:bz2'
 	else:
-		raise ValueError, "Could not extract `%s` as no appropriate extractor is found" % path
+		raise ValueError("Could not extract `%s` as no appropriate extractor is found" % path)
 		
 	cwd = os.getcwd()
 	os.chdir(to_directory)
@@ -21,4 +21,5 @@ def extract_file(path, to_directory='.'):
 		finally: file.close()
 	finally:
 		os.chdir(cwd)
+
 

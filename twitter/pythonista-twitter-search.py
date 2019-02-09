@@ -1,4 +1,4 @@
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import json
 from scene import *
 
@@ -11,7 +11,7 @@ class TwitterSearch (Scene):
   # Perform Twitter search and parse JSON response
   def searchTwitter(self, query):
     url = 'https://api.twitter.com/1.1/search/tweets.json?q=' + query
-    response = urllib2.urlopen(url).read()
+    response = urllib.request.urlopen(url).read()
     data = json.loads(response)
     results = data['results']
     self.searchResults = results

@@ -3,7 +3,7 @@
 # https://forum.omz-software.com/topic/2739/strange-error-with-ui-webview/6
 
 import ui
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import re
 
 v = ui.load_view()
@@ -31,7 +31,7 @@ main()
 # coding: utf-8
 
 import ui
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import re
 
 v = ui.load_view()
@@ -68,4 +68,5 @@ v = ui.load_view()
 #v.add_subview(webview)
 v.present('sheet')
 webview = v['webview1']
+
 

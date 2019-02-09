@@ -1,6 +1,8 @@
-#The basic outline of this problem is to read the file, look for integers using the refindall
-#looking for a regular expression of [0-9]+ and then converting the extracted strings 
-#to integer and summing up the integers.
+#＃这个问题的基本概要是读取文件，使用refindall查找整数
+
+#looking为[0-9] +的正则表达式，然后转换提取的字符串
+
+#to整数并总结整数。
 
 import re
 

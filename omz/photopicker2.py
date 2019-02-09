@@ -127,7 +127,7 @@ class AssetCollectionView (ui.View):
 		cv.registerClass_forCellWithReuseIdentifier_(UICollectionViewCell, 'Cell')
 		ds = DataSource.alloc().init().autorelease()
 		res = PHAsset.fetchAssetsWithMediaType_options_(1, None)
-		ds.assets = [Asset(res.objectAtIndex_(i)) for i in xrange(res.count())]
+		ds.assets = [Asset(res.objectAtIndex_(i)) for i in range(res.count())]
 		ds.asset_collection_view = self
 		self.data_source = ds
 		cv.dataSource = ds
@@ -154,7 +154,8 @@ def main():
 		img = asset.fetch_image()
 		img.show()
 	else:
-		print 'No image picked'
+		print('No image picked')
 
 if __name__ == '__main__':
 	main()
+

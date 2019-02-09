@@ -1,4 +1,4 @@
-https://github.com/humberry/Workflow
+
 
 import webbrowser
 import clipboard
@@ -12,10 +12,11 @@ while text == 'empty':
   text = clipboard.get()
   time.sleep(0.3)
 if text == '':
-    print 'No text in clipboard'
+    print('No text in clipboard')
 else:
-    print text
+    print(text)
 
 #Workflow:
 #Text (e.g. This text is for Pythonista.)
 #Copy To Clipboard
+

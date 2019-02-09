@@ -44,7 +44,7 @@ class Clock (sk.Scene):
 				ui.set_shadow((0, 0, 0, 0.35), 0, 1, 5.0)
 				circle.stroke()
 			angle = (-pi/2) + (pi*2)/12.0
-			for i in xrange(1, 13):
+			for i in range(1, 13):
 				number = str(i)
 				x = diameter/2 + cos(angle) * (diameter/2 - font_size*1.2)
 				y = diameter/2 + sin(angle) * (diameter/2 - font_size*1.2)

@@ -1,10 +1,15 @@
-#let python know we are going to use json library
-#to deserialize json representation of a list
+#让python知道我们将使用json库
+
+#to反序列化列表的json表示
 import json
 
-#We have two lists. We have a list of dictionaries. 
-#In our list we have, two objects separated by a comma. Note, 
-#you can index this list too. 
+#我们有两个清单。
+#我们有一个词典列表。
+
+#在我们的列表中，我们有两个用逗号分隔的对象。
+#注意，
+
+#你也可以为此列表编制索引. 
 
 #ID maps to 001, x maps to 2...
 
@@ -19,14 +24,14 @@ input = '''[
         }
     ]'''
 
-#We get back a native python list.
+#我们找回一个原生的python列表.
 info = json.loads(input)
 
-#Check out the length of the list
+#查看列表的项目数量
 print('User count:', len(info))
 
-#Loop through list. Since item is in curly braces 
-#its an object and we can use it like a dictionary. 
+#循环列表. Since item is in curly braces 
+#它是一个对象，我们可以像字典一样使用它. 
 
 for item in info:
     print('Name', item['name'])

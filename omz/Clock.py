@@ -40,7 +40,7 @@ class Clock (Scene):
 		translate(center.x, center.y)
 		digit_w = 20 if ipad else 10
 		digit_h = 40 if ipad else 20
-		for i in xrange(12):
+		for i in range(12):
 			rotate(30)
 			rect(-digit_w/2, r-digit_h, digit_w, digit_h)
 		pop_matrix()
@@ -78,3 +78,4 @@ class Clock (Scene):
 
 #Run the scene that we just defined:
 run(Clock())
+

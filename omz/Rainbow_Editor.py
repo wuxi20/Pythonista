@@ -15,7 +15,7 @@ def main():
 	root_vc = app.keyWindow().rootViewController()
 	main_view = root_vc.detailViewController().view()
 	size = main_view.bounds().size
-	for i in xrange(10):
+	for i in range(10):
 	    w = size.width / 10
 	    x = w * i
 	    r, g, b = hsv_to_rgb(i/10.0, 1, 1)

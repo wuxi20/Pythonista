@@ -1,8 +1,5 @@
-#8.4 Open the file romeo.txt and read it line by line.
-#For each line, split the line into a list of words using the split() method.
-#The program should build a list of words. For each word on each line check to see
-#if the word is already in the list and if not append it to the list.
-#When the program completes, sort and print the resulting words in alphabetical order.
+#打开文件romeo.txt并逐行读取。 ＃对于每一行，使用split（）方法将该行拆分为单词列表 
+#该程序应该构建一个单词列表。对于每行上的每个单词，请检查#if该单词是否已在列表中，如果没有将其附加到列表中。 ＃当程序完成时，按字母顺序对生成的单词进行排序和打印.
 
 
 fhand = open('romeo.txt')           #open file name

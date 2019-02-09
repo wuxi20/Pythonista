@@ -40,10 +40,10 @@ note_store = client.get_note_store()
 
 # List all of the notebooks in the user's account
 notebooks = note_store.listNotebooks()
-print "Found ", len(notebooks), " notebooks:"
+print("Found ", len(notebooks), " notebooks:")
 for notebook in notebooks:
-    print "  * ", notebook.name
-print "Creating a new note in the default notebook"
+    print("  * ", notebook.name)
+print("Creating a new note in the default notebook")
 
 # To create a new note, simply create a new Note object and fill in
 # attributes such as the note's title.
@@ -56,7 +56,7 @@ note.title = "Test note from Pythonista"
 # It can also include attributes such as filename and location.
 img = clipboard.get_image()
 if img is not None:
-	print 'Attaching image in clipboard...'
+	print('Attaching image in clipboard...')
 	buffer = BytesIO()
 	img.save(buffer, 'png')
 	image_data = buffer.getvalue()
@@ -92,4 +92,4 @@ if img is not None:
 # attributes such as the new note's unique GUID.
 created_note = note_store.createNote(note)
 
-print "Successfully created a new note with GUID: ", created_note.guid
+print("Successfully created a new note with GUID: ", created_note.guid)

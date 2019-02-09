@@ -54,19 +54,19 @@ class CodeEditorView (ui.View):
 	def text(self):
 		text_view = self.editor_view.textView()
 		text = text_view.text()
-		return unicode(text)
+		return str(text)
 	
 	@text.setter
 	@on_main_thread
 	def text(self, new_text):
-		if not isinstance(new_text, basestring):
+		if not isinstance(new_text, str):
 			raise TypeError('expected string/unicode')
 		text_view = self.editor_view.textView()
 		text_view.setText_(new_text)
 	
 	@on_main_thread
 	def insert_text(self, text):
-		if not isinstance(text, basestring):
+		if not isinstance(text, str):
 			raise TypeError('expected string/unicode')
 		text_view = self.editor_view.textView()
 		text_view.insertText_(text)

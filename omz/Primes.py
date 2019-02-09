@@ -5,7 +5,7 @@
 
 def gen_primes(n):
 	# Source: http://code.activestate.com/recipes/366178-a-fast-prime-number-list-generator/#c19
-	s = range(0, n+1)
+	s = list(range(0, n+1))
 	s[1] = 0
 	bottom = 2
 	top = n // bottom
@@ -34,8 +34,8 @@ def load_primes(n):
 
 def main():
 	primes = load_primes(104729) #Happens to be the 10,000th prime number
-	print primes
-	print len(primes), 'prime numbers loaded.'
+	print(primes)
+	print(len(primes), 'prime numbers loaded.')
 
 if __name__ == '__main__':
 	main()

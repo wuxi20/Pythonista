@@ -20,7 +20,7 @@ class StarField (object):
 	def __init__(self, scene, count):
 		self.scene = scene
 		self.stars = []
-		for i in xrange(count):
+		for i in range(count):
 			self.stars.append(Star())
 			
 	def update(self):
@@ -302,10 +302,10 @@ class Game (Scene):
 				removed_powerups.add(powerup)
 				
 				
-		map(self.powerups.remove, removed_powerups)
-		map(self.enemies.remove, removed_enemies)
-		map(self.bullets.remove, removed_bullets)
-		map(self.enemy_bullets.remove, removed_enemy_bullets)
+		list(map(self.powerups.remove, removed_powerups))
+		list(map(self.enemies.remove, removed_enemies))
+		list(map(self.bullets.remove, removed_bullets))
+		list(map(self.enemy_bullets.remove, removed_enemy_bullets))
 		
 		if not self.player.dead and self.energy <= 0:
 			self.game_over()
@@ -369,7 +369,7 @@ class Game (Scene):
 		 self.size.w / 2, self.size.h - 60)
 
 	def explosion(self, enemy):
-		for i in xrange(int(enemy.size / 6)):
+		for i in range(int(enemy.size / 6)):
 			s = enemy.size / 5
 			l = Layer(Rect(enemy.x - s/2, enemy.y - s/2, s, s))
 			l.background = enemy.color

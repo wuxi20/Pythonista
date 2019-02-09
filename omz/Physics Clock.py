@@ -54,7 +54,7 @@ class ClockScene (sk.Scene):
 				self.dropped_sprites.add(old)
 				# Remove sprites that are no longer visible:
 				offscreen = {s for s in self.dropped_sprites if s.position[1] < 0}
-				map(sk.Node.remove_from_parent, offscreen)
+				list(map(sk.Node.remove_from_parent, offscreen))
 				self.dropped_sprites -= offscreen
 		self.time_str = time_str
 

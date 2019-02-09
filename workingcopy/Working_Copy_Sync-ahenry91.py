@@ -2,14 +2,17 @@
 
 # https://github.com/ahenry91/wc_sync/blob/master/Working_Copy_Sync.py
 
-# Installation
+#1.克隆/下载此repo到pythonista。
 
-# 1. Clone/download this repo to pythonista.
-# 2. Go to Working Copy, Allow URL actions, and copy the URL key.
-# 3. Run Working_Copy_Sync and paste in your URL key from Working Copy.
-# 4. Add to quick actions menu to access from within other files
+#2.转到工作副本，允许URL操作，然后复制URL密钥。
 
-# Pythonista/Working Copy X-Callback URLs do not like spaces in the file/directory names (when cloning, fetching, pushing). Try to avoid any spaces when naming files and directories.
+#3.运行Working_Copy_Sync并从工作副本粘贴您的URL密钥。
+
+#4.添加到快速操作菜单以从其他文件中进行访问
+
+
+#Pythonista / Working Copy X-Callback URL不喜欢文件/目录名中的空格（克隆，提取，推送时)
+
 
 import base64
 import console
@@ -26,7 +29,7 @@ import zipfile
 from collections import OrderedDict
 
 try:
-	from urllib import urlencode
+	from urllib.parse import urlencode
 except:
 	from urllib.parse import urlencode
 
@@ -229,3 +232,4 @@ if __name__ == "__main__":
 		url_action = sys.argv[1]
 		url_args = sys.argv[2:]
 	main(url_action, url_args)
+

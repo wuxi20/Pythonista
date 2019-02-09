@@ -11,11 +11,11 @@ import os
 from socket import gethostname
 
 def install_pyftpdlib():
-	print 'Downloading pyftpdlib...'
-	import urllib
+	print('Downloading pyftpdlib...')
+	import urllib.request, urllib.parse, urllib.error
 	import shutil
 	os.chdir(os.path.expanduser('~/Documents'))
-	urllib.urlretrieve('https://pypi.python.org/packages/source/p/pyftpdlib/pyftpdlib-1.4.0.tar.gz', 'pyftpd.tar.gz')
+	urllib.request.urlretrieve('https://pypi.python.org/packages/source/p/pyftpdlib/pyftpdlib-1.4.0.tar.gz', 'pyftpd.tar.gz')
 	import tarfile
 	t = tarfile.open('pyftpd.tar.gz')
 	t.extractall()
@@ -41,13 +41,13 @@ def main():
 	server = FTPServer(('0.0.0.0', 2121), handler)
 	t = threading.Thread(target=server.serve_forever)
 	t.start()
-	print 'Server started.'
-	print '\nConnect as guest/anonymous user to ftp://localhost:2121 (from this device) or "ftp://(YOUR_IP_ADDRESS):2121" (from other devices in your network -- you can find the IP address of your device in the WiFi settings)'
+	print('Server started.')
+	print('\nConnect as guest/anonymous user to ftp://localhost:2121 (from this device) or "ftp://(YOUR_IP_ADDRESS):2121" (from other devices in your network -- you can find the IP address of your device in the WiFi settings)')
 	try:
 		while True: pass
 	except KeyboardInterrupt:
 		server.close_all()
-		print 'Server stopped'
+		print('Server stopped')
 
 if __name__ == '__main__':
 	main()

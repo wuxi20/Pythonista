@@ -14,4 +14,4 @@ if gps:
 	maps_url = 'safari-http://maps.apple.com/?ll=%f,%f' % (latitude, longitude)
 	webbrowser.open(maps_url)
 else:
-	print 'Last photo has no location metadata.'
+	print('Last photo has no location metadata.')

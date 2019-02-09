@@ -4,23 +4,23 @@
 
 # https://github.com/ahenry91/wc_sync
 
-## Installation
+## 安装
 
-# 1. Clone/download this repo to pythonista.
-# 3. Go to Working Copy, Allow URL actions, and copy the URL key.
-# 4. Run Working_Copy_Sync and paste in your URL key from Working Copy.
-# 5. Add to quick actions menu to access from within other files
+# 1. 克隆/下载此repo到pythonista.
+# 3. 转到工作副本，允许URL操作，然后复制URL密钥.
+# 4. 运行Working_Copy_Sync并从工作副本粘贴您的URL密钥.
+# 5. 添加到快速操作菜单以从其他文件中进行访问
 
 ## Notes
 
-# Each action (other than "Clone" Repo) uses your current file and working directory to determine which repo to update in Working Copy. Because of this, repos must live in the home (Documents) directory and cannot be nested under other folders. 
+# 每个操作（“Clone”Repo除外）都使用当前文件和工作目录来确定要在工作副本中更新哪个repo。因此，repos必须位于home（Documents）目录中，并且不能嵌套在其他文件夹下. 
 
-# Since Pythonista 2.0 cannot (as of right now) present a view as a sidebar anymore, the view has been changed to a modal. This also provided the opportunity to spell out what each button does.
+# 由于Pythonista 2.0不能（截至目前）将视图作为侧边栏呈现，因此视图已更改为模态。这也提供了拼出每个按钮的功能的机会.
 import editor
 import os
 import console
 import webbrowser as wb
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import base64
 import keychain
 import sys
@@ -58,7 +58,7 @@ class WorkingCopySync():
 		documentsDir = os.path.expanduser('~/Documents')
 		info = editor.get_path()
 		fullPath = info[len(documentsDir)+1:] # get the relative path and remove the leading /
-		print fullPath
+		print(fullPath)
 		path = fullPath.split('/',1)[1]
 		repo = fullPath.split('/',1)[0]
 		return repo, path			
@@ -69,7 +69,7 @@ class WorkingCopySync():
 			url = 'working-copy://x-callback-url/{action}/?{payload}'
 		else:
 			url = 'working-copy://{action}/?{payload}'
-		urlencoded_payload = urllib.urlencode(payload).replace('+', '%20')
+		urlencoded_payload = urllib.parse.urlencode(payload).replace('+', '%20')
 		url = url.format(action=action, payload=urlencoded_payload)
 		wb.open(url)
 		
@@ -161,7 +161,7 @@ class WorkingCopySync():
 		
 		try:
 			os.makedirs(os.path.join(os.path.expanduser('~/Documents'), path))
-		except OSError, e:
+		except OSError as e:
 			if e.errno != errno.EEXIST:
 				raise e
 			console.alert('Overwriting existing directory', button1='Continue')
@@ -181,7 +181,7 @@ class WorkingCopySync():
 		
 		try:
 			os.makedirs(os.path.join(os.path.expanduser('~/Documents'), path))
-		except OSError, e:
+		except OSError as e:
 			if e.errno != errno.EEXIST:
 				raise e
 				

@@ -1,7 +1,7 @@
 '''This script demonstrates how you can convert Markdown documents to HTML and view the results in the built-in browser.'''
 
 import os, tempfile, codecs
-import urllib, urlparse
+import urllib.request, urllib.parse, urllib.error, urllib.parse
 import console, clipboard, webbrowser
 from markdown2 import markdown
 
@@ -20,7 +20,7 @@ def main():
 	html = template.replace('{{CONTENT}}', html)
 	with codecs.open(html_path, 'w', 'utf-8') as f:
 		f.write(html)
-	file_url = urlparse.urljoin('file:', urllib.pathname2url(html_path))
+	file_url = urllib.parse.urljoin('file:', urllib.request.pathname2url(html_path))
 	webbrowser.open(file_url)
 
 if __name__ == '__main__':

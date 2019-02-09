@@ -1,19 +1,13 @@
 import re
 
-#regular expressions useful for string extraction, matching... Each character has a meaning. C
+#正则表达式对字符串提取，匹配有用...每个字符都有意义。 
+#C
 
-#hand = open('mbox-short.txt')
 
-#for line in hand:                     
-#    line = line.rstrip()                #Look through this line and find that string 'From:'. 
-#    if re.search('From: ', line):       #If it is there, you get a true, if it is not, you get a false. 
-#        print line                      #Print out the lines that have the string 'From:' in them somewhere.
+#hand = open（'mbox-short.txt'）#for line in hand：#line = line.rstrip（）#Look通过这一行并找到该字符串'From：'。 #if re.search（'From：'，line）：＃如果它在那里，你会得到一个真实的，如果不是，你会得到一个假的。 #print line #Print出在某处有字符串'From：'的行.
 
         
-#power of regular expressions comes when we add special characters to the search string
-#that allow us to more precisely control which lines match the string.
-#Adding these special characters to our regular expression allow us to do sophisticated
-#matching and extraction while writing very little code.
+#当我们在搜索字符串中添加特殊字符时，会出现正则表达式的强大功能#that允许我们更精确地控制哪些行匹配字符串。 ＃将这些特殊字符添加到正则表达式中，允许我们在编写非常少的代码时进行复杂的#matching和提取.
 
 #hand = open('mbox-short.txt')
 #for line in hand:

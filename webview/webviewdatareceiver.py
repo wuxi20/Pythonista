@@ -3,7 +3,7 @@
 # https://forum.omz-software.com/topic/3204/share-code-webviewdatareceiver
 
 import ui
-import urllib
+import urllib.request, urllib.parse, urllib.error
 from objc_util import *
 
 #a way to 'cheat' and get data from a webview to the script without using a server.
@@ -24,7 +24,7 @@ class WebViewDataReceiver (ui.View):
 		#need to filter the url; better to use a kind of urlscheme.
 		#recommend starting with something like myscript://
 		if url.startswith('myscript://'):
-			self.name = urllib.unquote(url.split('myscript://')[1])
+			self.name = urllib.parse.unquote(url.split('myscript://')[1])
 			
 			#stop the activity indicator; necessary
 			UIApplication.sharedApplication().setNetworkActivityIndicatorVisible_(False)
@@ -38,4 +38,5 @@ if __name__ == '__main__':
 	WebViewDataReceiver(html)
 	
 # --------------------
+
 

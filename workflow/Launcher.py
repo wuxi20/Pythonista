@@ -24,7 +24,7 @@ class Launcher (Scene):
                 self.keys = []
                 key_names = [[['browser','googlechrome:'],['password','keeper:']],[['calculator','calculatorinfinity:']],[['anote','awesomenote:'],['any.do','anydo:']],
 [['calendars+','calendars:'],['any.cal','cal:']],[['rss','reeder:'],['yahoo','fb187737851251557:']],[['','']]]
-                positions = range(6)
+                positions = list(range(6))
                 key_w = self.size.w
                 key_h = self.size.h / 6
                 for i in range(len(key_names)):

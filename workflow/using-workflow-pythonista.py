@@ -2,9 +2,10 @@
 
 # Workflow & Pythonista
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 
-webbrowser.open('workflow://x-callback-url/run-workflow?name=PythonistaTest&input='+urllib.quote('Hi!'))
+webbrowser.open('workflow://x-callback-url/run-workflow?name=PythonistaTest&input='+urllib.parse.quote('Hi!'))
 
 # pythonista://[[script name]]?action=run&argv=[[some argument to pass, can be a variable]]
+

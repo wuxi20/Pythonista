@@ -32,7 +32,7 @@ class ParticleScene (sk.Scene):
 		e.position = touch.location
 		self.emitters[touch.touch_id] = e
 		# To keep the framerate consistent with multiple touches, divide the total particle birthrate by the number of active emitters (i.e. touches):
-		for i in self.emitters.values():
+		for i in list(self.emitters.values()):
 			i.p_birth_rate = birth_rate / len(self.emitters)
 		self.add_child(e)
 	

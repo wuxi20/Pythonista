@@ -1,19 +1,19 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-# Workflow: * In _Working Copy_ open a GitHub repository that you want copied into _Pythonista_ * if your needs are more modest, you can even select a single file or folder * Click the Share icon at the upper right corner of the Working Copy screen * Click Run Pythonista Script * Click on this script * Click the run button
+# 工作流程：*在_Working Copy_中打开要复制到_Pythonista_ *的GitHub存储库，如果您的需求较为温和，您甚至可以选择单个文件或文件夹*单击工作复制屏幕右上角的共享图标*单击运行Pythonista脚本*单击此脚本*单击运行按钮
 
-# When you [return to Pythonista](pythonista://) your files should be in the 'from Working Copy' directory.
+# 当你[返回Pythonista]（pythonista：//）时，你的文件应该在'from Working Copy'目录中
 
-## Pythonista --> Working Copy: Working Copy has a "__save to Working Copy__" Share Sheet action (you might have to enable in Share Sheet, More...)
+## Pythonista  - &gt;工作副本：工作副本有一个“__save to Working Copy__”共享表操作（您可能必须在共享表中启用，更多...）
 
-# Workflow A -- a single file: * Open the file of interest in the Pythonista editor * Click the wrench icon at the upper right * Click the "Share..." button * Click "Save in Working Copy" button * Select the repo that you want to save the file into * Click "Save As..." * Change the filename if you want to and click "Save As..." again * Click "Just Save" if you want to bundle multiple files into a single commit --or-- Type your commit message and click "Commit"
+# 工作流程A  - 单个文件：*在Pythonista编辑器中打开感兴趣的文件*单击右上角的扳手图标*单击“共享...”按钮*单击“保存在工作副本”按钮*选择回购您要将文件保存到*单击“另存为...”*如果需要更改文件名并再次单击“另存为...”如果要将多个文件捆绑到一个文件中，请单击“仅保存”单个提交 - 或 - 键入您的提交消息，然后单击“提交”
 
-# Workflow B -- a folder or a file: * Click `Edit` in the Pythonista file browser * Select the folder or file of interest * Click the Share icon at the bottom of the file browser * Click "Save in Working Copy" button * Select "Import as Repository" or "Save as Directory"
+# 工作流程B  - 文件夹或文件：*在Pythonista文件浏览器中单击“编辑”*选择感兴趣的文件夹或文件*单击文件浏览器底部的“共享”图标*单击“保存在工作副本”按钮*选择“导入为存储库”或“另存为目录”
 
-# Note: When selecting multiple folders or multiple files, only the first one is processed.
+# 注意：选择多个文件夹或多个文件时，仅处理第一个文件夹或多个文件.
 
-# __Now we have an end to end workflow: GitHub --> Working Copy --> Pythonista --> Working Copy --> GitHub__
+# __现在我们有一个端到端的工作流程：GitHub  - &gt;工作副本 - &gt; Pythonista  - &gt;工作副本 - &gt; GitHub__
 
 # See: https://forum.omz-software.com/topic/2382/git-or-gist-workflow-for-pythonista/24
 

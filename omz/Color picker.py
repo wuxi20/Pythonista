@@ -6,7 +6,7 @@ import console
 import clipboard
 # Generate some random hex colors:
 
-colors = ['#%X%X%X' % (randint(0,255), randint(0,255), randint(0,255)) for i in xrange(25)]
+colors = ['#%X%X%X' % (randint(0,255), randint(0,255), randint(0,255)) for i in range(25)]
 def tapped(sender):
 	r, g, b, a = sender.background_color
 	hex_color = '#%X%X%X' % (int(r*255), int(g*255), int(b*255))

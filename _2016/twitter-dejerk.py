@@ -19,5 +19,6 @@ state = ''
 while state is not 'd':
     url = turls.pop()
     webbrowser.open(url)
-    state = input('enter d if done, anything else to continue')
+    state = eval(input('enter d if done, anything else to continue'))
+
 

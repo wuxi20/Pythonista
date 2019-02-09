@@ -25,8 +25,8 @@ class RoomAreaView(ui.View):
 		self.rv=rv
 	def will_close(self):
 		'''upon close, dump out the current area.  do this by first getting the set of points.  The zip notation lets us convert from a tuple of the form ((x0,y0),(x1,y1),...) to x=(x0,x1,...) and y=(y0,y1,...)'''
-		x,y=zip(*self.rv.pts)
-		print polygonArea(x,y,float(self.rv.scale.text))
+		x,y=list(zip(*self.rv.pts))
+		print(polygonArea(x,y,float(self.rv.scale.text)))
 class RoomAreaOverlay(ui.View):
 	'''A touch sensitive overlay.  Touches add to a list of points, which are then used to compute area.  Lengths are shown for each line segment, snd a scaling parameter is used to adjust the length of drawn lines to known dimensions'''
 	def __init__(self,*args,**kwargs):
@@ -55,7 +55,7 @@ class RoomAreaOverlay(ui.View):
 		self.set_needs_display()
 	def update_area(self):
 		'''update the area label by computing the polygon area with current scale value'''
-		x,y=zip(*self.pts)
+		x,y=list(zip(*self.pts))
 		area=polygonArea(x,y,float(self.scale.text))
 		self.lbl.text='Area: {} squnits'.format(area)
 	def touch_began(self,touch):
@@ -132,4 +132,5 @@ def polygonArea(X, Y,scale):
 	
 v=RoomAreaView('203723572.jpg')
 v.present('fullscreen')
+
 

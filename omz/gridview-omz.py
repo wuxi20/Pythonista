@@ -17,7 +17,7 @@ class GridView (ui.View):
     
     def reload(self):
         self.visible_range = []
-        for v in self.visible_views.values():
+        for v in list(self.visible_views.values()):
             self.scrollview.remove_subview(v)
         self.visible_views = {}
         w, h = self.bounds[2:]
@@ -59,11 +59,11 @@ class GridView (ui.View):
         num_visible_rows = int(h / self.item_size[1]) + 2
         range_start = first_visible_row * items_per_row
         range_end = min(len(self.items), range_start + num_visible_rows * items_per_row)
-        visible_range = range(range_start, range_end)
+        visible_range = list(range(range_start, range_end))
         if visible_range != self.visible_range:
             self.visible_range = visible_range
             # Remove views that are no longer visible:
-            for i in self.visible_views.keys():
+            for i in list(self.visible_views.keys()):
                 if i not in visible_range:
                     cell = self.visible_views[i]
                     self.reusable_cells.append(cell)
@@ -84,7 +84,7 @@ class GridViewDemoController (object):
     def __init__(self):
         from random import randint
         # Generate a large number of random colors:
-        colors = ['#%02x%02x%02x' % (randint(0, 255), randint(0, 255), randint(0, 255)) for i in xrange(9999)]
+        colors = ['#%02x%02x%02x' % (randint(0, 255), randint(0, 255), randint(0, 255)) for i in range(9999)]
         self.gridview = GridView(frame=(0, 0, 500, 500), background_color='white', name='GridView Demo')
         self.gridview.item_size = (100, 120)
         self.gridview.data_source = self
@@ -116,3 +116,4 @@ class GridViewDemoController (object):
 
 demo = GridViewDemoController()
 demo.gridview.present('sheet')
+

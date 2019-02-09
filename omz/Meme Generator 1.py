@@ -25,8 +25,8 @@ def draw_caption(img, text, top=False):
 		s -= 1
 		if s <= 12: break
 	#Draw the text multiple times in black to get the outline:
-	for x in xrange(-3, 4):
-		for y in xrange(-3, 4):
+	for x in range(-3, 4):
+		for y in range(-3, 4):
 			draw_y = y if top else img.size[1] - h + y
 			draw.text((10 + x, draw_y), text, font=font, fill='black')
 	#Draw the text once more in white:
@@ -34,19 +34,19 @@ def draw_caption(img, text, top=False):
 	draw.text((10, draw_y), text, font=font, fill='white')
 
 def main():
-	print 'Loading image from clipboard...'
+	print('Loading image from clipboard...')
 	img = clipboard.get_image()
 	if img is None:
-		print 'No image in clipboard, using default image instead...'
+		print('No image in clipboard, using default image instead...')
 		img = Image.open('Test_Mandrill')
 	img.show()
-	print 'Enter the top caption (press return for none):'
-	caption_top = unicode(raw_input(), 'utf-8')
+	print('Enter the top caption (press return for none):')
+	caption_top = str(input(), 'utf-8')
 	caption_top = caption_top.upper()
 	if caption_top != '':
 		draw_caption(img, caption_top, top=True)
-	print 'Enter the bottom caption (press return for none):'
-	caption_btm = unicode(raw_input(), 'utf-8')
+	print('Enter the bottom caption (press return for none):')
+	caption_btm = str(input(), 'utf-8')
 	caption_btm = caption_btm.upper()
 	if caption_btm != '':
 		draw_caption(img, caption_btm, top=False)

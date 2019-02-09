@@ -20,13 +20,13 @@ def recent_tweets(screen_name, tweet_count = 3):
     response = requests.get(timelineURL, params=payload, headers=headers)
     tweets_as_json = response.json()
     if not isinstance(tweets_as_json, list):    # we should get a list of tweet_dicts
-        print(response.url)
+        print((response.url))
         return response.text                    # exit with an error message from API
     with open('tweets.json', 'w') as out_file:  # write the tweets to a file to allow
         json.dump(tweets_as_json, out_file)     # experimentation without calling API
     for tweet_dict in tweets_as_json:
         #pprint.pprint(tweet_dict)              # uncomment to see available fields
-        print(tweet_fmt.format(**tweet_dict))
+        print((tweet_fmt.format(**tweet_dict)))
 
 def main(argv):
     screen_name = argv[1] if len(argv) > 1 else 'pycoders'
@@ -34,5 +34,6 @@ def main(argv):
     return recent_tweets(screen_name, tweet_count)
 
 if __name__ == '__main__':
-    print('-' * 40)
+    print(('-' * 40))
     sys.exit(main(sys.argv))
+

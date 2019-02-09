@@ -31,14 +31,14 @@ def form_dialog(title='', fields=None, sections=None, done_button_title='Done', 
 		raise ValueError('sections or fields are required')
 	if not sections:
 		sections = [('', fields)]
-	if not isinstance(title, str) and not isinstance(title, unicode):
+	if not isinstance(title, str) and not isinstance(title, str):
 		raise TypeError('title must be a string')
 	for section in sections:
 		if not isinstance(section, collections.Sequence):
 			raise TypeError('Sections must be sequences (title, fields)')
 		if len(section) < 2:
 			raise TypeError('Sections must have 2 or 3 items (title, fields[, footer]')
-		if not isinstance(section[0], str) and not isinstance(section[0], unicode):
+		if not isinstance(section[0], str) and not isinstance(section[0], str):
 			raise TypeError('Section titles must be strings')
 		if not isinstance(section[1], collections.Sequence):
 			raise TypeError('Expected a sequence of field dicts')
@@ -76,8 +76,9 @@ def validate_form(values):
 def main():
 	fields = [{'type': 'text', 'key': 'title', 'title': 'Title (Mr/Mrs/Ms)'}, {'type': 'text', 'key': 'name', 'title': 'Name'}, {'type': 'switch', 'key': 'terms', 'title': 'Accept Terms'}]
 	r = form_dialog('Test', fields, validator=validate_form)
-	print r
+	print(r)
 	
 if __name__ == '__main__':
 	main()
+
 

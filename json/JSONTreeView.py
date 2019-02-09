@@ -9,7 +9,7 @@ def iteritems(d):
 	if PY3:
 		return list(d.items())
 	else:
-		return iter(d.items())
+		return iter(list(d.items()))
 		
 class JSONTreeNode (TreeNode):
 	def __init__(self, json_path=None, node=None, key=None, level=0):
@@ -58,5 +58,6 @@ class JSONTreeNode (TreeNode):
 #tree_controller.view.present('sheet')
 #tree_controller.view.wait_modal()
 #--------------------
+
 
 

@@ -5,7 +5,7 @@
 
 import flickrapi
 from xml.etree import ElementTree as ET
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import datetime
 import os
 
@@ -48,10 +48,10 @@ class FlickrIFTTT():
         image = '00000000.jpg'
         """
 
-        print "Url {}".format(url)
-        print "Downloading image {}...".format(imagename)
+        print("Url {}".format(url))
+        print("Downloading image {}...".format(imagename))
         BASEPATH = '/tmp/'
-        image = urllib.URLopener()
+        image = urllib.request.URLopener()
         image.retrieve(url, BASEPATH + imagename)
         return BASEPATH + imagename
 
@@ -94,10 +94,10 @@ class FlickrIFTTT():
             Move a photo based on flickr photo id
             to an album
         """
-        print "Moving photo id {} to album {}...".format(
+        print("Moving photo id {} to album {}...".format(
             photo_id,
             album_id
-        )
+        ))
         self.flickr.photosets_addPhoto(
             photo_id=photo_id,
             photoset_id=album_id
@@ -105,7 +105,7 @@ class FlickrIFTTT():
 
     def upload_photo(self, url, created_at, progress=False):
         downloaded_image = self.download_image(url, created_at + '.jpg')
-        print "Uploading Image"
+        print("Uploading Image")
         uploaded_file = self.flickr.upload(
             filename=downloaded_image,
             title=created_at,
@@ -137,9 +137,9 @@ class FlickrIFTTT():
 
     def upload_progress(self, progress, done):
         if done:
-            print "Done uploading"
+            print("Done uploading")
         else:
-            print "At %s%%" % progress
+            print("At %s%%" % progress)
 
     def no_progress(self, progress, done):
         pass
@@ -150,7 +150,7 @@ if __name__ == '__main__':
     flickr.get_ifttt_links()
 
     if flickr.ifttt_links:
-        print "Last run", flickr.LASTRUN
+        print("Last run", flickr.LASTRUN)
         for entry in flickr.ifttt_links:
             created_at = dt_to_str(entry['created_at'])
             flickr.upload_and_move(
@@ -158,3 +158,4 @@ if __name__ == '__main__':
                 created_at
             )
     flickr.set_last_run()
+

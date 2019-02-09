@@ -2,13 +2,13 @@
 
 # coding: utf-8
 
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-import BaseHTTPServer
+from http.server import SimpleHTTPRequestHandler
+import http.server
 import webbrowser
 
 stopping = False
 
-class StoppableHTTPServer (BaseHTTPServer.HTTPServer):
+class StoppableHTTPServer (http.server.HTTPServer):
     def serve_forever(self, poll_interval=0.5):
         global stopping
         while not stopping:

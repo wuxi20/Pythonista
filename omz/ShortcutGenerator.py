@@ -6,7 +6,7 @@
 # You'll be asked for a title, a URL, and an icon (from your camera roll)
 
 import plistlib
-import BaseHTTPServer
+import http.server
 import webbrowser
 import uuid
 from io import BytesIO
@@ -15,7 +15,7 @@ import photos
 import notification
 import console
 
-class ConfigProfileHandler (BaseHTTPServer.BaseHTTPRequestHandler):
+class ConfigProfileHandler (http.server.BaseHTTPRequestHandler):
 	config = None
 	def do_GET(s):
 		s.send_response(200)
@@ -29,7 +29,7 @@ class ConfigProfileHandler (BaseHTTPServer.BaseHTTPRequestHandler):
 def run_server(config):
 	ConfigProfileHandler.config = config
 	server_address = ('', 0)
-	httpd = BaseHTTPServer.HTTPServer(server_address, ConfigProfileHandler)
+	httpd = http.server.HTTPServer(server_address, ConfigProfileHandler)
 	sa = httpd.socket.getsockname()
 	webbrowser.open('safari-http://localhost:' + str(sa[1]))
 	httpd.handle_request()

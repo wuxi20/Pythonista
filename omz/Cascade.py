@@ -55,7 +55,7 @@ class Game (Scene):
 		self.score = 0
 		self.game_over = False
 		self.grid = list()
-		for i in xrange(cols * rows):
+		for i in range(cols * rows):
 			tile = Tile(images[randint(0, len(images)-1)],
 			            i % cols, i / cols)
 			self.grid.append(tile)
@@ -96,8 +96,7 @@ class Game (Scene):
 			play_effect('Powerup_3')
 			return
 		#At least 2 tiles have to be removed:
-		sel_count = len(filter(lambda(x): x and x.selected,
-		                       self.grid))
+		sel_count = len([x for x in self.grid if x and x.selected])
 		if sel_count < 2:
 			play_effect('Error')
 			for tile in self.grid:
@@ -119,7 +118,7 @@ class Game (Scene):
 		score_layer.animate('alpha', 0.0, delay=0.3,
 		                    completion=score_layer.remove_layer)
 		#Remove selected tiles:
-		for i in xrange(len(self.grid)):
+		for i in range(len(self.grid)):
 			tile = self.grid[i]
 			if tile is None: continue
 			if tile.selected:
@@ -128,11 +127,11 @@ class Game (Scene):
 		self.drop_tiles()
 		#If at least one tile has a neighbor with the same image,
 		#another move is possible:
-		can_move = max(map(len, map(self.neighbors,
-		                            self.grid))) > 0
+		can_move = max(list(map(len, list(map(self.neighbors,
+		                            self.grid))))) > 0
 		if not can_move:
 			play_effect('Bleep')
-			rest = len(filter(lambda x: x is not None, self.grid))
+			rest = len([x for x in self.grid if x is not None])
 			msg = 'Perfect!' if rest == 0 else 'Game Over'
 			#Show an animated 'Game Over' message:
 			font_size = 100 if self.size.w > 700 else 50
@@ -152,12 +151,12 @@ class Game (Scene):
 			                        duration=1.0)
 	
 	def drop_tiles(self):
-		new_grid = [None for x in xrange(len(self.grid))]
+		new_grid = [None for x in range(len(self.grid))]
 		shift = 0
-		for col in xrange(cols):
+		for col in range(cols):
 			drop = 0
 			col_empty = True
-			for row in xrange(rows):
+			for row in range(rows):
 				tile = self.tile_at(col, row)
 				if tile is None:
 					drop += 1
@@ -229,3 +228,4 @@ class Game (Scene):
 
 #Always run the game in portrait orientation):
 run(Game(), PORTRAIT)
+

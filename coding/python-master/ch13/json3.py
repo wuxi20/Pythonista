@@ -1,5 +1,6 @@
-#prompt user for search string, call google geocoding api,
-#and extract information from the returned json
+#提示用户搜索字符串，调用google geocoding api，
+
+#和从返回的json中提取信息
 
 import urllib.request, urllib.parse, urllib.error
 import json
@@ -10,8 +11,8 @@ while True:
     address = input('Enter location: ')
     if len(address) < 1 : break 
     
-    #take users entry and construct a URL as a properly encoded parameter
-    #and use urllib to retrieve the text from the google geocoding API. 
+    #获取用户条目并将URL构造为正确编码的参数
+    #并使用urllib从谷歌地理编码API中检索文本. 
     url = serviceurl + urllib.parse.urlencode({'sensor':'false', 'address': address})
     
     print('Retrieved', url)

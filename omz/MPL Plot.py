@@ -3,7 +3,7 @@
 
 import console
 console.clear()
-print 'Generating plot... (this may take a little while)'
+print('Generating plot... (this may take a little while)')
 
 import numpy
 import matplotlib.pyplot as plt
@@ -17,4 +17,5 @@ p2 = plt.plot(x, numpy.cos(x), lw=2, c='b')
 plt.legend([p1[0], p2[0]], ['sin(x)', 'cos(x)'], loc=4)
 plt.show()
 
-print 'Tip: You can tap and hold the image to save it to your photo library.'
+print('Tip: You can tap and hold the image to save it to your photo library.')
+

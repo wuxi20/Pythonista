@@ -13,9 +13,10 @@ import sys
 time.sleep(1)
 editor.make_new_file(sys.argv[1], clipboard.get())
 time.sleep(1)
-execfile(sys.argv[1]+'.py')
+exec(compile(open(sys.argv[1]+'.py').read(), sys.argv[1]+'.py', 'exec'))
 time.sleep(1)
 os.remove(sys.argv[1]+".py")
 time.sleep(1)
 webbrowser.open('workflow://')
 time.sleep(1)
+

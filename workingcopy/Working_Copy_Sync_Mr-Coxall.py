@@ -10,7 +10,7 @@ import keychain
 import os
 import shutil
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser as wb
 import zipfile
 from collections import OrderedDict
@@ -52,7 +52,7 @@ class WorkingCopySync():
 	def _send_to_working_copy(self, action, payload, x_callback_enabled=True):
 		x_callback = 'x-callback-url/' if x_callback_enabled else ''
 		payload['key'] = self.key
-		payload = urllib.urlencode(payload).replace('+', '%20')
+		payload = urllib.parse.urlencode(payload).replace('+', '%20')
 		fmt = 'working-copy://{x_callback}{action}/?{payload}'
 		url = fmt.format(x_callback=x_callback, action=action, payload=payload)
 		wb.open(url)
@@ -194,3 +194,4 @@ if __name__ == "__main__":
 		url_action = sys.argv[1]
 		url_args = sys.argv[2:]
 	main(url_action, url_args)
+

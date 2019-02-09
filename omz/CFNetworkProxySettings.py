@@ -11,4 +11,4 @@ CFNetworkCopySystemProxySettings.argtypes = []
 
 proxy_settings = ObjCInstance(CFNetworkCopySystemProxySettings())
 
-print proxy_settings
+print(proxy_settings)

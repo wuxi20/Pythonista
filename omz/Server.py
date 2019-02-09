@@ -1,13 +1,13 @@
 '''A simple HTTP server that allows you to view files in Pythonista from a web browser in your local network (or on this device). The HTML pages are rendered using the jinja2 template engine.'''
 
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-import urlparse
-import urllib
+from http.server import SimpleHTTPRequestHandler
+import urllib.parse
+import urllib.request, urllib.parse, urllib.error
 import cgi
 from socket import gethostname, gethostbyname
 import os
 import shutil
-from cStringIO import StringIO
+from io import StringIO
 import jinja2
 
 PORT = 8080
@@ -18,7 +18,7 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
 	def list_directory(self, path, msg=None):
 		files = os.listdir(path)
 		files.sort(key=lambda a: a.lower())
-		displaypath = cgi.escape(urllib.unquote(self.path))
+		displaypath = cgi.escape(urllib.parse.unquote(self.path))
 		entries = []
 		for name in files:
 			if name.startswith('.'):
@@ -27,7 +27,7 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
 			displayname = linkname = name
 			if os.path.isdir(fullname):
 				displayname = linkname = name + '/'
-			entries.append({'href': urllib.quote(linkname), 'name': cgi.escape(displayname)})
+			entries.append({'href': urllib.parse.quote(linkname), 'name': cgi.escape(displayname)})
 		self.send_response(200)
 		self.send_header('Content-type', 'text/html; charset=utf-8')
 		self.end_headers()
@@ -56,13 +56,14 @@ class MyRequestHandler(SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
 	os.chdir(os.path.expanduser('~/Documents'))
-	from BaseHTTPServer import HTTPServer
+	from http.server import HTTPServer
 	server = HTTPServer(('', PORT), MyRequestHandler)
-	print 'Local HTTP server URL:'
-	print 'http://%s.local:%i' % (gethostname(), PORT)
-	print 'Tap the stop button in the editor or console to stop the server.'
+	print('Local HTTP server URL:')
+	print('http://%s.local:%i' % (gethostname(), PORT))
+	print('Tap the stop button in the editor or console to stop the server.')
 	try:
 		server.serve_forever()
 	except KeyboardInterrupt:
 		server.shutdown()
-		print 'Server stopped'
+		print('Server stopped')
+

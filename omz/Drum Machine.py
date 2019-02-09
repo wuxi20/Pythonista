@@ -22,7 +22,7 @@ class DrumMachine (Scene):
 			with open('Drums.data', 'r') as f:
 				self.grid = pickle.load(f)
 		except EOFError:
-			self.grid = [[False for col in xrange(16)] for row in xrange(8)]
+			self.grid = [[False for col in range(16)] for row in range(8)]
 		
 	def draw(self):
 		background(0, 0, 0)
@@ -30,9 +30,9 @@ class DrumMachine (Scene):
 		self.beat += 1.0/7.5
 		self.beat %= 16
 		play = int(self.beat) != last_beat
-		for y in xrange(16):
+		for y in range(16):
 			beat_row = int(self.beat) == y
-			for x in xrange(8):
+			for x in range(8):
 				if self.grid[x][y]:
 					h = x / 8.0
 					r, g, b = hsv_to_rgb(h, 1, 1)
