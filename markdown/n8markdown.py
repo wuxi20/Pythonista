@@ -27,9 +27,10 @@ def main():
 
     final_text = code_fixed
 
-    clipboard.set( unicode(final_text) )
+    clipboard.set( str(final_text) )
     webbrowser.open('wordpress://')
 
 if __name__ == "__main__":
     main()
+
 

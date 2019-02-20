@@ -9,7 +9,7 @@
     :license: BSD, see LICENSE for details.
 """
 
-import collections
+import UserString
 
 try:
     import json
@@ -28,8 +28,8 @@ except (ImportError, AttributeError):
 class SphinxJSONEncoder(JSONEncoder):
     """JSONEncoder subclass that forces translation proxies."""
     def default(self, obj):
-        if isinstance(obj, collections.UserString):
-            return str(obj)
+        if isinstance(obj, UserString.UserString):
+            return unicode(obj)
         return JSONEncoder.default(self, obj)
 
 
@@ -46,4 +46,3 @@ def load(*args, **kwds):
 
 def loads(*args, **kwds):
     return json.loads(*args, **kwds)
-

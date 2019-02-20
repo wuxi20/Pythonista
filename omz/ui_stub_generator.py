@@ -17,7 +17,7 @@ from numbers import Number
 import console
 console.clear()
 
-from StringIO import StringIO
+from io import StringIO
 
 def write_constants(s, mod):
 	members = inspect.getmembers(mod)
@@ -61,7 +61,7 @@ def main():
 	write_functions(s, ui)
 	write_classes(s, ui)
 	mod_str = s.getvalue()
-	print mod_str
+	print(mod_str)
 	with open('ui_stubs.py', 'w') as f:
 		f.write(mod_str)
 

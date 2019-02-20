@@ -11,6 +11,6 @@ s = input_file
 md = markdown.Markdown()
 html = md.convert(s)
 
-print html
+print(html)
 
 clipboard.set(html)

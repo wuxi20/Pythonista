@@ -61,9 +61,9 @@ class ForumCodeBlockAdmin (ui.View):
 					iS = sO.find('```xml') + 7
 					iF = sO.rfind('```')
 				sN = sO[:iS] + self.source_code + sO[iF:]
-				sS1 = sN.replace(str(unichr(92)), str(unichr(92)) * 2)
-				sS2 = sS1.replace(str(unichr(10)), str(unichr(92) + 'n'))
-				sS3 = sS2.replace('"', str(unichr(92) + '"'))
+				sS1 = sN.replace(str(chr(92)), str(chr(92)) * 2)
+				sS2 = sS1.replace(str(chr(10)), str(chr(92) + 'n'))
+				sS3 = sS2.replace('"', str(chr(92) + '"'))
 				webview.evaluate_javascript('''document.getElementById("wmd-input").value = "''' + sS3 + '"')
 				if self.submit:
 					webview.evaluate_javascript('''document.forms[0].submit()''')
@@ -82,4 +82,5 @@ if __name__ == "__main__":
 	fcba.submit = False
 	fcba.update()
 # --------------------
+
 

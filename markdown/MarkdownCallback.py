@@ -8,7 +8,7 @@
 import webbrowser
 import markdown
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 input_file = clipboard.get()
 
@@ -20,6 +20,6 @@ html = md.convert(s)
 clipboard.set(html)
 
 s = clipboard.get()
-s = urllib.quote(s.encode('utf-8'))
+s = urllib.parse.quote(s.encode('utf-8'))
 
 webbrowser.open('editorial://new?text=' + s)

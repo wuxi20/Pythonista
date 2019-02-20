@@ -18,7 +18,7 @@ def main():
 	else:
 		url = clipboard.get()
 	if 'forum.omz-software' not in url:
-		print 'No forum URL'
+		print('No forum URL')
 		return
 	import requests
 	import bs4
@@ -28,10 +28,11 @@ def main():
 	if pre_tags:
 		text = ('\n#%s\n\n' % ('=' * 30)).join([p.get_text() for p in pre_tags])
 		clipboard.set(text)
-		print 'Code copied (%i lines)' % (len(text.splitlines()))
+		print('Code copied (%i lines)' % (len(text.splitlines())))
 	else:
-		print 'No code found'
+		print('No code found')
 		
 if __name__ == '__main__':
 	main()
+
 

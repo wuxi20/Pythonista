@@ -39,7 +39,7 @@ class Highlight(Directive):
             except Exception:
                 linenothreshold = 10
         else:
-            linenothreshold = sys.maxsize
+            linenothreshold = sys.maxint
         return [addnodes.highlightlang(lang=self.arguments[0].strip(),
                                        linenothreshold=linenothreshold)]
 
@@ -60,14 +60,14 @@ class CodeBlock(Directive):
     }
 
     def run(self):
-        code = '\n'.join(self.content)
+        code = u'\n'.join(self.content)
 
         linespec = self.options.get('emphasize-lines')
         if linespec:
             try:
                 nlines = len(self.content)
                 hl_lines = [x+1 for x in parselinenos(linespec, nlines)]
-            except ValueError as err:
+            except ValueError, err:
                 document = self.state.document
                 return [document.reporter.warning(str(err), line=self.lineno)]
         else:
@@ -153,7 +153,7 @@ class LiteralInclude(Directive):
         if linespec is not None:
             try:
                 linelist = parselinenos(linespec, len(lines))
-            except ValueError as err:
+            except ValueError, err:
                 return [document.reporter.warning(str(err), line=self.lineno)]
             # just ignore nonexisting lines
             nlines = len(lines)
@@ -167,7 +167,7 @@ class LiteralInclude(Directive):
         if linespec:
             try:
                 hl_lines = [x+1 for x in parselinenos(linespec, len(lines))]
-            except ValueError as err:
+            except ValueError, err:
                 return [document.reporter.warning(str(err), line=self.lineno)]
         else:
             hl_lines = None
@@ -214,4 +214,3 @@ directives.register_directive('highlightlang', Highlight) # old
 directives.register_directive('code-block', CodeBlock)
 directives.register_directive('sourcecode', CodeBlock)
 directives.register_directive('literalinclude', LiteralInclude)
-

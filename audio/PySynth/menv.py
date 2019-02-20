@@ -36,7 +36,7 @@ class mEnv:
 		''' Constructor class. '''
 
 		# Get the user input.
-		cliInput = input(">>> ")
+		cliInput = eval(input(">>> "))
 
 		self.parse(cliInput)
 
@@ -59,7 +59,7 @@ class mEnv:
 			sys.exit()
 		# 'help' command.
 		if cliInput == 'help':
-			print('\n' + helpContent + '\n' + usageHelp + '\n')
+			print(('\n' + helpContent + '\n' + usageHelp + '\n'))
 			mEnv()
 
 		# List with whitespace as delimiter.
@@ -165,6 +165,7 @@ if __name__ == "__main__":
 			a.trashFile = False
 			if a.outFile == '':
 				a.outFile = 'temp.wav'
-			print('Could not play file. Saved to ' + a.outFile)
+			print(('Could not play file. Saved to ' + a.outFile))
 		a.removeFile(a.outFile)
+
 

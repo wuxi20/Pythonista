@@ -4,7 +4,7 @@
 
 import ui
 from markdown2 import markdown
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import clipboard
 import webbrowser
 from string import Template
@@ -233,9 +233,9 @@ class MarkdownView(ui.View):
 		# Create the buttons
 		# Need to retain references to the buttons used
 		# to handle clicks
-		(self.indentButton, indentBarButton) = create_button(u'\u21E5', self.indent)
+		(self.indentButton, indentBarButton) = create_button('\u21E5', self.indent)
 		
-		(self.outdentButton, outdentBarButton) = create_button(u'\u21E4', self.outdent)
+		(self.outdentButton, outdentBarButton) = create_button('\u21E4', self.outdent)
 		
 		(self.quoteButton, quoteBarButton) = create_button('>', self.block_quote)
 		
@@ -283,7 +283,7 @@ class MarkdownView(ui.View):
 		(start, end) = tv.selected_range
 		(r_start, r_end) = (start, end)
 		r_len = len(to_remove)
-		if start <> end:
+		if start != end:
 			if tv.text[start:end].startswith(to_remove):
 				if end - start > 2*r_len + 1 and tv.text[start:end].endswith(to_remove):
 					to_insert = tv.text[start+r_len:end-r_len]
@@ -299,7 +299,7 @@ class MarkdownView(ui.View):
 				r_end = end + 2*len(to_insert)
 				to_insert = to_insert + tv.text[start:end] + to_insert
 		tv.replace_range((start, end), to_insert)
-		if start <> end:
+		if start != end:
 			tv.selected_range = (r_start, r_end)
 		
 	def heading(self, sender):
@@ -665,7 +665,7 @@ class MarkdownView(ui.View):
 		# Debug message from web page, print to console
 		elif url.startswith(self.debug_prefix):
 			debug_text = unquote(url.replace(self.debug_prefix, ''))
-			print debug_text
+			print(debug_text)
 			return False
 		# Loaded by the web view at start, allow
 		elif url.startswith('about:blank'):
@@ -746,3 +746,4 @@ if __name__ == "__main__":
 	#markdown_edit.editable = False
 	
 	markdown_edit.present(style='fullscreen', hide_title_bar=False) 
+

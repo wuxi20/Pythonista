@@ -1,18 +1,17 @@
-# You can paste your Pythonista script here.
+# 您可以在此处粘贴Pythonista脚本。
 #
-# To change the icon of your app, you can modify Icon76.png (iPad non-retina),
-# Icon120.png (iPhone) and Icon152.png (iPad retina).
+# 要更改应用程序的图标，您可以修改Icon76.png（iPad非视网膜),
+# Icon120.png (iPhone) 和 Icon152.png (iPad retina).
 #
-# If you don't want your script to run in the background, open Info.plist,
-# and set "Application does not run in background" to Yes.
+# 如果您不希望脚本在后台运行，请打开Info.plist，
+#并将“应用程序不在后台运行”设置为是
+# 要在主屏幕上更改应用程序的名称，请打开Info.plist，然后
+#更改“Bundle display name”。
+
+# 要减小应用程序的大小，您可以从纹理中删除未使用的图像
+# 文件夹.
 #
-# To change the name of your app on the homescreen, open Info.plist, and
-# change the "Bundle display name".
-#
-# To reduce the size of the app, you can remove unused images from the Textures
-# folder.
-#
-# Please note that matplotlib is currently not supported in standalone apps.
+# 请注意，独立应用程序目前不支持matplotlib.
 
 # coding: utf-8
 

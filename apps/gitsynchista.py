@@ -1,8 +1,8 @@
 # coding: utf-8
 
-# This is a self-extracting archive. Copy this script into a '.py' file located in the root
-# directory of Pythonista and call the script. It will unzip the data and extract all files to an
-# immediate sub directory of the root directory.
+# 这是一个自解压存档,将此脚本复制到位于根目录中的“.py”文件中
+# Pythonista目录并调用脚本。它将解压缩数据并将所有文件解压缩到
+#根目录的immediate子目录.
 #
 # This file was generated using pyzipista (see https://github.com/marcus67/pyzipista)
 #

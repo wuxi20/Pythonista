@@ -44,17 +44,17 @@ class ForMd(object):
 		for n, link in enumerate(links):
 			text, ref = link
 			ref_num = ''.join(("[",str(n+1),"]: "))
-			if ref in refs.keys():
+			if ref in list(refs.keys()):
 				url = refs.get(ref).strip()
 				formd_ref = ''.join((ref_num, url))
 				formd_text = ''.join((text, ref_num))
 				self.data.append([formd_text, formd_ref])
-			elif text in refs.keys():
+			elif text in list(refs.keys()):
 				url = refs.get(text).strip()
 				formd_ref = ''.join((ref_num, url))
 				formd_text = ''.join((text, ref_num))
 				self.data.append([formd_text, formd_ref])
-			elif ref not in refs.keys():
+			elif ref not in list(refs.keys()):
 				parse_ref = ref.strip("()")
 				formd_ref = ''.join((ref_num, parse_ref))
 				formd_text = ''.join((text,ref_num))
@@ -97,5 +97,6 @@ if __name__ == '__main__':
 		text = ForMd(md)
 		[clipboard.set(t) for t in text.flip()]
 		final = clipboard.get()
-		print final
+		print(final)
+
 

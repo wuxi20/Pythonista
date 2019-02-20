@@ -7,7 +7,7 @@ Math object where possible.
 
 """
 
-
+from __future__ import print_function, division
 
 from sympy.core import S, C
 from sympy.printing.codeprinter import CodePrinter
@@ -53,7 +53,7 @@ class JavascriptCodePrinter(CodePrinter):
         CodePrinter.__init__(self, settings)
         self.known_functions = dict(known_functions)
         userfuncs = settings.get('user_functions', {})
-        for k, v in list(userfuncs.items()):
+        for k, v in userfuncs.items():
             if not isinstance(v, tuple):
                 userfuncs[k] = (lambda *x: True, v)
         self.known_functions.update(userfuncs)
@@ -156,7 +156,7 @@ class JavascriptCodePrinter(CodePrinter):
         inds = [ i.label for i in expr.indices ]
         elem = S.Zero
         offset = S.One
-        for i in reversed(list(range(expr.rank))):
+        for i in reversed(range(expr.rank)):
             elem += offset*inds[i]
             offset *= dims[i]
         return "%s[%s]" % (self._print(expr.base.label), self._print(elem))
@@ -272,4 +272,3 @@ def print_jscode(expr, **settings):
        See jscode for the meaning of the optional arguments.
     """
     print(jscode(expr, **settings))
-

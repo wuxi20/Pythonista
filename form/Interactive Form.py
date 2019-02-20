@@ -9,8 +9,8 @@
 # Enter a city, zip code or address and select options.
 # Static map images are returned from the Google Maps API.
 
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 import cgi
 import webbrowser
 
@@ -74,3 +74,4 @@ if __name__ == '__main__':  #start server and open browser
   server = HTTPServer(('', 80), RequestHandler)
   webbrowser.open('http://localhost', stop_when_done = True)
   server.serve_forever()
+

@@ -57,7 +57,7 @@ import os
 import re
 import requests
 import shelve
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 api_url = 'https://api.github.com/gists/'
 
@@ -66,14 +66,14 @@ class InvalidGistIDError (Exception): pass
 
 def auth(username, password):
 	data='{"scopes":["gist"],"note":"gistcheck"}'
-	request = urllib2.Request("https://api.github.com/authorizations",data)
+	request = urllib.request.Request("https://api.github.com/authorizations",data)
 	import base64
 	enc = base64.standard_b64encode('%s:%s' % (username, password))
 	request.add_header("Authorization", "Basic %s" % enc)
-	result = urllib2.urlopen(request)
+	result = urllib.request.urlopen(request)
 	rdata = result.read()
 	result.close()
-	print rdata
+	print(rdata)
 	return json.loads(rdata)
 	
 #get auth data
@@ -88,7 +88,7 @@ def get_token():
 def commit_or_create(gist, files, token, message=None):
 	payload = {"files":{}}
 	if message is not None: payload['description'] = message
-	for f, c in files.items():
+	for f, c in list(files.items()):
 		payload['files'][os.path.basename(f)] = {"content":c}
 	headers = {
 	'Content-Type':'application/json',
@@ -211,7 +211,7 @@ def download_gist(gist_url):
 		files = gist_info['files']
 	except:
 		raise GistDownloadError()
-	for file_info in files.values():
+	for file_info in list(files.values()):
 		lang =  file_info.get('language', None)
 		#if lang != 'Python': <= trying to replace this check
 		filename = file_info['filename']
@@ -261,10 +261,11 @@ def setup():
 	'GistSetID'  :'gistcheck.gist_set()',
 	'GistDownload':'import sys\nif __name__ == "__main__" : gistcheck.download_from_args( sys.argv )'
 	}
-	for s,c in script_map.items():
+	for s,c in list(script_map.items()):
 		with open(s+'.py','w') as f:
 			f.writelines(['import gistcheck\n','%s\n'%c])
 			
 if __name__ == '__main__':
 	setup()
+
 

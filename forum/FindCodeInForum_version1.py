@@ -4,7 +4,7 @@
 
 # https://forum.omz-software.com/topic/2788/share-code-findcodeinforum
 
-import dialogs, bs4, urllib2
+import dialogs, bs4, urllib.request, urllib.error, urllib.parse
 
 field_url=[{'type':'url', 'key':'url', 'value':'https://forum.omz-software.com/topic/2902/circle-view-for-ui/4', 'title':'URL:'}]
 field_filter=[{'type':'switch', 'key':'python', 'value':True, 'title':'python'},
@@ -22,10 +22,10 @@ if items:
 	savefile = items.get('savefile')
 	filename = items.get('filename')
 	if savefile and filename == '':
-		print 'Please type in a valid filename!'
+		print('Please type in a valid filename!')
 	else:
 		c = []
-		soup = bs4.BeautifulSoup(urllib2.urlopen(url).read())
+		soup = bs4.BeautifulSoup(urllib.request.urlopen(url).read())
 		if cpython:
 			allpython = soup.find_all('code','python')
 			for code in allpython:
@@ -46,11 +46,12 @@ if items:
 					file.write(c[1])
 					file.write('# ====================\n')    #seperator for different code blocks
 				file.close()
-				print 'File ' + filename + ' is created.'
+				print('File ' + filename + ' is created.')
 			else:
 				for c in cb:
-					print c[1]
-					print '# ====================\n'    #seperator for different code blocks
+					print(c[1])
+					print('# ====================\n')    #seperator for different code blocks
 		else:
-			print 'Sorry nothing found.'
+			print('Sorry nothing found.')
+
 

@@ -4,5 +4,6 @@
 import string
 
 S = 'abcedfghijklm'
-print S[5:1:-1]
+print(S[5:1:-1])
+
 

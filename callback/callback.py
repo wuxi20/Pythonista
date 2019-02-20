@@ -1,4 +1,4 @@
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import inspect
 import os
 import json
@@ -18,8 +18,8 @@ def url(cmd,script=None,**kw):
     if not script: 
         script = current_script()
     kw['cmd'] = cmd
-    a = URL_BASE + urllib.quote(script) + '?action=run'
-    a += "&argv=callback&argv=" + urllib.quote(json.dumps(kw))
+    a = URL_BASE + urllib.parse.quote(script) + '?action=run'
+    a += "&argv=callback&argv=" + urllib.parse.quote(json.dumps(kw))
     return a
 
 def get_info(args):
@@ -67,3 +67,4 @@ class InfoHandler(object):
         del self.args['cmd']
         self.cmdmap[cmdname](**self.args)
         return True
+

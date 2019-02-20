@@ -1,25 +1,25 @@
 import logging
 import os
 import select
-import SimpleHTTPServer
-import SocketServer
+import http.server
+import socketserver
 import threading
 
 HERE = os.path.dirname(__file__)
 logger = logging.getLogger(__name__)
 
 
-class ThisDirHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class ThisDirHandler(http.server.SimpleHTTPRequestHandler):
     def translate_path(self, path):
         path = path.split('?', 1)[0].split('#', 1)[0]
-        return os.path.join(HERE, *filter(None, path.split('/')))
+        return os.path.join(HERE, *[_f for _f in path.split('/') if _f])
 
     def log_message(self, s, *args):
         # output via logging so nose can catch it
         logger.info(s, *args)
 
 
-class ShutdownServer(SocketServer.TCPServer):
+class ShutdownServer(socketserver.TCPServer):
     """Mixin that allows serve_forever to be shut down.
 
     The methods in this mixin are backported from SocketServer.py in the Python
@@ -28,7 +28,7 @@ class ShutdownServer(SocketServer.TCPServer):
     """
 
     def __init__(self, *args, **kwargs):
-        SocketServer.TCPServer.__init__(self, *args, **kwargs)
+        socketserver.TCPServer.__init__(self, *args, **kwargs)
         self.__is_shut_down = threading.Event()
         self.__serving = False
 
@@ -98,3 +98,4 @@ def start_server(handler):
     threading.Thread(target=httpd.serve_forever).start()
     _, port = httpd.socket.getsockname()
     return httpd, port
+

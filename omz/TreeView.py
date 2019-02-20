@@ -9,12 +9,12 @@ import sys
 
 PY3 = sys.version_info[0] >= 3
 if PY3:
-	basestring = str
+	str = str
 def iteritems(d):
 	if PY3:
-		return d.items()
+		return list(d.items())
 	else:
-		return d.iteritems()
+		return iter(d.items())
 		
 class JSONTreeNode (TreeNode):
 	def __init__(self, json_path=None, node=None, key=None, level=0):
@@ -33,7 +33,7 @@ class JSONTreeNode (TreeNode):
 			self.title = 'dict (%i)' % (len(self.node),)
 			self.leaf = False
 			self.icon_name = 'iob:ios7_folder_outline_32'
-		elif isinstance(self.node, basestring):
+		elif isinstance(self.node, str):
 			self.title = '"%s"' % (self.node,)
 			self.leaf = True
 			self.icon_name = 'iob:ios7_information_outline_32'
@@ -65,4 +65,5 @@ tree_controller.view.present('sheet')
 tree_controller.view.wait_modal()
 
 #--------------------
+
 

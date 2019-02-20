@@ -9,26 +9,26 @@ Please note: this is *NOT* a cloning tool! It simply downloads the files in the 
 """
 
 import os
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import zipfile
 import random
 
-print "Getting URL..."
+print("Getting URL...")
 url_format = 'https://www.github.com/{user}/{repo}/archive/master.zip'
-user = raw_input('Please enter the name of the user > ')
-repo = raw_input('Please enter the name of the repo > ')
+user = input('Please enter the name of the user > ')
+repo = input('Please enter the name of the repo > ')
 
-print "Preparing..."
+print("Preparing...")
 url = url_format.format(user=user, repo=repo)
 downloadname = str(random.randint(0x000000, 0xFFFFFF)) + "_master.zip"
 
-print "Downloading..."
-urllib.urlretrieve(url, downloadname)
+print("Downloading...")
+urllib.request.urlretrieve(url, downloadname)
 
-print "Extracting..."
+print("Extracting...")
 zipped = zipfile.ZipFile(downloadname, 'r')
 zipped.extractall()
 zipped.close()
 
-print "Cleaning up..."
+print("Cleaning up...")
 os.remove(downloadname)

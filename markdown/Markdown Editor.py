@@ -2,7 +2,7 @@
 # By: EJM Software ---- http://ejm.cloudvent.net
 # Source: http://gist.github.com/02df085647247a815eff
 # *****************************************
-import ui, console, editor, markdown, webbrowser, urllib
+import ui, console, editor, markdown, webbrowser, urllib.request, urllib.parse, urllib.error
 
 @ui.in_background
 def new_md(sender):
@@ -24,8 +24,8 @@ def view_md(sender):
     
 @ui.in_background
 def email_md(sender):
-    subject = 'subject='+urllib.quote(editor.get_path().split('/')[-1])
-    body = 'body='+urllib.quote(markdown.markdown(editor.get_text()))
+    subject = 'subject='+urllib.parse.quote(editor.get_path().split('/')[-1])
+    body = 'body='+urllib.parse.quote(markdown.markdown(editor.get_text()))
     webbrowser.open('mailto:?'+subject+'&'+body)
 
 if __name__=='__main__':
@@ -42,3 +42,4 @@ if __name__=='__main__':
     view.add_subview(b_view)
     view.add_subview(b_email)
     view.present('sidebar')
+

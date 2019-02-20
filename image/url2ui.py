@@ -4,8 +4,8 @@
 
 import ui
 import webbrowser
-import cStringIO
-import urllib2
+import io
+import urllib.request, urllib.error, urllib.parse
 from PIL import Image, ImageOps, ImageDraw
 import io
 
@@ -15,7 +15,7 @@ url= "http://vignette2.wikia.nocookie.net/jamesbond/images/3/31/Vesper_Lynd_(Eva
 def circleMaskViewFromURL(url):
     url=url
     #load image from url and show it
-    file=cStringIO.StringIO(urllib2.urlopen(url).read())
+    file=io.StringIO(urllib.request.urlopen(url).read())
 
     img = Image.open(file)
 

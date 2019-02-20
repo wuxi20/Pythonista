@@ -27,7 +27,7 @@ def download_gist(gist_url):
 	raw_match = re.match('http(s?)://raw.github.com/gist/', gist_url)
 	if raw_match:
 		import requests
-		from urlparse import urlparse
+		from urllib.parse import urlparse
 		filename = os.path.split(urlparse(gist_url).path)[1]
 		try:
 			r = requests.get(gist_url)
@@ -48,7 +48,7 @@ def download_gist(gist_url):
 				files = gist_info['files']
 			except:
 				raise GistDownloadError()
-			for file_info in files.values():
+			for file_info in list(files.values()):
 				lang =  file_info.get('language', None)
 				if lang != 'Python':
 					continue
@@ -85,4 +85,5 @@ if __name__ == '__main__':
 	else:
 		url = clipboard.get()
 	download(url)
+
 

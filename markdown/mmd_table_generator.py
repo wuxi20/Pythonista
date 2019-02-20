@@ -11,8 +11,8 @@ import zlib
 import webbrowser
 import clipboard
 from bs4 import BeautifulSoup, Tag
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 
 """Interactive multimarkdown table generator. Please note that
 multi-column spanning is not supported in this version. I need
@@ -332,16 +332,16 @@ def _validate_input(row=True):
 		msg1 = msg1 % ('columns')
 		msg2 = msg2 % ('columns', MAX_DIM)
 		
-	par = raw_input(msg1)
+	par = input(msg1)
 	
 	try:
 		par = int(par)
 		if par < 1 or par > MAX_DIM:
-			print msg2
+			print(msg2)
 			par = _validate_input(row)
 	except ValueError:
 		# Cannot convert to int
-		print '***Error: Enter a number between 1 and %d' % (MAX_DIM)
+		print('***Error: Enter a number between 1 and %d' % (MAX_DIM))
 		par = _validate_input(row)
 		
 	return par
@@ -360,4 +360,5 @@ if __name__ == '__main__':
 		server.serve_forever()
 	except KeyboardInterrupt:
 		sys.exit(0)
+
 

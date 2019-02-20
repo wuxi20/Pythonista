@@ -20,17 +20,18 @@ def main():
 	#Add the item
 	rightItems=list(tabVC.navigationItem().rightBarButtonItems())
 	
-	print tabVC.navigationItem().rightBarButtonItems()
+	print(tabVC.navigationItem().rightBarButtonItems())
 	
 	rightItems.insert(-1,overviewItem)
 	rightItems=ns(rightItems)
 	rightItems.init()
 	tabVC.navigationItem().set_rightBarButtonItems_(rightItems)
-	print tabVC.navigationItem().rightBarButtonItems()
+	print(tabVC.navigationItem().rightBarButtonItems())
 	
 	#tabVC.persistentLeftBarButtonItems = [overviewItem]
 	tabVC.reloadBarButtonItemsForSelectedTab()
 	
 if __name__ == '__main__':
 	main()
+
 

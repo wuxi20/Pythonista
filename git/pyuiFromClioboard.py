@@ -12,16 +12,16 @@ path = os.getcwd()
 files = []
 for item in sorted(os.listdir(path)):
   if '.pyui' in item:
-    print item,
+    print(item, end=' ')
     files.append(item)
-print
-print
+print()
+print()
 if len(files) == 1:
-  filename = raw_input('Please choose pyui file or press return for [' + files[0] + ']: ') or files[0]
+  filename = input('Please choose pyui file or press return for [' + files[0] + ']: ') or files[0]
 elif len(files) > 1:
-  filename = raw_input('Please choose pyui file: ')
+  filename = input('Please choose pyui file: ')
 else:
-  print 'Sorry no pyui file found!'
+  print('Sorry no pyui file found!')
   sys.exit()
 
 if not '.pyui' in filename:
@@ -32,6 +32,6 @@ if os.path.exists(filename):
   file = open(path, 'r')
   clipboard.set(file.read())
   file.close()
-  print filename + ' is in clipboard.'
+  print(filename + ' is in clipboard.')
 else:
-  print "Can't find " + filename
+  print("Can't find " + filename)

@@ -19,8 +19,9 @@ if long_url is not None and re.match('http(s)?://.*', long_url):
 		import webbrowser
 		webbrowser.open('safari-' + long_url)
 	else:
-		print('Error:', short_url)
+		print(('Error:', short_url))
 else:
 	print('Invalid/missing URL argument.')
+
 
 

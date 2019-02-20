@@ -95,6 +95,7 @@ f.close()
 
 f = open(fname, "r")
 for line in f:
-	print(line),
+	print((line), end=' ')
 f.close()
+
 

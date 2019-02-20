@@ -209,18 +209,18 @@ def main(args=None):
             except KeyboardInterrupt:
                 return
             else:
-                import urllib2
-                import urlparse
+                import urllib.request, urllib.error, urllib.parse
+                import urllib.parse
                 try:
-                    r = urllib2.urlopen(url)
-                except urllib2.URLError as exc:
+                    r = urllib.request.urlopen(url)
+                except urllib.error.URLError as exc:
                     print(exc)
                     console.hud_alert("Download error (see console)", 'error')
                     return
                 else:
                     md = r.read()
 
-                url = urlparse.urlparse(r.geturl())
+                url = urllib.parse.urlparse(r.geturl())
                 fn = make_pdf_filename(url.path)
                 if fn:
                     pdf_bn = fn
@@ -265,3 +265,4 @@ def main(args=None):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.ERROR)
     main(sys.argv[1:])
+

@@ -3,7 +3,7 @@
 # Copy the code into a .py file in Pythonista. Add your OMZ forum username and password to the top variables.
 # You can use this as an action extension in Pythonista App. This requires code to be open. When you run it, it will take copy the code you are working on into the post and append/prepend HTML tags to indicate the code. A title is required and please select the right category.
 
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import ui
 import editor
 import markdown
@@ -15,7 +15,7 @@ omz_forum_password = ''
 def submit_post(sender):
 	global omz_forum_password, omz_forum_username
 	login_info = {'username': omz_forum_username, 'password': omz_forum_password,}
-	login_data = urllib.urlencode(login_info)
+	login_data = urllib.parse.urlencode(login_info)
 	
 	if not title_field.text:
 		alert_text.text = 'You need a Title!'
@@ -25,7 +25,7 @@ def submit_post(sender):
 	sc_option = ('General', 'Share Code', 'Questions')[sc.selected_index]
 	
 	post_info = {'title' : str(title_field.text), 'category' : sc_option, 'text' : post_edit_box.text, 'forum' : 'pythonista'}
-	post_data = urllib.urlencode(post_info)
+	post_data = urllib.parse.urlencode(post_info)
 	clen = '\'%s\'' % len(post_edit_box.text)
 	
 	with requests.session() as c:
@@ -118,4 +118,5 @@ alert.add_subview(alert_text)
 alert.add_subview(alert_button)
 
 view.present('fullscreen')
+
 

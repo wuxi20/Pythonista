@@ -7,7 +7,7 @@
 #
 
 from thrift.Thrift import TType, TMessageType, TException, TApplicationException
-from ttypes import *
+from .ttypes import *
 
 EDAM_ATTRIBUTE_LEN_MIN = 1
 EDAM_ATTRIBUTE_LEN_MAX = 4096
@@ -152,3 +152,4 @@ EDAM_DEVICE_ID_LEN_MAX = 32
 EDAM_DEVICE_ID_REGEX = "^[^\\p{Cc}]{1,32}$"
 EDAM_DEVICE_DESCRIPTION_LEN_MAX = 64
 EDAM_DEVICE_DESCRIPTION_REGEX = "^[^\\p{Cc}]{1,64}$"
+

@@ -1,5 +1,5 @@
 # http://www.jackenhack.com/editorial-app-import-modules-with-pipista/
-import os, os.path, sys, urllib2, requests, tempfile, zipfile, shutil, gzip, tarfile
+import os, os.path, sys, urllib.request, urllib.error, urllib.parse, requests, tempfile, zipfile, shutil, gzip, tarfile
 
 __pypi_base__ = os.path.abspath(os.path.dirname(__file__))
 
@@ -13,23 +13,23 @@ def _chunk_report(bytes_so_far, chunk_size, total_size):
     if (total_size != None):
         percent = float(bytes_so_far) / total_size
         percent = round(percent*100, 2)
-        print 'Downloaded %d of %d bytes (%0.2f%%)' % (bytes_so_far, total_size, percent)
+        print('Downloaded %d of %d bytes (%0.2f%%)' % (bytes_so_far, total_size, percent))
         if bytes_so_far >= total_size:
-            print ''
+            print('')
     else:
-        print 'Downloaded %d bytes' % (bytes_so_far)
+        print('Downloaded %d bytes' % (bytes_so_far))
 
 def _chunk_read(response, chunk_size=32768, report_hook=None, filename=None):
     file_data = []
-    if response.info().has_key('Content-Length'):
+    if 'Content-Length' in response.info():
         total_size = response.info().getheader('Content-Length').strip()
         total_size = int(total_size)
     else:
         # No size
         total_size = None
         if report_hook:
-            print '* Warning: No total file size available.'
-    if (filename == None) and (response.info().has_key('Content-Disposition')):
+            print('* Warning: No total file size available.')
+    if (filename == None) and ('Content-Disposition' in response.info()):
         # If the response has Content-Disposition, we take file name from it
         try:
             filename = response.info()['Content-Disposition'].split('filename=')[1]
@@ -40,7 +40,7 @@ def _chunk_read(response, chunk_size=32768, report_hook=None, filename=None):
             filename = 'output'
     if (filename == None):
         if report_hook:
-            print "* No detected filename, using 'output'"
+            print("* No detected filename, using 'output'")
         filename = 'output'
     bytes_so_far = 0
     while True:
@@ -56,9 +56,9 @@ def _chunk_read(response, chunk_size=32768, report_hook=None, filename=None):
 def _download(src_dict, print_progress=True):
     headers = {'User-Agent' : 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.6;en-US; rv:1.9.2.9) Gecko/20100824 Firefox/3.6.9'}
     if print_progress:
-        print '* Downloading:', src_dict['url']
-    req = urllib2.Request(src_dict['url'], headers=headers)
-    response = urllib2.urlopen(req)
+        print('* Downloading:', src_dict['url'])
+    req = urllib.request.Request(src_dict['url'], headers=headers)
+    response = urllib.request.urlopen(req)
     output = src_dict['url'].split('/')[-1].split('#')[0].split('?')[0]
     if print_progress:
         data,filename = _chunk_read(response, report_hook=_chunk_report, filename=output)
@@ -73,19 +73,19 @@ def _download(src_dict, print_progress=True):
                 f.write(x)
             f.close()
             if print_progress:
-                print '* Saved to:', filename
+                print('* Saved to:', filename)
             return os.path.abspath(filename)
         except Exception:
             if print_progress:
-                print '! Error:', sys.exc_info()[1]
+                print('! Error:', sys.exc_info()[1])
             raise
     else:
         if print_progress:
-            print '* Error: 0 bytes downloaded, not saved'
+            print('* Error: 0 bytes downloaded, not saved')
 
 def pypi_download(pkg_name, pkg_ver='', print_progress=True):
-    import xmlrpclib
-    pypi = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+    import xmlrpc.client
+    pypi = xmlrpc.client.ServerProxy('http://pypi.python.org/pypi')
     hits = pypi.package_releases(pkg_name, True)
     if not hits:
         raise PyPiError('No package found with that name')
@@ -104,7 +104,7 @@ def pypi_download(pkg_name, pkg_ver='', print_progress=True):
 def pypi_versions(pkg_name, limit=10, show_hidden=True):
     if not pkg_name:
         return []
-    pypi = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+    pypi = xmlrpc.client.ServerProxy('http://pypi.python.org/pypi')
     hits = pypi.package_releases(pkg_name, show_hidden)
     if not hits:
         return []
@@ -115,7 +115,7 @@ def pypi_versions(pkg_name, limit=10, show_hidden=True):
 def pypi_search(search_str, limit=5):
     if not search_str:
         return []
-    pypi = xmlrpclib.ServerProxy('http://pypi.python.org/pypi')
+    pypi = xmlrpc.client.ServerProxy('http://pypi.python.org/pypi')
     hits = pypi.search({'name': search_str}, 'and')
     if not hits:
         return []
@@ -153,7 +153,7 @@ def _unzip(a_zip=None, path='.'):
     finally:
         f.close()
     if pk_check != 'PK':
-        print "unzip: %s: does not appear to be a zip file" % a_zip
+        print("unzip: %s: does not appear to be a zip file" % a_zip)
     else:
         if (os.path.basename(filename).lower().endswith('.zip')):
             altpath = os.path.splitext(os.path.basename(filename))[0]
@@ -197,7 +197,7 @@ def _unzip(a_zip=None, path='.'):
                         fp.close()
         except Exception:
             zipfp.close()
-            print "unzip: %s: zip file is corrupt" % a_zip
+            print("unzip: %s: zip file is corrupt" % a_zip)
             return
         zipfp.close()
         return os.path.abspath(location)
@@ -219,7 +219,7 @@ def _ungzip(a_gz=None, path='.'):
         finally:
             f.close()
         if gz_check != '\x1f\x8b\x08':
-            print "%s: %s: does not appear to be a gzip file" % (fname,a_gz)
+            print("%s: %s: does not appear to be a gzip file" % (fname,a_gz))
             return
         else:
             if (os.path.basename(filename).lower().endswith('.gz') or os.path.basename(filename).lower().endswith('.gzip')):
@@ -240,7 +240,7 @@ def _ungzip(a_gz=None, path='.'):
                     with gzip.open(filename, 'rb') as gzfile:
                         outfile.write(gzfile.read())
             except Exception:
-                print "%s: %s: gzip file is corrupt" % (fname, a_gz)
+                print("%s: %s: gzip file is corrupt" % (fname, a_gz))
                 return
     return os.path.abspath(location)
 
@@ -260,7 +260,7 @@ def _untar(a_tar=None, path='.'):
     finally:
         f.close()
     if ustar_check != 'ustar':
-        print "untar: %s: does not appear to be a tar file" % a_tar
+        print("untar: %s: does not appear to be a tar file" % a_tar)
         return
     else:
         if (os.path.basename(filename).lower().endswith('.tar')):
@@ -310,14 +310,14 @@ def _untar(a_tar=None, path='.'):
                     fp.close()
         except Exception:
             tar.close()
-            print "untar: %s: tar file is corrupt" % a_tar
+            print("untar: %s: tar file is corrupt" % a_tar)
             return
         tar.close()
         return os.path.abspath(location)
 
 def _install_setuptools(path='.'):
     # Can't use requests - need https access and it's not availabe in Pythonista 1.2
-    r = urllib2.urlopen('https://raw.github.com/pudquick/pipista/master/st-lite.zip')
+    r = urllib.request.urlopen('https://raw.github.com/pudquick/pipista/master/st-lite.zip')
     temp_zip = tempfile.TemporaryFile()
     temp_zip.write(r.read())
     r.close()
@@ -390,20 +390,20 @@ def _prep_pipista():
             sys.path += [lib_dir]
     # Attempt to load xmlrpclib - not present in Pythonista 1.2
     try:
-        import xmlrpclib
+        import xmlrpc.client
     except ImportError:
         # Doesn't seem to be available - attempt to download it
         sys.exc_clear()
         _install_xmlrpclib(lib_dir)
-        import xmlrpclib
+        import xmlrpc.client
     # Attempt to load ConfigParser - not present in Pythonista 1.2
     try:
-        import ConfigParser
+        import configparser
     except ImportError:
         # Doesn't seem to be available - attempt to download it
         sys.exc_clear()
         _install_ConfigParser(lib_dir)
-        import xmlrpclib
+        import xmlrpc.client
     try:
         import distutils.util
         def _fixed_get_platform():
@@ -484,9 +484,9 @@ def pypi_install(pkg_name, pkg_ver='', print_progress=True):
                 setup_dir = path
                 break
         setup_dir = os.path.abspath(setup_dir)
-        print "* setup.py found here:", setup_dir
+        print("* setup.py found here:", setup_dir)
         # Attempt a pure python build
-        print "* Compiling pure python modules ..."
+        print("* Compiling pure python modules ...")
         result = _py_build(setup_dir)
         if result:
             # Should be contents inside setup_dir/build/lib - merge them into pypi-modules
@@ -494,16 +494,16 @@ def pypi_install(pkg_name, pkg_ver='', print_progress=True):
             if os.path.exists(build_dir):
                 # Get the files and directories in it
                 os.chdir(build_dir)
-                (path, dirs, files) = os.walk(build_dir).next()
+                (path, dirs, files) = next(os.walk(build_dir))
                 lib_dir = os.path.abspath(os.path.join(__pypi_base__, 'pypi-modules'))
                 for a_file in files:
-                    print "* Installing module: %s ..." % a_file
+                    print("* Installing module: %s ..." % a_file)
                     target = os.path.join(lib_dir, a_file)
                     if os.path.exists(target):
                         _rm(target)
                     shutil.copyfile(a_file, target)
                 for a_dir in dirs:
-                    print "* Installing module: %s ..." % a_dir
+                    print("* Installing module: %s ..." % a_dir)
                     target = os.path.join(lib_dir, a_dir)
                     if os.path.exists(target):
                         _rm(target)
@@ -511,6 +511,7 @@ def pypi_install(pkg_name, pkg_ver='', print_progress=True):
         _reset_and_enter_tmp(cwd)
         return True
     else:
-        print "* ERROR: Something went wrong"
+        print("* ERROR: Something went wrong")
     _reset_and_enter_tmp(cwd)
     return False
+

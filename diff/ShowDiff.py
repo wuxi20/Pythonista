@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import difflib
 import re
-import BaseHTTPServer
+import http.server
 import webbrowser
 
 header = '''<!DOCTYPE html>
@@ -55,9 +55,9 @@ default_css = '''\
 '''
 
 def diff(a, b, n=3, css=True):
-    if isinstance(a, basestring):
+    if isinstance(a, str):
         a = a.splitlines()
-    if isinstance(b, basestring):
+    if isinstance(b, str):
         b = b.splitlines()
     return colorize(list(difflib.unified_diff(a, b, n=n)), css=css)
 
@@ -66,7 +66,7 @@ def colorize(diff, css=True):
     return header + css + "\n".join(_colorize(diff)) + footer
 
 def _colorize(diff):
-    if isinstance(diff, basestring):
+    if isinstance(diff, str):
         lines = diff.splitlines()
     else:
         lines = diff
@@ -118,14 +118,15 @@ if __name__ == "__main__":
 
     html = re.sub("<(p|mark)>\s??</(p|mark)>","",diff(a,b))
 
-class MyHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+class MyHandler(http.server.BaseHTTPRequestHandler):
     def do_GET(s):
         s.send_response(200)
         s.send_header("Content-type", "text/html")
         s.end_headers()
         s.wfile.write(html)
-server = BaseHTTPServer.HTTPServer(('', 8888), MyHandler)
+server = http.server.HTTPServer(('', 8888), MyHandler)
 webbrowser.open('http://localhost:8888')
 server.handle_request()
 server.server_close()
+
 

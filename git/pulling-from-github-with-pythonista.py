@@ -4,11 +4,11 @@
 # coding: utf-8
 # gist https://gist.github.com/1efe1a9e7866523112151c2270b09eb2
 
-import clipboard, console, requests, ui, urlparse, zipfile, re, os
+import clipboard, console, requests, ui, urllib.parse, zipfile, re, os
 try:
-	from cStringIO import StringIO
+	from io import StringIO
 except ImportError:
-	from StringIO  import StringIO
+	from io  import StringIO
 	
 class Delegate (object):
 	def __init__(self):
@@ -90,7 +90,7 @@ def download_gist(username, gist):
 		os.mkdir(gist)
 	except:
 		pass
-	for fpinfo in files.values():
+	for fpinfo in list(files.values()):
 		data = requests.get(fpinfo["raw_url"]).content
 		with open(os.path.join(gist,
 		fpinfo["filename"]), "wb") as fp:
@@ -146,8 +146,8 @@ def gitbrowse(sender):
 	if index == 2:
 		nameid_dict = {}
 		for fpinfo in finaldata:
-			nameid_dict[", ".join(fpinfo["files"].keys())] = fpinfo["id"]
-		names = nameid_dict.keys()
+			nameid_dict[", ".join(list(fpinfo["files"].keys()))] = fpinfo["id"]
+		names = list(nameid_dict.keys())
 	else:
 		names = sorted([i["name"] for i in finaldata])
 		
@@ -187,7 +187,7 @@ def segchange(sender):
 view = ui.load_view('_gitrepo')
 for name in 'username reponame'.split():
 	view[name].autocapitalization_type = ui.AUTOCAPITALIZE_NONE
-parse = urlparse.urlparse(clipboard.get().strip())
+parse = urllib.parse.urlparse(clipboard.get().strip())
 if parse.netloc in "www.github.com github.com".split():
 	path = [i for i in parse.path.split("/") if i]
 	if len(path) >= 2:
@@ -197,4 +197,5 @@ view.present('popover')
 # --------------------
 
 # --------------------
+
 

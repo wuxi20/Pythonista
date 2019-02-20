@@ -2,7 +2,7 @@
 
 # https://forum.omz-software.com/topic/1116/forumcodeblock
 
-import urllib2, bs4
+import urllib.request, urllib.error, urllib.parse, bs4
 
 class ForumCodeBlock(object):
 	def __init__(self):
@@ -16,7 +16,7 @@ class ForumCodeBlock(object):
 		self.block_type = None
 		
 	def text(self):
-		for fcb in bs4.BeautifulSoup(urllib2.urlopen(self.forum_url).read()).find_all('code'):
+		for fcb in bs4.BeautifulSoup(urllib.request.urlopen(self.forum_url).read()).find_all('code'):
 			sT = fcb.getText()
 			if self.block_type == 'python':
 				if sT[:3] == "'''" or sT[:6] == 'import':
@@ -30,8 +30,9 @@ if __name__ == "__main__":
 	fcb = ForumCodeBlock()
 	fcb.forum_url = 'http://omz-forums.appspot.com/pythonista/post/5885488242098176'
 	fcb.block_type = 'python'
-	print fcb.text()
+	print(fcb.text())
 	fcb.block_type = 'plist'
-	print fcb.text()
+	print(fcb.text())
 # --------------------
+
 

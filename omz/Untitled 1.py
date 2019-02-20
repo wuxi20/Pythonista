@@ -8,7 +8,7 @@
 
 import webbrowser
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import console
 
 when = clipboard.get()
@@ -24,12 +24,12 @@ if loc == 1:
 
 	event = newtask.decode('utf-8') + ' ' + when + ' at ' + place.decode('utf-8')
 
-	encoded = urllib.quote(event.encode('utf-8'), safe='')
+	encoded = urllib.parse.quote(event.encode('utf-8'), safe='')
 	
 elif loc == 2:
 	event = newtask.decode('utf-8') + ' ' + when
-	print type(event)
-	encoded = urllib.quote(event.encode('utf-8'), safe='')
+	print(type(event))
+	encoded = urllib.parse.quote(event.encode('utf-8'), safe='')
 	
 text = fant + encoded
 

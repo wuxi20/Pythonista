@@ -96,5 +96,6 @@ def normtable(text):
 	
 # Read the input, process, and print.
 unformatted = sys.stdin.read()
-print normtable(unformatted)
+print(normtable(unformatted))
+
 

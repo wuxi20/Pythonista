@@ -29,7 +29,7 @@ if mode == 0:
 
     def can_exec(path):
         try:
-            execfile(path)
+            exec(compile(open(path).read(), path, 'exec'))
         except IOError:    
             return False
         finally:
@@ -98,8 +98,8 @@ if mode == 0:
 
     def main():
         try:
-            exec "import {}".format(name)
-            exec "del {}".format(name) # free up some memory if module is large
+            exec("import {}".format(name))
+            exec("del {}".format(name)) # free up some memory if module is large
         except ImportError:
             console.hud_alert(name + " is not a valid module name.", "error")
             return
@@ -135,11 +135,11 @@ if mode == 1:
     import console
     name = console.input_alert("Module to clone")
     try:
-        exec "import "+name
+        exec("import "+name)
     except ImportError:
         console.hud_alert("cant find " + name, "error")
         sys.exit(0)
-    exec "text = inspect.findsource({})".format(name)
+    exec("text = inspect.findsource({})".format(name))
     lines = text[0]
     GET_TEXT = ''
     for line in lines:

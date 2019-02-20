@@ -79,6 +79,7 @@ LINE_CAP_SQUARE = 2
 LINE_JOIN_BEVEL = 2
 LINE_JOIN_MITER = 0
 LINE_JOIN_ROUND = 1
+PY3 = True
 RENDERING_MODE_AUTOMATIC = 0
 RENDERING_MODE_ORIGINAL = 1
 RENDERING_MODE_TEMPLATE = 2
@@ -87,11 +88,19 @@ RENDERING_MODE_TEMPLATE = 2
 # Functions:
 def _bind_action(*args):
     pass
+def _color2str(*args):
+    pass
+def _rect2str(*args):
+    pass
 def _str2color(*args):
     pass
 def _str2rect(*args):
     pass
 def _view_from_dict(*args):
+    pass
+def _view_to_dict(*args):
+    pass
+def dump_view(*args):
     pass
 def in_background(*args):
     pass
@@ -124,6 +133,7 @@ class ActivityIndicator (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.style = None
@@ -132,16 +142,23 @@ class ActivityIndicator (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -191,6 +208,7 @@ class Button (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -199,16 +217,23 @@ class Button (object):
         self.title = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -260,6 +285,7 @@ class DatePicker (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -267,16 +293,23 @@ class DatePicker (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -300,9 +333,13 @@ class Image (object):
     def __init__(self, *args):
         pass
         self._objc_ptr = None
+        self.name = None
+        self.objc_instance = None
         self.rendering_mode = None
         self.scale = None
         self.size = None
+    def _debug_quicklook_(self, *args):
+        pass
     def clip_to_mask(self, *args):
         pass
     def draw(self, *args):
@@ -318,6 +355,8 @@ class Image (object):
     def resizable_image(self, *args):
         pass
     def show(self, *args):
+        pass
+    def to_jpeg(self, *args):
         pass
     def to_png(self, *args):
         pass
@@ -352,6 +391,7 @@ class ImageView (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -359,16 +399,23 @@ class ImageView (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def load_from_url(self, *args):
         pass
@@ -407,12 +454,15 @@ class Label (object):
         self.hidden = None
         self.left_button_items = None
         self.line_break_mode = None
+        self.min_font_scale = None
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
         self.number_of_lines = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
+        self.scales_font = None
         self.subviews = None
         self.superview = None
         self.text = None
@@ -420,16 +470,23 @@ class Label (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -454,6 +511,10 @@ class ListDataSourceList (object):
     def __init__(self, *args):
         pass
         self.__weakref__ = None
+    def clear(self, *args):
+        pass
+    def copy(self, *args):
+        pass
     def count(self, *args):
         pass
     def extend(self, *args):
@@ -495,6 +556,7 @@ class NavigationView (object):
         self.name = None
         self.navigation_bar_hidden = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -503,16 +565,23 @@ class NavigationView (object):
         self.title_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def pop_view(self, *args):
         pass
@@ -540,6 +609,9 @@ class Path (object):
         self.line_cap_style = None
         self.line_join_style = None
         self.line_width = None
+        self.objc_instance = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_arc(self, *args):
         pass
     def add_clip(self, *args):
@@ -650,6 +722,7 @@ class ScrollView (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.paging_enabled = None
         self.right_button_items = None
@@ -663,16 +736,23 @@ class ScrollView (object):
         self.touch_enabled = None
         self.tracking = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -711,6 +791,7 @@ class SegmentedControl (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.segments = None
@@ -720,16 +801,23 @@ class SegmentedControl (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -780,6 +868,7 @@ class Slider (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -787,17 +876,24 @@ class Slider (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.value = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -836,6 +932,7 @@ class Switch (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -843,17 +940,24 @@ class Switch (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.value = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -907,6 +1011,7 @@ class TableView (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.paging_enabled = None
         self.right_button_items = None
@@ -924,10 +1029,15 @@ class TableView (object):
         self.touch_enabled = None
         self.tracking = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
@@ -936,6 +1046,8 @@ class TableView (object):
     def delete_rows(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def insert_rows(self, *args):
         pass
@@ -984,6 +1096,7 @@ class TableViewCell (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.selectable = None
@@ -994,16 +1107,23 @@ class TableViewCell (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -1050,6 +1170,7 @@ class TextField (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.placeholder = None
         self.right_button_items = None
@@ -1062,10 +1183,15 @@ class TextField (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def begin_editing(self, *args):
         pass
@@ -1076,6 +1202,8 @@ class TextField (object):
     def draw_snapshot(self, *args):
         pass
     def end_editing(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -1130,6 +1258,7 @@ class TextView (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.paging_enabled = None
         self.right_button_items = None
@@ -1148,10 +1277,15 @@ class TextView (object):
         self.touch_enabled = None
         self.tracking = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def begin_editing(self, *args):
         pass
@@ -1162,6 +1296,8 @@ class TextView (object):
     def draw_snapshot(self, *args):
         pass
     def end_editing(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -1183,6 +1319,7 @@ class Touch (object):
         pass
         self._objc_ptr = None
         self.location = None
+        self.objc_instance = None
         self.phase = None
         self.prev_location = None
         self.timestamp = None
@@ -1232,6 +1369,7 @@ class View (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.subviews = None
@@ -1239,16 +1377,23 @@ class View (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
     def close(self, *args):
         pass
     def draw_snapshot(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def present(self, *args):
         pass
@@ -1286,6 +1431,7 @@ class WebView (object):
         self.multitouch_enabled = None
         self.name = None
         self.navigation_view = None
+        self.objc_instance = None
         self.on_screen = None
         self.right_button_items = None
         self.scales_page_to_fit = None
@@ -1294,10 +1440,15 @@ class WebView (object):
         self.tint_color = None
         self.touch_enabled = None
         self.transform = None
+        self.update_interval = None
         self.width = None
         self.x = None
         self.y = None
+    def _debug_quicklook_(self, *args):
+        pass
     def add_subview(self, *args):
+        pass
+    def become_first_responder(self, *args):
         pass
     def bring_to_front(self, *args):
         pass
@@ -1308,6 +1459,8 @@ class WebView (object):
     def eval_js(self, *args):
         pass
     def evaluate_javascript(self, *args):
+        pass
+    def get_key_commands(self, *args):
         pass
     def go_back(self, *args):
         pass
@@ -1332,5 +1485,102 @@ class WebView (object):
     def stop(self, *args):
         pass
     def wait_modal(self, *args):
+        pass
+
+class autoreleasepool (object):
+    def __init__(self, *args):
+        pass
+        self.__weakref__ = None
+
+class basestring (object):
+    def __init__(self, *args):
+        pass
+    def capitalize(self, *args):
+        pass
+    def casefold(self, *args):
+        pass
+    def center(self, *args):
+        pass
+    def count(self, *args):
+        pass
+    def encode(self, *args):
+        pass
+    def endswith(self, *args):
+        pass
+    def expandtabs(self, *args):
+        pass
+    def find(self, *args):
+        pass
+    def format(self, *args):
+        pass
+    def format_map(self, *args):
+        pass
+    def index(self, *args):
+        pass
+    def isalnum(self, *args):
+        pass
+    def isalpha(self, *args):
+        pass
+    def isdecimal(self, *args):
+        pass
+    def isdigit(self, *args):
+        pass
+    def isidentifier(self, *args):
+        pass
+    def islower(self, *args):
+        pass
+    def isnumeric(self, *args):
+        pass
+    def isprintable(self, *args):
+        pass
+    def isspace(self, *args):
+        pass
+    def istitle(self, *args):
+        pass
+    def isupper(self, *args):
+        pass
+    def join(self, *args):
+        pass
+    def ljust(self, *args):
+        pass
+    def lower(self, *args):
+        pass
+    def lstrip(self, *args):
+        pass
+    def maketrans(cls, *args):
+        pass
+    def partition(self, *args):
+        pass
+    def replace(self, *args):
+        pass
+    def rfind(self, *args):
+        pass
+    def rindex(self, *args):
+        pass
+    def rjust(self, *args):
+        pass
+    def rpartition(self, *args):
+        pass
+    def rsplit(self, *args):
+        pass
+    def rstrip(self, *args):
+        pass
+    def split(self, *args):
+        pass
+    def splitlines(self, *args):
+        pass
+    def startswith(self, *args):
+        pass
+    def strip(self, *args):
+        pass
+    def swapcase(self, *args):
+        pass
+    def title(self, *args):
+        pass
+    def translate(self, *args):
+        pass
+    def upper(self, *args):
+        pass
+    def zfill(self, *args):
         pass
 

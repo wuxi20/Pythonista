@@ -46,17 +46,17 @@ class ForMd(object):
         for n, link in enumerate(links):
             text, ref = link
             ref_num = ''.join(("[", str(n + 1), "]: "))
-            if ref in refs.keys():
+            if ref in list(refs.keys()):
                 url = refs.get(ref).strip()
                 formd_ref = ''.join((ref_num, url))
                 formd_text = ''.join((text, ref_num))
                 self.data.append([formd_text, formd_ref])
-            elif text in refs.keys():
+            elif text in list(refs.keys()):
                 url = refs.get(text).strip()
                 formd_ref = ''.join((ref_num, url))
                 formd_text = ''.join((text, ref_num))
                 self.data.append([formd_text, formd_ref])
-            elif ref not in refs.keys():
+            elif ref not in list(refs.keys()):
                 # remove the leading/training parens
                 parse_ref = ref[1:-1]
                 formd_ref = ''.join((ref_num, parse_ref))
@@ -103,10 +103,11 @@ def main():
     description = 'formd: A (for)matting (M)ark(d)own tool.'
     md = clipboard.get()
     if md == '':
-        print 'Nothing on clipboard'
+        print('Nothing on clipboard')
     else:
         text = ForMd(md)
         [clipboard.set(t) for t in text.ref_md()]
 
 if __name__ == '__main__':
     main()
+

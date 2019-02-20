@@ -62,7 +62,7 @@ class MobileBlogger:
 		
 	def _get_latest_commit(self, reload=False):
 		if self._latest_commit is None or reload:
-			self._latest_commit = next(self._gh.repos.commits.list().next())
+			self._latest_commit = next(next(self._gh.repos.commits.list()))
 			
 		return self._latest_commit
 		
@@ -189,5 +189,6 @@ def main():
 		
 if __name__ == '__main__':
 	main()
+
 
 

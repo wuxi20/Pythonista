@@ -10,5 +10,6 @@ i = 'abcdefghijklmnopqrstuvwxyz'
 o = 'cdefghijklmnopqrstuvwxyzab'
 
 table = string.maketrans(i, o)
-print str.translate(s, table)
+print(str.translate(s, table))
+
 

@@ -12,14 +12,14 @@ Also doesn't handle dependencies in any way yet.
 
 """
 
-from __future__ import print_function
+
 
 import re
 import os
 import sys
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import tempfile
-import xmlrpclib
+import xmlrpc.client
 
 from operator import itemgetter
 
@@ -103,7 +103,7 @@ def _download_package(pkg, verbose=True):
     if verbose:
         print("Downloading '%s'..." % pkg['url'])
 
-    response = urllib2.urlopen(urllib2.Request(pkg['url'], headers=headers))
+    response = urllib.request.urlopen(urllib.request.Request(pkg['url'], headers=headers))
     rinfo = response.info()
     total_size = int(rinfo.get('content-length', 0)) or pkg.get('size')
 
@@ -158,7 +158,7 @@ def pypi_download(pkg_name, pkg_ver=None, pkg_type='sdist', py_ver=None,
         raise PyPiError('No version %s of package %s available' %
             (pkg_ver, pkg_name))
 
-    pypi = xmlrpclib.ServerProxy(PYPI_URL)
+    pypi = xmlrpc.client.ServerProxy(PYPI_URL)
     pkgs = pypi.release_urls(pkg_name, pkg_ver)
 
     if not pkgs:
@@ -179,7 +179,7 @@ def pypi_versions(pkg_name, limit=10, show_hidden=True):
     if not pkg_name:
         raise ValueError("'pkg_name' must be non-null.")
 
-    pypi = xmlrpclib.ServerProxy(PYPI_URL)
+    pypi = xmlrpc.client.ServerProxy(PYPI_URL)
     hits = pypi.package_releases(pkg_name, show_hidden)
 
     if not hits:
@@ -194,7 +194,7 @@ def pypi_search(search_str, limit=0, operator='and'):
     if not search_str:
         raise ValueError("'search_str' must be non-null.")
 
-    pypi = xmlrpclib.ServerProxy(PYPI_URL)
+    pypi = xmlrpc.client.ServerProxy(PYPI_URL)
     hits = pypi.search({'name': search_str}, operator)
 
     if not hits:
@@ -257,3 +257,4 @@ if __name__ == '__main__':
             sys.exit(1)
 
     pypi_install_wheel(package, force=True, verbose=True)
+

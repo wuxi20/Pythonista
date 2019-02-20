@@ -399,7 +399,7 @@ class socksocket(socket.socket):
         To select the proxy server use setproxy().
         """
         # Do a minimal input check first
-        if (not type(destpair) in (list,tuple)) or (len(destpair) < 2) or (not isinstance(destpair[0], basestring)) or (type(destpair[1]) != int):
+        if (not type(destpair) in (list,tuple)) or (len(destpair) < 2) or (not isinstance(destpair[0], str)) or (type(destpair[1]) != int):
             raise GeneralProxyError((5, _generalerrors[5]))
         if self.__proxy[0] == PROXY_TYPE_SOCKS5:
             if self.__proxy[2] != None:
@@ -436,3 +436,4 @@ class socksocket(socket.socket):
             _orgsocket.connect(self, (destpair[0], destpair[1]))
         else:
             raise GeneralProxyError((4, _generalerrors[4]))
+

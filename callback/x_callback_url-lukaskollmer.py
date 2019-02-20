@@ -5,7 +5,7 @@
 import swizzle
 from objc_util import *
 import ctypes
-import json, urllib
+import json, urllib.request, urllib.parse, urllib.error
 import uuid
 import sys
 import webbrowser
@@ -72,7 +72,8 @@ if __name__ == '__main__':
 	url = 'drafts4://x-callback-url/get?uuid={}&x-success=pythonista://'.format(draft_uuid)
 	
 	def my_handler(info):
-		print(info.full_url)
-		print(info.parameters['text'])
+		print((info.full_url))
+		print((info.parameters['text']))
 	
 	open_url(url, my_handler)
+
