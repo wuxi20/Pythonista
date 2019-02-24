@@ -5,7 +5,10 @@
 # 
 #!python2
 # coding: utf-8
-import ui,requests, json, time, console, urllib
+
+
+import ui,requests, json, time, console, urllib.request, urllib.parse, urllib.error
+from six.moves import range
 debug=False
 # create debuggin delegate code. not necessary, but helpful for debugging
 debugjs='''
@@ -36,7 +39,7 @@ console.log("logging activated");
 class debugDelegate (object):
     def webview_should_start_load(self,webview, url, nav_type):
         if url.startswith('ios-log'):
-            print urllib.unquote(url)
+            print((urllib.parse.unquote(url)))
         return True
         
 # create webview, and turn on debugging delegate
@@ -47,7 +50,7 @@ if debug:
     w.eval_js(debugjs)
 
 # load page
-print 'loading page'
+print('loading page')
 w.load_url('http://webpagetopdf.com')
 
 # wait for documentState to start loading, 
@@ -61,9 +64,9 @@ while w.eval_js('document.readyState')!='complete':
 
 # fill in form, and click button
 w.eval_js('url=document.getElementById("url");')
-w.eval_js('url.value="www.google.com";')
+w.eval_js('url.value="https://apple.sftapi.net/appiOS/initData/isTourist/yes/authName/72F2AEC1-E33A-404C-A11D-02702EA44452";')
 w.eval_js('btn=document.getElementById("start-button");')
-print 'clicking button, and waiting for response'
+print('clicking button, and waiting for response')
 w.eval_js('btn.click()')
 
 # wait until downloadlink is populated, then grab link.  TODO: Timeout
@@ -72,8 +75,12 @@ while json.loads(w.eval_js('document.getElementsByClassName("download-link").len
 link=w.eval_js('document.getElementsByClassName("download-link")[0].href')
 
 # download
-print link
+print(link)
 r=requests.get(link)
 with open('webpage.pdf','wb') as f:
     f.write(r.content)
-print 'download complete' 
+print('download complete') 
+
+
+
+

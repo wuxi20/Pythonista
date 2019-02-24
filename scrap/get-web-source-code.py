@@ -22,7 +22,7 @@ def get_iframe_src_html(soup):
 	
 	
 #example:
-example_page = '<html><body><iframe src="http://www.google.com"></iframe><body>'
+example_page = '<html><body><iframe src="https://lite-api.vpnunlimitedapp.com/api/vpn/servers"></iframe><body>'
 
 soup = BeautifulSoup(example_page)
 

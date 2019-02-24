@@ -16,7 +16,7 @@ import time
 # This is the URL that lists the current inmates
 # Should this URL go away, and archive is available at
 # http://perma.cc/2HZR-N38X
-url_to_scrape = 'http://apps2.polkcountyiowa.gov/inmatesontheweb/'
+url_to_scrape = 'https://d.applvn.com/device?device_token=MaznYs97JTiqaqEwnZGZ5nwbhbyhlRUP0n3rDZHQHkMpoup_DYUskqTpO9PnIZFAYwPARVNUEv5zZyV4BLup6OS7OqMhzM6DD-3Qecn8oSFhoE7wPmp80ToXq-05aIi_EFBnEHkqGxAaOuElHOsGD-gNgeuaKcaRyNY3U3-9et4%3D'
 
 # Tell the requests package to retreive the contents our page (it'll be
 # grabbing what you see when you use the View Source feature in your browser)

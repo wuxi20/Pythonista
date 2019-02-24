@@ -74,7 +74,7 @@ double   in   super""".split())
 
 def dumps(obj, key=False):
     if key:
-        if not isinstance(obj, basestring):
+        if not isinstance(obj, str):
             obj = str(obj)
         if _nameonly_re.match(obj) and obj not in reswords:
             return obj  # return it as a bare word
@@ -84,16 +84,16 @@ def dumps(obj, key=False):
         return 'null'
     elif obj is True or obj is False:
         return obj and 'true' or 'false'
-    elif isinstance(obj, (int, long, float)):
+    elif isinstance(obj, (int, float)):
         return str(obj)
     elif isinstance(obj, dict):
         return '{%s}' % ','.join('%s:%s' % (
             dumps(key, True),
             dumps(value)
-        ) for key, value in obj.iteritems())
+        ) for key, value in list(obj.items()))
     elif isinstance(obj, (tuple, list, set)):
         return '[%s]' % ','.join(dumps(x) for x in obj)
-    elif isinstance(obj, basestring):
+    elif isinstance(obj, str):
         return encode_string(obj)
     raise TypeError(type(obj))
 
@@ -193,3 +193,5 @@ def loads(x):
 
 def load(f):
     return loads(f.read())
+
+

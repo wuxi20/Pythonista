@@ -22,7 +22,7 @@ from sphinx.util.osutil import mtimes_of_files
 
 
 def _tobool(val):
-    if isinstance(val, basestring):
+    if isinstance(val, str):
         return val.lower() in ('true', '1', 'yes', 'on')
     return bool(val)
 
@@ -109,7 +109,7 @@ class BuiltinTemplateLoader(TemplateBridge, BaseLoader):
         self.pathchain = chain
 
         # make the paths into loaders
-        self.loaders = map(SphinxFileSystemLoader, chain)
+        self.loaders = list(map(SphinxFileSystemLoader, chain))
 
         use_i18n = builder.app.translator is not None
         extensions = use_i18n and ['jinja2.ext.i18n'] or []
@@ -147,3 +147,4 @@ class BuiltinTemplateLoader(TemplateBridge, BaseLoader):
             except TemplateNotFound:
                 pass
         raise TemplateNotFound(template)
+

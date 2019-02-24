@@ -42,7 +42,7 @@ def stripAnchor(url):
 		return url[:badness]
 	return url
 	
-url = input('URL to crawl: ')
+url = eval(input('URL to crawl: '))
 soup = makeSoup(url)
 if url[-5:] == '.html' or url[-4:] == '.htm':
 	url = url[:url.rfind('/') + 1]
@@ -74,5 +74,6 @@ print('scraping complete!')
 # MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
 

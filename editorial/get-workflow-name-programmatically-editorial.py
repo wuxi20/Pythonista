@@ -7,7 +7,7 @@ import json
 with open(os.path.join(editor.get_workflows_path(), 'Commands.edcmd')) as f:
 	wf_infos = json.load(f)
 	for wf in wf_infos:
-		print wf['filename'] + ' -- ' + wf['title']
+		print(wf['filename'] + ' -- ' + wf['title'])
 # --------------------
 
 import json
@@ -25,4 +25,5 @@ first_action['customTitle'] = 'Foo Bar'
 # Save the modified workflow data:
 with open(workflow_filename, 'w') as f:
 	json.dump(workflow_dict)
+
 

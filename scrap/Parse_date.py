@@ -12,9 +12,9 @@ def str_inside(s, delimiters='()'):  # 'this (is a) test.' --> 'is a'
 
 the_alarm = '@alarm(2015-12-10, 22:05)'
 alarm_datetime = dateutil.parser.parse(str_inside(the_alarm))
-print(alarm_datetime, str(alarm_datetime))
+print((alarm_datetime, str(alarm_datetime)))
 
 # dateutil.parser.parse() does not require a format string and is much better than strptime() at figuring out what datetime the user meant:
 
 for s in '2/13/70', '8:00 on 13 Feb 70', "8am on 13th Feb 1970", 'July 4th', '7:30am', '7:30pm', 'Monday':
-    print(dateutil.parser.parse(s), s)
+    print((dateutil.parser.parse(s), s))

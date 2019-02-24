@@ -24,7 +24,7 @@ output = open(home+name, 'w')
 output.write(file)
 output.close()
 
-print('Downloaded '+name+' to /Documents/'+name+' in '+str(time.time()-a)+' seconds')
+print(('Downloaded '+name+' to /Documents/'+name+' in '+str(time.time()-a)+' seconds'))
 
 if zipfile.is_zipfile(home+name):
 	print('Extracting zip...')
@@ -32,3 +32,4 @@ if zipfile.is_zipfile(home+name):
 	os.remove(home+name)
 if e:
 	editor.reload_files()
+

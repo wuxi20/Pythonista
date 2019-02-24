@@ -239,10 +239,10 @@ class Board (PhantomObj):
         if in_pythonista:
             import console
             console.set_font('DejaVuSansMono', 18)
-            print self._pprnt()
+            print(self._pprnt())
             console.set_font()
         else:
-            print self._pprnt()
+            print(self._pprnt())
     
     def __str__(self):
         return self.fen_str()
@@ -525,3 +525,4 @@ if __name__ == '__main__':
     b = Board()
     b.set_name('Chess')
     b.pprint()
+

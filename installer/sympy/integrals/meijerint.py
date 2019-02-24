@@ -25,7 +25,7 @@ The main references for this are:
     Integrals and Series: More Special Functions, Vol. 3,.
     Gordon and Breach Science Publisher
 """
-from __future__ import print_function, division
+
 
 from sympy.core import oo, S, pi, Expr
 from sympy.core.function import expand, expand_mul, expand_power_base
@@ -1434,7 +1434,7 @@ def _rewrite_single(f, x, recursive=True):
             subs = f.match(formula, old=True)
             if subs:
                 subs_ = {}
-                for fro, to in subs.items():
+                for fro, to in list(subs.items()):
                     subs_[fro] = unpolarify(polarify(to, lift=True),
                                             exponents_only=True)
                 subs = subs_
@@ -2030,3 +2030,4 @@ def meijerint_inversion(f, x, t):
                 cond = cond.subs(t, t + shift)
             return Piecewise((res.subs(t, t_), cond),
                              (Integral(f_*exp(x*t), (x, c - oo*I, c + oo*I)).subs(t, t_), True))
+

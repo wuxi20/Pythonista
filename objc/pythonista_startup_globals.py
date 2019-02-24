@@ -2,7 +2,7 @@
 
 # https://forum.omz-software.com/topic/2175/you-can-t-take-my-globals-from-me
 
-from __future__ import division, print_function
+
 
 import sys
 import types

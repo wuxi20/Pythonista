@@ -11,7 +11,7 @@ for i in range(2, 806):
     print(i)
     text = b.page_source.encode('utf-8')
     fp = "raw_pages/page%s.txt" % (i-1)
-    print("writing", fp, "to file")
+    print(("writing", fp, "to file"))
     with open(fp, "w") as text_file:
         text_file.write(text)
     try:
@@ -25,4 +25,5 @@ for i in range(2, 806):
 
 
 b.close()
+
 

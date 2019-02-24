@@ -11,5 +11,6 @@ def get_ssid():
 	info = ObjCInstance(CNCopyCurrentNetworkInfo(ns('en0')))
 	return str(info['SSID'])
 	
-print('Current SSID:', get_ssid())
+print(('Current SSID:', get_ssid()))
+
 

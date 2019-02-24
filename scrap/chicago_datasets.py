@@ -16,7 +16,7 @@ Notes:
     Avoid monstrous datasets such as All Crimes from 2001 to Present (5m records)
 """
  
-import bs4, collections, contextlib, datetime, json, os.path, sys, time, urllib2
+import bs4, collections, contextlib, datetime, json, os.path, sys, time, urllib.request, urllib.error, urllib.parse
  
 fmt_dict = { 'city_name': 'cityofchicago',
              'data_format' : 'json',
@@ -36,7 +36,7 @@ def get_user_int(prompt, in_min=-1000000, in_max=100000):
     (in_min, in_max) = (min(int(in_min), int(in_max)), # make sure both are ints
                         max(int(in_min), int(in_max))) # and in_min <= in_max
     try:
-        user_int = int(raw_input(prompt))
+        user_int = int(eval(input(prompt)))
         if in_min <= user_int <= in_max:
             return user_int
     except ValueError:
@@ -46,7 +46,7 @@ def get_user_int(prompt, in_min=-1000000, in_max=100000):
 def get_webpage_source(in_url):
     print('Downloading webpage...')
     print(in_url)
-    with contextlib.closing(urllib2.urlopen(in_url)) as in_file:
+    with contextlib.closing(urllib.request.urlopen(in_url)) as in_file:
         return in_file.read()
  
 def get_soup_from_url(in_url):
@@ -93,10 +93,10 @@ def gather_dataset_info(in_url = browse_datasets_url):
     last_page = int(the_soup.find('a', {'title' : 'Last Page'})['href'].rpartition('=')[2])
     curr_page = 1 # the_soup already contains the html of page 1
     ds_count = int(the_soup.find('div', {'class' : 'resultCount'}).text.split()[-1])
-    print('Gathering info on {} datasets from {} webpages...'.format(ds_count, last_page))
+    print(('Gathering info on {} datasets from {} webpages...'.format(ds_count, last_page)))
     while the_soup:
         dataset_list += get_dataset_info_from_soup(the_soup)
-        print('Information gathered on {} datasets...'.format(len(dataset_list)))
+        print(('Information gathered on {} datasets...'.format(len(dataset_list))))
         curr_page += 1
         if curr_page > last_page:
             the_soup = None
@@ -108,34 +108,36 @@ def gather_dataset_info(in_url = browse_datasets_url):
 def process_dataset(in_dataset_id = '28km-gtjn'):
     fmt_dict['data_set'] = in_dataset_id
     file_name = file_name_fmt.format(**fmt_dict)
-    print(file_name + '=' * 80)
+    print((file_name + '=' * 80))
     if file_must_be_refreshed(file_name):
         the_url = url_fmt.format(**fmt_dict)
-        print('Writing {} --> {}'.format(the_url, file_name))
+        print(('Writing {} --> {}'.format(the_url, file_name)))
         with open(file_name, 'w') as out_file:
             out_file.write(get_webpage_source(the_url))
     data_dict = get_data_dict(file_name)
     data_row = data_row_named_tuple(data_dict)
     dict_view = data_dict['meta']['view']
-    print(headerFmt.format(**dict_view))
-    print('> {description}'.format(**dict_view))
+    print((headerFmt.format(**dict_view)))
+    print(('> {description}'.format(**dict_view)))
     for the_item in data_dict['data']:
-        print(data_row(*the_item[8:]))
+        print((data_row(*the_item[8:])))
 
 def main(argv):
     dataset_list = gather_dataset_info()
-    s = raw_input('Press <Return> to continue...')
+    s = eval(input('Press <Return> to continue...'))
     for i, dsi in enumerate(dataset_list):
         dataset_id = dsi.url.rpartition('/')[2]
-        print('{:>3} {} {}\n'.format(i+1, dataset_id ,dsi))
+        print(('{:>3} {} {}\n'.format(i+1, dataset_id ,dsi)))
     prompt_fmt = 'To view a dataset, enter a number between 1 and {}.\nOr to quit enter 0 (zero): '
     i = ds_count = len(dataset_list)
     while i:
         i = get_user_int(prompt_fmt.format(ds_count), 0, ds_count)
         if i:
             dataset_info = dataset_list[i-1]
-            print('Going for {}...'.format(dataset_info))
+            print(('Going for {}...'.format(dataset_info)))
             process_dataset(dataset_info.url.rpartition('/')[2])
  
 if __name__ == '__main__':
     sys.exit(main(sys.argv))
+
+

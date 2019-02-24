@@ -1,11 +1,11 @@
 # https://gist.github.com/pudquick/4130373
 
-import uuid, BaseHTTPServer, select, types, clipboard, console
-from SimpleHTTPServer import SimpleHTTPRequestHandler
+import uuid, http.server, select, types, clipboard, console
+from http.server import SimpleHTTPRequestHandler
 try:
-	from cStringIO import StringIO
+	from io import StringIO
 except ImportError:
-	from StringIO import StringIO
+	from io import StringIO
 	
 global mobile_config_str
 mobile_config_str = ''
@@ -125,7 +125,7 @@ class MobileConfigHTTPRequestHandler(SimpleHTTPRequestHandler):
 			return self.offer_mobileconfig()
 		return self.offer_generic()
 		
-class NicerHTTPServer(BaseHTTPServer.HTTPServer):
+class NicerHTTPServer(http.server.HTTPServer):
 	def serve_forever(self, poll_interval=0.5):
 		# More limited form of serve forever - shutdown after mobileconfig download
 		# Works in a single thread
@@ -145,19 +145,20 @@ def serve_it_up(port):
 	UUID2 = str(uuid.uuid4()).upper()
 	mobile_config_str = base_mobileconfig % (icon_label, UUID1, UUID1, script_name, arg_str, payload_name, UUID2, UUID2)
 	my_httpd = NicerHTTPServer((ip, port), MobileConfigHTTPRequestHandler)
-	print "Serving HTTP on %s:%s ..." % (ip,port)
+	print("Serving HTTP on %s:%s ..." % (ip,port))
 	my_httpd.serve_forever()
-	print "\n*** Webclip installed! ***"
+	print("\n*** Webclip installed! ***")
 	
 port = 8000
 clipboard.set('http://127.0.0.1:%s/webclip.mobileconfig' % port)
 console.clear()
 console.set_font('Futura', 22)
 console.set_color(0.2,0.2,0.2)
-print "Open Safari and paste in the URL on your clipboard\n"
+print("Open Safari and paste in the URL on your clipboard\n")
 console.set_color(0.9,0.2,0.2)
-print "It will pause loading,\n   then re-open Pythonista!\n"
+print("It will pause loading,\n   then re-open Pythonista!\n")
 console.set_font()
 console.set_color()
 serve_it_up(port)
+
 

@@ -37,5 +37,6 @@ access_granted.wait()
 # ...
 predicate = store.predicateForEventsWithStartDate_endDate_calendars_(oneDayAgo, oneYearFromNow, None)
 events = store.eventsMatchingPredicate_(predicate)
-print events
+print(events)
 # --------------------
+

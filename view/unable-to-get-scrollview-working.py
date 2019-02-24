@@ -6,7 +6,7 @@ import ui
 import ping
 import base64
 from PIL import Image
-import StringIO
+import io
 import re
 
 w = ui.View()
@@ -25,7 +25,7 @@ def BuildServerList(Servers):
 		try:
 			temp = ping.do_ping(Server['ip'],Server['port'])
 			server['ping'].text = str(temp[0])+' ms'
-			server['Description'].text =re.sub(u'\u00A7.', '',temp[1].response['description'])
+			server['Description'].text =re.sub('\u00A7.', '',temp[1].response['description'])
 			server['Version'].text =str(temp[1].response['version']['name'])
 			server['player'].text = str(temp[1].response['players']['online'])+' / '+str(temp[1].response['players']['max'])
 			if temp[0] < 150:
@@ -42,7 +42,7 @@ def BuildServerList(Servers):
 			try:
 				temp = ping.do_ping(Server['ip'],Server['port'])
 				server['ping'].text = str(temp[0])+' ms'
-				server['Description'].text =re.sub(u'\u00A7.', '',str(temp[1].response['description']['text']))
+				server['Description'].text =re.sub('\u00A7.', '',str(temp[1].response['description']['text']))
 				server['Version'].text =str(temp[1].response['version']['name'])
 				server['player'].text = str(temp[1].response['players']['online'])+' / '+str(temp[1].response['players']['max'])
 				if temp[0] < 150:
@@ -97,4 +97,5 @@ if __name__ == '__main__':
 	
 	v.present('sheet')
 # --------------------
+
 

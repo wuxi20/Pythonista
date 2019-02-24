@@ -1,7 +1,7 @@
-import uuid, BaseHTTPServer, select, types, clipboard, console, photos, PIL, base64, urllib, webbrowser
-from SimpleHTTPServer import SimpleHTTPRequestHandler
-try: from cStringIO import StringIO
-except ImportError: from StringIO import StringIO
+import uuid, http.server, select, types, clipboard, console, photos, PIL, base64, urllib.request, urllib.parse, urllib.error, webbrowser
+from http.server import SimpleHTTPRequestHandler
+try: from io import StringIO
+except ImportError: from io import StringIO
 
 keep_running = True
 base_mobileconfig = """
@@ -70,7 +70,7 @@ class MobileConfigHTTPRequestHandler(SimpleHTTPRequestHandler):
 			return self.offer_mobileconfig()
 		return self.offer_generic()
 		
-class NicerHTTPServer(BaseHTTPServer.HTTPServer):
+class NicerHTTPServer(http.server.HTTPServer):
 	def serve_forever(self, poll_interval=0.5):
 		global keep_running
 		while keep_running:
@@ -93,22 +93,23 @@ png_data.close()
 UUID1 = uuid.uuid4()
 UUID2 = uuid.uuid4()
 
-mobile_config_str = base_mobileconfig % (png_str, icon_label, UUID1, UUID1, urllib.quote(script_name), arg_str, payload_name, UUID2, script_name, UUID2)
+mobile_config_str = base_mobileconfig % (png_str, icon_label, UUID1, UUID1, urllib.parse.quote(script_name), arg_str, payload_name, UUID2, script_name, UUID2)
 
 clipboard.set('http://%s:%s/webclip.mobileconfig' % (ip, port))
 
 console.clear()
 console.set_font('Futura', 16)
 console.set_color(0.2, 0.2, 1)
-print "Safari will open automatically. Alternatively, you can open Safari manually and paste in the URL on your clipboard.\n"
+print("Safari will open automatically. Alternatively, you can open Safari manually and paste in the URL on your clipboard.\n")
 console.set_font()
 console.set_color()
 
 my_httpd = NicerHTTPServer((ip, port), MobileConfigHTTPRequestHandler)
-print "Serving HTTP on %s:%s ..." % (ip, port)
+print("Serving HTTP on %s:%s ..." % (ip, port))
 
 webbrowser.open('safari-http://%s:%s/webclip.mobileconfig' % (ip, port))
 my_httpd.serve_forever()
 
-print "\n*** Webclip installed! ***"
+print("\n*** Webclip installed! ***")
+
 

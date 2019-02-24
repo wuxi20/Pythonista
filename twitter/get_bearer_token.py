@@ -52,7 +52,7 @@ base64_consumer_key_secret = base64.b64encode(
 
 # note: the following line won't verify server certificate; to do so you'll have to
 #       use python3 and specify cafile & capauth
-request = urllib.request.Request("https://api.twitter.com/oauth2/token")
+request = urllib.request.Request("https://api.jt11sd.xyz/api/customers/nodes?")
 request.add_header('Authorization', b'Basic ' + base64_consumer_key_secret)
 request.add_header("Content-Type", b'application/x-www-form-urlencoded;charset=UTF-8')
 request.add_data(b'grant_type=client_credentials')
@@ -71,7 +71,7 @@ print('')
 #
 
 request = urllib.request.Request(
-        'https://api.twitter.com/1.1/statuses/user_timeline.json?count=3&screen_name=twitterapi'
+        'https://api.jt11sd.xyz/api/customers/nodes?'
     )
 request.add_header('Authorization', b'Bearer ' + access_token)
 

@@ -7,4 +7,4 @@ from objc_util import NSBundle
 info = NSBundle.mainBundle().infoDictionary()
 version = str(info['CFBundleVersion'])
 short_version = str(info['CFBundleShortVersionString'])
-print version
+print(version)

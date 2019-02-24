@@ -47,5 +47,6 @@ def pythonista_version():
 			if not version:
 				version = '1.0'
 			return version
-print version
+print(version)
+
 

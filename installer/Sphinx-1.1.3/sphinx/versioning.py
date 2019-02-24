@@ -80,7 +80,7 @@ def merge_doctrees(old, new, condition):
     # choose the old node with the best ratio for each new node and set the uid
     # as long as the ratio is under a certain value, in which case we consider
     # them not changed but different
-    ratios = sorted(ratios.iteritems(), key=itemgetter(1))
+    ratios = sorted(iter(ratios.items()), key=itemgetter(1))
     for (old_node, new_node), ratio in ratios:
         if new_node in seen:
             continue
@@ -115,7 +115,7 @@ def levenshtein_distance(a, b):
         a, b = b, a
     if not a:
         return len(b)
-    previous_row = xrange(len(b) + 1)
+    previous_row = range(len(b) + 1)
     for i, column1 in enumerate(a):
         current_row = [i + 1]
         for j, column2 in enumerate(b):
@@ -125,3 +125,4 @@ def levenshtein_distance(a, b):
             current_row.append(min(insertions, deletions, substitutions))
         previous_row = current_row
     return previous_row[-1]
+

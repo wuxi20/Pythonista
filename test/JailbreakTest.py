@@ -12,5 +12,6 @@ try:
 except OSError:
 	jailbroken=False
 	
-print 'Is my device jailbroken: '+ str(jailbroken)
+print('Is my device jailbroken: '+ str(jailbroken))
+
 

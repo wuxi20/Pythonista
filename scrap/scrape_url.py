@@ -1,11 +1,12 @@
 from bs4 import BeautifulSoup
 import requests
 
-url = input("Enter a website to extract the URL's from: ")
+url = eval(input("Enter a website to extract the URL's from: "))
 r = requests.get("http://" + url)
 data = r.text
 
 soup = BeautifulSoup(data)
 for link in soup.findAll('a'):
-    print(link.get('href'))
+    print((link.get('href')))
+
 

@@ -10,8 +10,8 @@ for i in range(100):
 print (" Skynet is loaded please enter your username and password when requested ")
 
 
-username = input ( " Enter your username :- ")
-password = input ( " Enter your pin :- ")
+username = eval(input ( " Enter your username :- "))
+password = eval(input ( " Enter your pin :- "))
 
 if username == "julian" and password == "9999" :
     print((" Hello " + username + ". The system is now on-line "))
@@ -23,4 +23,5 @@ elif username == "dojo" and password == "7777":
     print((" Hello " + username + ". The system is now on-line "))
 else:
     print (" Unauthorized access !!!! this has been recorded ")
+
 

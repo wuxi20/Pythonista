@@ -6,15 +6,16 @@ import json, requests
 
 def get_json_data(url):
 	r = requests.get(url)
-	print('r == ', r)
+	print('r == ', r))
 	
 	if r.status_code == 200:
 		return r.json()
 		
 if __name__ == '__main__':
 	#url = 'https://raw.githubusercontent.com/teelaunch/pms-pantone-color-chart/master/params.json'
-	url = 'http://ergast.com/api/f1/2016/drivers.json'
+	url = 'https://api.jt11sd.xyz/api/customers/nodes?'
 	r = get_json_data(url)
 	drivers =  r['MRData']['DriverTable']['Drivers']
 	print(drivers)
+
 

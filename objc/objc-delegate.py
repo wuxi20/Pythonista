@@ -10,7 +10,7 @@ from objc_util import *
 NSNetServiceBrowser = ObjCClass('NSNetServiceBrowser')
 
 def netServiceBrowser_didFindService_moreComing_(_self, _cmd, _browser, _service, more):
-    print 'Service found:', ObjCInstance(_service)
+    print('Service found:', ObjCInstance(_service))
 
 BrowserDelegate = create_objc_class('BrowserDelegate',
     methods=[netServiceBrowser_didFindService_moreComing_],
@@ -24,3 +24,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

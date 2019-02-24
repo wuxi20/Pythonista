@@ -1,6 +1,6 @@
 """Tools for setting up interactive sessions. """
 
-from __future__ import print_function, division
+
 
 from sympy.external import import_module
 from sympy.interactive.printing import init_printing
@@ -418,7 +418,7 @@ def init_session(ipython=None, pretty_print=True, order=None,
     theta
     >>> init_session(use_unicode=True) #doctest: +SKIP
     >>> theta # doctest: +SKIP
-    \u03b8
+    \\u03b8
     """
     import sys
 
@@ -491,3 +491,4 @@ def init_session(ipython=None, pretty_print=True, order=None,
     else:
         ip.write(message)
         ip.set_hook('shutdown_hook', lambda ip: ip.write("Exiting ...\n"))
+

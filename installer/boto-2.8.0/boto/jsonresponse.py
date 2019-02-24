@@ -21,7 +21,7 @@
 # IN THE SOFTWARE.
 
 import xml.sax
-import utils
+from . import utils
 
 class XmlHandler(xml.sax.ContentHandler):
 
@@ -161,3 +161,4 @@ class ListElement(list):
                     self.remove(e)
         else:
             setattr(self, self.get_name(name), value)
+

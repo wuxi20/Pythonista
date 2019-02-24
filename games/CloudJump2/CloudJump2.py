@@ -1,4 +1,4 @@
-import cStringIO, console, Image, ImageDraw, math, numpy, os, os.path
+import io, console, Image, ImageDraw, math, numpy, os, os.path
 import pickle, random, requests, sound, threading, time, zipfile
 from scene import *
 import ui
@@ -9,7 +9,7 @@ ENEMY_DENSITY = 0.2
 game_character = 'Boy'
 GAME_FONT = 'AppleSDGothicNeo-Bold' # easier to change font later
 GAME_GRAVITY = 2000
-GAME_WAITING, GAME_PLAYING, GAME_DEAD = range(3)
+GAME_WAITING, GAME_PLAYING, GAME_DEAD = list(range(3))
 IMAGE_WIDTH = 100
 MAX_CLOUD_DIST = 505
 PLAYER_BOUNCE_VELOCITY = 1700
@@ -95,22 +95,22 @@ def slice_image_into_tiles(in_image, img_count_h, img_count_v = 1):
     w /= img_count_h      # calculate the size of smaller images
     h /= img_count_v
     return [load_pil_image(in_image.crop((x*w, y*h, (x+1)*w, (y+1)*h)))
-                for y in xrange(img_count_v) for x in xrange(img_count_h)]
+                for y in range(img_count_v) for x in range(img_count_h)]
 
 def get_images_from_zip_file(file_name, directory, starts_with):
         with open(file_name) as in_file:
             starts_with = directory + '/' + starts_with
             zip_file = zipfile.ZipFile(in_file)
-            return [load_pil_image(Image.open(cStringIO.StringIO(zip_file.open(name).read())))
+            return [load_pil_image(Image.open(io.StringIO(zip_file.open(name).read())))
                     for name in zip_file.namelist() if name.startswith(starts_with)]
 
 def player_killed_sounds():
-    for i in xrange(4):
+    for i in range(4):
         sound.play_effect('Hit_{}'.format(i+1))
         time.sleep(0.5)
 
 def high_score_sounds():
-    for i in xrange(4):
+    for i in range(4):
         sound.play_effect('Jump_{}'.format(i+1))
         time.sleep(0.3)
 
@@ -162,7 +162,7 @@ class AnimatedSprite(Sprite):
         self.configure(**kwargs)
 
     def configure(self, **kwargs):
-        for k, v in kwargs.items():
+        for k, v in list(kwargs.items()):
             setattr(self, k, v)
 
     def update(self, dt):
@@ -216,7 +216,7 @@ class Cloud(Sprite):
     @classmethod
     def generate_shapes(cls, num_circles):
         shapes = []
-        for i in xrange(num_circles):
+        for i in range(num_circles):
             x = (i * 20 - ((num_circles/2)*30))+90
             y = ((random.random()-0.5) * 30)+15
             rad = random.randint(50, 100)
@@ -266,7 +266,7 @@ class MyScene(Scene):
     def create_ground(self, max_blocks = 12):
         block_size_w = self.bounds.w / max_blocks
         block_size_h = block_size_w * 171 / 101  # image is 101 x 171 pixels
-        for i in xrange(max_blocks):
+        for i in range(max_blocks):
             rect = Rect(i * block_size_w, 0, block_size_w, block_size_h)
             GrassBlock(rect, self)
         return block_size_h * 0.7  # the new ground level
@@ -458,9 +458,9 @@ class SelectACharacterView(ui.View):
 
     @classmethod
     def character_tapped(cls, sender):
-        print('The user wants to be: ' + sender.name)
+        print(('The user wants to be: ' + sender.name))
         game_character == sender.name
-        print game_character
+        print(game_character)
 
     @classmethod
     def make_button(cls, x, y, image_name = 'Boy'):
@@ -491,8 +491,8 @@ class HighScoreView(ui.View):
 
     @classmethod
     def scores_list(cls, high_scores):
-        scores_sorted = sorted(zip(high_scores.values(),
-                                   high_scores.keys()), reverse=True)
+        scores_sorted = sorted(zip(list(high_scores.values()),
+                                   list(high_scores.keys())), reverse=True)
         return ['{:7>}  |  {}'.format(s, n) for s, n in scores_sorted]
 
 class UserNameView(ui.View):
@@ -536,3 +536,4 @@ root_view.present(orientations=['landscape'], hide_title_bar=True)
 scene_view = SceneView(frame=root_view.frame)
 scene_view.flex = 'WH'
 scene_view.scene = MyScene()
+

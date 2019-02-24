@@ -56,7 +56,8 @@ employee_dict = get_employee_dict()
 
 for dataset in [services, employee_dict]:
     if isinstance(dataset, dict):
-        print('\n'.join(str(row) for row in dataset.itervalues()))
+        print(('\n'.join(str(row) for row in dataset.values())))
     else:
-        print('\n'.join(str(row) for row in dataset))
+        print(('\n'.join(str(row) for row in dataset)))
     print('')
+

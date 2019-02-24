@@ -5,4 +5,4 @@
 import os, sys, plistlib
 def checkversion():
 	plist=plistlib.readPlist(os.path.abspath(os.path.join(sys.executable,'../Info.plist')))
-return plist['CFBundleShortVersionString']'
+return plist['CFBundleShortVersionString']

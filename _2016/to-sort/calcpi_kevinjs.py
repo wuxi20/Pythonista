@@ -17,7 +17,7 @@ def timeit(func):
         st = time.time()
         result = func(*args, **kwargs)
         ed = time.time()
-        print '%s cost: %s sec' %(func.__name__ ,ed-st)
+        print('%s cost: %s sec' %(func.__name__ ,ed-st))
         return result
     return wrapper
 
@@ -26,7 +26,7 @@ def test(tries):
 
 @timeit
 def run_single(tries, nbF):
-    rslt = map(test, [tries] * nbF)
+    rslt = list(map(test, [tries] * nbF))
     ret = 4. * sum(rslt) / float(nbF * tries)
     return ret
 
@@ -53,13 +53,14 @@ def run_eventlet(tries, nbF):
     pass
 
 if __name__=='__main__':
-    print run_single(4000, 3000)
+    print(run_single(4000, 3000))
     #print 'run multi thread, 1'
     #print run_multi_thread(4000, 3000, 1)
     #print 'run multi thread, 2'
     #print run_multi_thread(4000, 3000, 2)
-    print 'run multi processing, 1'
-    print run_multi_processing(4000, 3000, 1)
-    print 'run multi processing, 4'
-    print run_multi_processing(4000, 3000, 4)
+    print('run multi processing, 1')
+    print(run_multi_processing(4000, 3000, 1))
+    print('run multi processing, 4')
+    print(run_multi_processing(4000, 3000, 4))
+
 

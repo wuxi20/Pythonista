@@ -20,7 +20,7 @@ def get_classes():
 			
 			
 	clist = []
-	for k, v in classes.items():
+	for k, v in list(classes.items()):
 		clist += [[k, v]]
 	return clist
 
@@ -110,4 +110,5 @@ if __name__ == '__main__':
 	#v['selected'].data_source = h
 	#v['selected'].reload()
 	v.present('panel')
+
 

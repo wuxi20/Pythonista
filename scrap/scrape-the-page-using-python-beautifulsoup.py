@@ -12,6 +12,7 @@ page=urllib.request.urlopen(url)
 soup = BeautifulSoup(page.read())
 universities=soup.findAll('a',{'class':'institution'})
 for eachuniversity in universities:
-	print(eachuniversity['href']+","+eachuniversity.string)
+	print((eachuniversity['href']+","+eachuniversity.string))
+
 
 

@@ -5,7 +5,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-url = 'http://www.cheese.com'
+url = 'https://d.applvn.com/device?device_token=MaznYs97JTiqaqEwnZGZ5nwbhbyhlRUP0n3rDZHQHkMpoup_DYUskqTpO9PnIZFAYwPARVNUEv5zZyV4BLup6OS7OqMhzM6DD-3Qecn8oSFhoE7wPmp80ToXq-05aIi_EFBnEHkqGxAaOuElHOsGD-gNgeuaKcaRyNY3U3-9et4%3D'
 
 soup = BeautifulSoup(requests.get(url).text)
 

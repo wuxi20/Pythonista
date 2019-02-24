@@ -12,8 +12,9 @@ while i < len(symbolslist):
     htmltext = htmlfile.read()
     regex = '<span id="yfs_l84_%s">(.+?)</span>' % symbolslist[i].lower()
     price = re.findall(regex, htmltext)
-    print("The price of %s stock is %s" % (symbolslist[i], price))
+    print(("The price of %s stock is %s" % (symbolslist[i], price)))
     i += 1
+
 
 
 

@@ -19,7 +19,7 @@ from sphinx.util.nodes import extract_messages
 from sphinx.util.osutil import SEP, safe_relpath, ensuredir, find_catalog
 from sphinx.util.console import darkgreen
 
-POHEADER = ur"""
+POHEADER = r"""
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) %(copyright)s
 # This file is distributed under the same license as the %(project)s package.
@@ -99,8 +99,8 @@ class MessageCatalogBuilder(I18nBuilder):
             ctime = datetime.now().strftime('%Y-%m-%d %H:%M%z'),
         )
         for textdomain, catalog in self.status_iterator(
-                self.catalogs.iteritems(), "writing message catalogs... ",
-                lambda (textdomain, _): darkgreen(textdomain),
+                iter(self.catalogs.items()), "writing message catalogs... ",
+                lambda textdomain__: darkgreen(textdomain__[0]),
                                         len(self.catalogs)):
 
             # noop if config.gettext_compact is set
@@ -115,17 +115,18 @@ class MessageCatalogBuilder(I18nBuilder):
                     positions = catalog.metadata[message]
 
                     # generate "#: file1:line1\n#: file2:line2 ..."
-                    pofile.write(u"#: %s\n" % "\n#: ".join("%s:%s" %
+                    pofile.write("#: %s\n" % "\n#: ".join("%s:%s" %
                         (safe_relpath(source, self.outdir), line)
                         for source, line, _ in positions))
                     # generate "# uuid1\n# uuid2\n ..."
-                    pofile.write(u"# %s\n" % "\n# ".join(uid for _, _, uid
+                    pofile.write("# %s\n" % "\n# ".join(uid for _, _, uid
                         in positions))
 
                     # message contains *one* line of text ready for translation
-                    message = message.replace(u'\\', ur'\\'). \
-                                      replace(u'"', ur'\"')
-                    pofile.write(u'msgid "%s"\nmsgstr ""\n\n' % message)
+                    message = message.replace('\\', r'\\'). \
+                                      replace('"', r'\"')
+                    pofile.write('msgid "%s"\nmsgstr ""\n\n' % message)
 
             finally:
                 pofile.close()
+

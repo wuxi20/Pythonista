@@ -34,7 +34,7 @@ def make_cleanup(obj):
 weakref.ref(execbtn_obj,make_cleanup(execbtn_obj))
 def run_script(sender):
    import editor
-   execfile(editor.get_path())
+   exec(compile(open(editor.get_path()).read(), editor.get_path(), 'exec'))
 execbtn.action=run_script
 
 #hang onto these objects

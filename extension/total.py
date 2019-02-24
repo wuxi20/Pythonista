@@ -5,7 +5,7 @@
 
 import sys
 import webbrowser
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 raw = sys.argv[1].split('\n')
 title = sys.argv[2]
@@ -27,4 +27,4 @@ cleaned.append('')
 cleaned.append('Total{:>30,.2f}'.format(total))
 cleaned = '\n'.join(cleaned)
 
-webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.quote(cleaned))
+webbrowser.open("drafts4://x-callback-url/create?text=" + urllib.parse.quote(cleaned))

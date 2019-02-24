@@ -1462,7 +1462,7 @@ class Transport:
             if not data:
                 break
             if self.verbose:
-                print("body:", repr(data))
+                print(("body:", repr(data)))
             p.feed(data)
 
         if stream is not response:
@@ -1624,9 +1624,9 @@ if __name__ == "__main__":
     print(server)
 
     try:
-        print(server.currentTime.getCurrentTime())
+        print((server.currentTime.getCurrentTime()))
     except Error as v:
-        print("ERROR", v)
+        print(("ERROR", v))
 
     multi = MultiCall(server)
     multi.currentTime.getCurrentTime()
@@ -1635,5 +1635,6 @@ if __name__ == "__main__":
         for response in multi():
             print(response)
     except Error as v:
-        print("ERROR", v)
+        print(("ERROR", v))
+
 

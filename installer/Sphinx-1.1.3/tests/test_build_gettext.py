@@ -54,8 +54,8 @@ def test_gettext(app):
         else:
             stdout, stderr = p.communicate()
             if p.returncode != 0:
-                print stdout
-                print stderr
+                print(stdout)
+                print(stderr)
                 assert False, 'msginit exited with return code %s' % \
                         p.returncode
         assert (app.outdir / 'en_US.po').isfile(), 'msginit failed'
@@ -68,8 +68,8 @@ def test_gettext(app):
         else:
             stdout, stderr = p.communicate()
             if p.returncode != 0:
-                print stdout
-                print stderr
+                print(stdout)
+                print(stderr)
                 assert False, 'msgfmt exited with return code %s' % \
                         p.returncode
         assert (app.outdir / 'en' / 'LC_MESSAGES' / 'test_root.mo').isfile(), \
@@ -78,4 +78,5 @@ def test_gettext(app):
         os.chdir(cwd)
 
     _ = gettext.translation('test_root', app.outdir, languages=['en']).gettext
-    assert _("Testing various markup") == u"Testing various markup"
+    assert _("Testing various markup") == "Testing various markup"
+

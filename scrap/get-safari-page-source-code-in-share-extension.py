@@ -4,7 +4,7 @@
 
 from objc_util import *
 storage=ObjCClass('NSHTTPCookieStorage').sharedHTTPCookieStorage()
-print(storage.cookies())
+print((storage.cookies()))
 
 # --------------------
 
@@ -16,4 +16,5 @@ cookiefile=re.findall(r'/private[^,]*',str(ObjCInstance(storage._cookieStorage()
 cookiedata=open(cookiefile).read()
 
 # --------------------
+
 
