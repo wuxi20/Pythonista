@@ -23,7 +23,7 @@ def process(url):
 	soup = BeautifulSoup(text)
 	for tag in soup.findAll('a', href=True):
 		tag['href'] = urllib.parse.urljoin(url, tag['href'])
-		print(tag['href'])
+		print((tag['href']))
 # process(url)
 
 def main():
@@ -34,5 +34,6 @@ def main():
 
 if __name__ == "__main__":
 	main()
+
 
 

@@ -11,7 +11,7 @@ program or imported from your Python code.
 For best results install https://pypi.python.org/pypi/html module.
 See the files README.md and LICENSE for more information.
 '''
-from __future__ import print_function
+
 
 import csv
 import argparse
@@ -257,4 +257,5 @@ def main():
 		
 if __name__ == '__main__':
 	main()
+
 

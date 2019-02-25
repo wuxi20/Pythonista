@@ -34,8 +34,10 @@ for row in c:
 # adjust to get actual percentages
 total = sum(data.values())
 
-out = {letter: (count / total) * 100 for letter, count in data.iteritems()}
+out = {letter: (count / total) * 100 for letter, count in list(data.items())}
 
 for l in sorted(out, key=out.get, reverse=True):
-	print l + ' - ', "{0:.2f}".format(out[l]) + '%'
+	print((l + ' - ', "{0:.2f}".format(out[l]) + '%'))
+
+
 

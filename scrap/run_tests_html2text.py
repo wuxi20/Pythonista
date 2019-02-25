@@ -20,7 +20,7 @@ def test_module(fn, google_doc=False, **kwargs):
         h.body_width = 0
         h.hide_strikethrough = True
 
-    for k, v in kwargs.iteritems():
+    for k, v in kwargs.items():
         setattr(h, k, v)
 
     result = get_baseline(fn)
@@ -65,14 +65,14 @@ def print_result(fn, mode, result, actual):
         print('FAIL')
 
         if mode == 'command':
-            print(len(result), len(actual))
+            print((len(result), len(actual)))
 
         dump_name = get_dump_name(fn, mode)
 
         f = codecs.open(dump_name, encoding='utf-8', mode='w+')
         f.write(actual)
 
-        print("  Use: diff -u %s %s" % (get_baseline_name(fn), dump_name))
+        print(("  Use: diff -u %s %s" % (get_baseline_name(fn), dump_name)))
         return False
 
 def get_dump_name(fn, suffix):
@@ -109,7 +109,7 @@ def run_all_tests():
             module_args['escape_snob'] = True
             cmdline_args.append('--escape-all')
 
-        print('\n' + fn + ':')
+        print(('\n' + fn + ':'))
         passing = passing and test_module(fn, **module_args)
 
         if not 'unicode_snob' in module_args: # Because there is no command-line option to control unicode_snob
@@ -122,3 +122,4 @@ def run_all_tests():
 
 if __name__ == "__main__":
     run_all_tests()
+

@@ -25,7 +25,7 @@ from twisted.python import log
 from twisted.web import server, resource, http
 
 from thrift.transport import TTransport
-from cStringIO import StringIO
+from io import StringIO
 
 
 class TMessageSenderTransport(TTransport.TTransportBase):
@@ -79,7 +79,7 @@ class ThriftClientProtocol(basic.Int32StringReceiver):
         self.started.callback(self.client)
 
     def connectionLost(self, reason=connectionDone):
-        for k,v in self.client._reqs.iteritems():
+        for k,v in self.client._reqs.items():
             tex = TTransport.TTransportException(
                 type=TTransport.TTransportException.END_OF_FILE,
                 message='Connection closed')
@@ -217,3 +217,4 @@ class ThriftResource(resource.Resource):
         d = self.processor.process(iprot, oprot)
         d.addCallback(self._cbProcess, request, tmo)
         return server.NOT_DONE_YET
+
