@@ -51,10 +51,10 @@ documentation for more information.
 
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
+
+
+
+
 
 import codecs
 import collections
@@ -74,13 +74,14 @@ import token
 import tokenize
 
 import pep8
-reload(pep8)
+import imp
+imp.reload(pep8)
 
 
 try:
-    unicode
+    str
 except NameError:
-    unicode = str
+    str = str
 
 
 __version__ = '1.2.2a0'
@@ -289,7 +290,7 @@ def continued_indentation(logical_line, tokens, indent_level, indent_char,
             elif visual_indent is True:
                 # Visual indent is verified.
                 indent[depth] = start[1]
-            elif visual_indent in (text, unicode):
+            elif visual_indent in (text, str):
                 # Ignore token lined up with matching one from a previous line.
                 pass
             else:
@@ -319,7 +320,7 @@ def continued_indentation(logical_line, tokens, indent_level, indent_char,
         # Deal with implicit string concatenation.
         elif (token_type in (tokenize.STRING, tokenize.COMMENT) or
               text in ('u', 'ur', 'b', 'br')):
-            indent_chances[start[1]] = unicode
+            indent_chances[start[1]] = str
         # Special case for the "if" statement because len("if (") is equal to
         # 4.
         elif not indent_chances and not row and not depth and text == 'if':
@@ -813,7 +814,7 @@ class FixPEP8(object):
             for line_index in range(start_line_index, end_line_index + 1):
                 self.source[line_index] = ''
             self.source[start_line_index] = fixed
-            return range(start_line_index + 1, end_line_index + 1)
+            return list(range(start_line_index + 1, end_line_index + 1))
         else:
             return []
 
@@ -1013,7 +1014,7 @@ class FixPEP8(object):
 
         original_length = len(self.source)
         self.source = self.source[:original_length - blank_count]
-        return range(1, 1 + original_length)
+        return list(range(1, 1 + original_length))
 
 
 def get_index_offset_contents(result, source):
@@ -1267,7 +1268,7 @@ def refactor(source, fixer_names, ignore=None, filename=''):
 
 def code_to_2to3(select, ignore):
     fixes = set()
-    for code, fix in CODE_TO_2TO3.items():
+    for code, fix in list(CODE_TO_2TO3.items()):
         if code_match(code, select=select, ignore=ignore):
             fixes |= set(fix)
     return fixes
@@ -1303,7 +1304,7 @@ def find_newline(source):
     Input is a list of lines.
 
     """
-    assert not isinstance(source, unicode)
+    assert not isinstance(source, str)
 
     counter = collections.defaultdict(int)
     for line in source:
@@ -1603,9 +1604,9 @@ class ReformattedLines(object):
         ):
             return
 
-        prev_text = unicode(self._prev_item)
+        prev_text = str(self._prev_item)
         prev_prev_text = (
-            unicode(self._prev_prev_item) if self._prev_prev_item else '')
+            str(self._prev_prev_item) if self._prev_prev_item else '')
 
         if (
             # The previous item was a keyword or identifier and the current
@@ -1689,7 +1690,7 @@ class ReformattedLines(object):
             self._lines.append(self._LineBreak())
             self._lines.append(self._Indent(indent_amt))
 
-        item_text = unicode(item)
+        item_text = str(item)
         if self._lines and self._bracket_depth:
             # Adding the item into a container.
             self._prevent_default_initializer_splitting(item, indent_amt)
@@ -1721,19 +1722,19 @@ class ReformattedLines(object):
         actual_indent = indent_amt + 1
 
         if (
-            unicode(self._prev_item) != '=' and
+            str(self._prev_item) != '=' and
             not self.line_empty() and
             not self.fits_on_current_line(
                 container.size + self._bracket_depth + 2)
         ):
 
-            if unicode(container)[0] == '(' and self._prev_item.is_name:
+            if str(container)[0] == '(' and self._prev_item.is_name:
                 # Don't split before the opening bracket of a call.
                 break_after_open_bracket = True
                 actual_indent = indent_amt + 4
             elif (
                 break_after_open_bracket or
-                unicode(self._prev_item) not in '([{'
+                str(self._prev_item) not in '([{'
             ):
                 # If the container doesn't fit on the current line and the
                 # current line isn't empty, place the container on the next
@@ -1764,14 +1765,14 @@ class ReformattedLines(object):
         break/indent before it if needed.
 
         """
-        if unicode(item) == '=':
+        if str(item) == '=':
             # This is the assignment in the initializer. Just remove spaces for
             # now.
             self._delete_whitespace()
             return
 
         if (not self._prev_item or not self._prev_prev_item or
-                unicode(self._prev_item) != '='):
+                str(self._prev_item) != '='):
             return
 
         self._delete_whitespace()
@@ -1832,8 +1833,8 @@ class ReformattedLines(object):
         if not self._prev_item:
             return
 
-        item_text = unicode(item)
-        prev_text = unicode(self._prev_item)
+        item_text = str(item)
+        prev_text = str(self._prev_item)
 
         # Prefer a space around a '.' in an import statement, and between the
         # 'import' and '('.
@@ -1889,13 +1890,13 @@ class Atom(object):
             not reflowed_lines.line_empty() and
             not self.is_colon and
             not (prev_item and prev_item.is_name and
-                 unicode(self) == '(')
+                 str(self) == '(')
         ):
             # Start a new line if there is already something on the line and
             # adding this atom would make it go over the max line length.
             reflowed_lines.add_line_break(continued_indent)
         else:
-            reflowed_lines.add_space_if_needed(unicode(self))
+            reflowed_lines.add_space_if_needed(str(self))
 
         reflowed_lines.add(self, len(continued_indent),
                            break_after_open_bracket)
@@ -1949,7 +1950,7 @@ class Container(object):
             elif item.is_colon:
                 string += ': '
             else:
-                item_string = unicode(item)
+                item_string = str(item)
                 if (
                     string and
                     (last_was_keyword or
@@ -1982,7 +1983,7 @@ class Container(object):
                             self._get_extent(index),
                             is_list_comp_or_if_expr=is_list_comp_or_if_expr,
                             next_is_dot=(next_item and
-                                         unicode(next_item) == '.'))
+                                         str(next_item) == '.'))
                 if last_was_container and item.is_comma:
                     reflowed_lines.add_line_break(continued_indent)
                 last_was_container = False
@@ -1996,8 +1997,8 @@ class Container(object):
                 break_after_open_bracket and index == 0 and
                 # Prefer to keep empty containers together instead of
                 # separating them.
-                unicode(item) == self.open_bracket and
-                (not next_item or unicode(next_item) != self.close_bracket) and
+                str(item) == self.open_bracket and
+                (not next_item or str(next_item) != self.close_bracket) and
                 (len(self._items) != 3 or not isinstance(next_item, Atom))
             ):
                 reflowed_lines.add_line_break(continued_indent)
@@ -2005,11 +2006,11 @@ class Container(object):
             else:
                 next_next_item = get_item(self._items, index + 2)
                 if (
-                    unicode(item) not in ['.', '%', 'in'] and
+                    str(item) not in ['.', '%', 'in'] and
                     next_item and not isinstance(next_item, Container) and
-                    unicode(next_item) != ':' and
+                    str(next_item) != ':' and
                     next_next_item and (not isinstance(next_next_item, Atom) or
-                                        unicode(next_item) == 'not') and
+                                        str(next_item) == 'not') and
                     not reflowed_lines.line_empty() and
                     not reflowed_lines.fits_on_current_line(
                         self._get_extent(index + 1) + 2)
@@ -2024,7 +2025,7 @@ class Container(object):
         """
         extent = 0
         prev_item = get_item(self._items, index - 1)
-        seen_dot = prev_item and unicode(prev_item) == '.'
+        seen_dot = prev_item and str(prev_item) == '.'
         while index < len(self._items):
             item = get_item(self._items, index)
             index += 1
@@ -2041,11 +2042,11 @@ class Container(object):
 
                     prev_item = item
                     continue
-            elif (unicode(item) not in ['.', '=', ':', 'not'] and
+            elif (str(item) not in ['.', '=', ':', 'not'] and
                   not item.is_name and not item.is_string):
                 break
 
-            if unicode(item) == '.':
+            if str(item) == '.':
                 seen_dot = True
 
             extent += item.size
@@ -2240,7 +2241,7 @@ def _reflow_lines(parsed_tokens, indentation, max_line_length,
                   start_on_prefix_line):
     """Reflow the lines so that it looks nice."""
 
-    if unicode(parsed_tokens[0]) == 'def':
+    if str(parsed_tokens[0]) == 'def':
         # A function definition gets indented a bit more.
         continued_indent = indentation + ' ' * 2 * DEFAULT_INDENT_SIZE
     else:
@@ -2259,13 +2260,13 @@ def _reflow_lines(parsed_tokens, indentation, max_line_length,
 
         if (
             first_token and second_token and
-            unicode(second_token)[0] == '(' and
+            str(second_token)[0] == '(' and
             len(indentation) + len(first_token) + 1 == len(continued_indent)
         ):
             return None
 
     for item in parsed_tokens:
-        lines.add_space_if_needed(unicode(item), equal=True)
+        lines.add_space_if_needed(str(item), equal=True)
 
         save_continued_indent = continued_indent
         if start_on_prefix_line and isinstance(item, Container):
@@ -2684,7 +2685,7 @@ def refactor_with_2to3(source_text, fixer_names, filename=''):
     from lib2to3.pgen2 import tokenize as lib2to3_tokenize
     try:
         # The name parameter is necessary particularly for the "import" fixer.
-        return unicode(tool.refactor_string(source_text, name=filename))
+        return str(tool.refactor_string(source_text, name=filename))
     except lib2to3_tokenize.TokenError:
         return source_text
 
@@ -2868,13 +2869,13 @@ def mutual_startswith(a, b):
 
 def code_match(code, select, ignore):
     if ignore:
-        assert not isinstance(ignore, unicode)
+        assert not isinstance(ignore, str)
         for ignored_code in [c.strip() for c in ignore]:
             if mutual_startswith(code.lower(), ignored_code.lower()):
                 return False
 
     if select:
-        assert not isinstance(select, unicode)
+        assert not isinstance(select, str)
         for selected_code in [c.strip() for c in select]:
             if mutual_startswith(code.lower(), selected_code.lower()):
                 return True
@@ -2891,7 +2892,7 @@ def fix_code(source, options=None, encoding=None, apply_config=False):
     """
     options = _get_options(options, apply_config)
 
-    if not isinstance(source, unicode):
+    if not isinstance(source, str):
         source = source.decode(encoding or get_encoding())
 
     sio = io.StringIO(source)
@@ -2905,14 +2906,14 @@ def _get_options(raw_options, apply_config):
 
     if isinstance(raw_options, dict):
         options = parse_args([''], apply_config=apply_config)
-        for name, value in raw_options.items():
+        for name, value in list(raw_options.items()):
             if not hasattr(options, name):
                 raise ValueError("No such option '{}'".format(name))
 
             # Check for very basic type errors.
             expected_type = type(getattr(options, name))
-            if not isinstance(expected_type, (str, unicode)):
-                if isinstance(value, (str, unicode)):
+            if not isinstance(expected_type, str):
+                if isinstance(value, str):
                     raise ValueError(
                         "Option '{}' should not be a string".format(name))
             setattr(options, name, value)
@@ -3229,8 +3230,8 @@ def read_config(args, parser):
         from configparser import ConfigParser as SafeConfigParser
         from configparser import Error
     except ImportError:
-        from ConfigParser import SafeConfigParser
-        from ConfigParser import Error
+        from configparser import SafeConfigParser
+        from configparser import Error
 
     config = SafeConfigParser()
 
@@ -3263,7 +3264,7 @@ def _split_comma_separated(string):
 
 def decode_filename(filename):
     """Return Unicode filename."""
-    if isinstance(filename, unicode):
+    if isinstance(filename, str):
         return filename
     else:
         return filename.decode(sys.getfilesystemencoding())
@@ -3551,7 +3552,7 @@ def _fix_file(parameters):
     try:
         fix_file(*parameters)
     except IOError as error:
-        print(unicode(error), file=sys.stderr)
+        print(str(error), file=sys.stderr)
 
 
 def fix_multiple_files(filenames, options, output=None):

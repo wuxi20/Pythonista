@@ -50,9 +50,10 @@ def quicksort(input, left=0, right=0):
 
 
 def main():
-    input = random.sample(range(100), 50)
+    input = random.sample(list(range(100)), 50)
     quicksort(input)
-    print input
+    print(input)
 
 if __name__ == '__main__':
     main()
+

@@ -79,7 +79,7 @@ def pick_your_weather():
     ans = console.alert('Choose Your Weather Source:', '', 'From Your Current Location', 'From Entering a City Name', 'From A Pick List of Cities')
     if ans == 1:
       # Weather where you are
-      print 'Gathering weather data from where you are...'
+      print('Gathering weather data from where you are...')
       # Get lat & lon of where you are
       lat, lon = get_current_lat_lon()
     elif ans == 2:
@@ -87,17 +87,17 @@ def pick_your_weather():
       msg = 'Enter a city and state-country in format "'"New York, NY"'": '
       ans = console.input_alert(msg).title()
       if ans:
-        print('='*20)
-        print 'Gathering weather data for {}'.format(ans)
+        print(('='*20))
+        print('Gathering weather data for {}'.format(ans))
         ans = ans.split(',')
         city = ans[0].replace(' ', '%20').strip()
         st = ans[1].strip()
     elif ans == 3:
       # Pick from list
       theCity, st, zcode = city_zips()
-      print('='*20)
+      print(('='*20))
       if zcode:
-        print 'Gathering weather data for {}, {}'.format(theCity, st)
+        print('Gathering weather data for {}, {}'.format(theCity, st))
   except Exception as e:
     sys.exit('Error: {}'.format(e))
 
@@ -126,11 +126,11 @@ def city_zips(filename = 'cities.txt'):
 
   for i, zcode in enumerate(zips):
     # Align numbers neatly in printed list of cities & states/countries
-    print('{:>7}. {}, {}'.format(i, zcode[0], zcode[1]))
+    print(('{:>7}. {}, {}'.format(i, zcode[0], zcode[1])))
 
   while True:
     try:
-      ans = int(raw_input('\nEnter number of desired city: '))
+      ans = int(input('\nEnter number of desired city: '))
       # Retrieve data from proper row,
       city, st, zcode = zips[ans]
       return city, st, zcode
@@ -189,7 +189,7 @@ def get_weather_dicts(lat, lon, city = '', st = '', zcode = ''):
       pass
   # Servers down or no internet
   except requests.ConnectionError:
-    print('=' * 20) # console.clear()
+    print(('=' * 20)) # console.clear()
     sys.exit('Weather servers are busy. Try again in a few minutes...')
 
   try:
@@ -391,10 +391,10 @@ def download_weather_icons(icon_path):
     # Write .gif file to icon folder
     with open(icon_path + filename, 'w') as out_file:
       try:
-        print(fmt.format(filename, url))
+        print((fmt.format(filename, url)))
         out_file.write(requests.get(url).content)
       except requests.ConnectionError as e:
-        print('ConnectionError on {}: {}'.format(i, e))
+        print(('ConnectionError on {}: {}'.format(i, e)))
     print('Done.')
 
 def get_current_weather(w):
@@ -409,12 +409,12 @@ def get_current_weather(w):
 
   # Wind
   wind = current['wind_string']
-  if wind <> 'Calm':
+  if wind != 'Calm':
     # Get direction & speed
     wind = '{} @ {} {}'.format(current['wind_dir'],current['wind_' + unit[5]], unit[5])
     # Add wind gusts if necessary
     gusts = current['wind_gust_' + unit[5]]
-    if gusts <> 0:
+    if gusts != 0:
       wind = '{} Gusts to {} {}'.format(wind, gusts, unit[5])
 
   # Get 'Feels Like' temp
@@ -508,7 +508,7 @@ def get_extended_forecast(w, f):
     pop = txt_f[i]['pop']
 
     # If pop, add 15 more spaces & display it on either header
-    if pop <> '0':
+    if pop != '0':
       ef.append('\n{}{}Precip: {}%'.format(title, (' ' *15), pop))
     else:
       ef.append('\n{}'.format(title))
@@ -521,7 +521,7 @@ def get_extended_forecast(w, f):
     for chance in chances:
       txt_pos = fc_txt.find('Chance of {}'.format(chance))
       # Slice out unwanted text if found
-      if txt_pos <> -1:
+      if txt_pos != -1:
         fc_txt = fc_txt[0:txt_pos].strip()
 
     # Strip out high temp info from day & low temp info from night forecasts
@@ -533,7 +533,7 @@ def get_extended_forecast(w, f):
     end = fc_txt.find('Wind')
 
     # Slice out redundant temp info
-    if start <> -1:
+    if start != -1:
       fc_txt1 = fc_txt[:start]
       fc_txt2 = fc_txt[end:].replace('at', '@')
       fc_txt2 = fc_txt2.replace(' to ', '-')
@@ -560,7 +560,7 @@ def get_extended_forecast(w, f):
     snow_night = simple_f[i/2]['snow_night'][unit[8]]
 
     # Show night accumulated precip amts
-    if title.find('Night') <> -1:
+    if title.find('Night') != -1:
       if rain_night > 0.0:
         ef.append('Expected Rainfall: {} {}'.format(rain_night, unit[4]))
 
@@ -633,7 +633,7 @@ def main():
   # Get array of weather icons
   icons = get_console_icons(w, f, icon_path)
 
-  print('='*20)
+  print(('='*20))
 
   # Print current conditions to console
   try:
@@ -643,7 +643,7 @@ def main():
   except:
     missing_icons.append(icons[0])
 
-  print(get_current_weather(w))
+  print((get_current_weather(w)))
   #print(get_forecast(w, f))
   #sys.exit()
   '''
@@ -668,9 +668,9 @@ def main():
       except:
         missing_icons.append(ico)
       count += 1
-    print line
+    print(line)
 
-  print '\nWeather information provided by api.wunderground.com'
+  print('\nWeather information provided by api.wunderground.com')
 
   if missing_icons:
     ans = console.alert('Weather Icon(s) Missing:','','Download Them Now')

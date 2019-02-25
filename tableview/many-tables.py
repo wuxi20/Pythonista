@@ -15,7 +15,7 @@ class MyClass(ui.View):
 			#tbl.width = self.width / num_tables
 			#tbl.height = self.height
 			#tbl.x = tbl.width * i
-			tbl.data_source = ui.ListDataSource(items=range(40))
+			tbl.data_source = ui.ListDataSource(items=list(range(40)))
 			#tbl.flex = 'tlwhbr'
 			self.add_subview(tbl)
 			
@@ -46,6 +46,7 @@ if __name__ == '__main__':
 	mc.present(style=style, animated=False)
 	
 	# access the table by name
-	print(mc['tbl_1'])
-	print(mc['tbl_2'].data_source)
+	print((mc['tbl_1']))
+	print((mc['tbl_2'].data_source))
+
 

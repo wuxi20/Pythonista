@@ -10,7 +10,8 @@ mytext = mytext.replace('http://mobile.twitter.com/', 'tweetbot://')
 mytext = mytext.replace('https://mobile.twitter.com/', 'tweetbot://')
 
 console.clear()
-print mytext
+print(mytext)
 
 webbrowser.open(mytext)
+
 

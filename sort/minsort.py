@@ -12,9 +12,10 @@ def minsort(liste):
  
         # Tausche i-te Stelle mit dem Minimum, falls sie sich unterscheiden
         if minimum != i:
-            print"Tausche %d. Element (%d) mit %d. Element (%d)"%(i+1, liste[i], minimum+1, liste[minimum])
+            print("Tausche %d. Element (%d) mit %d. Element (%d)"%(i+1, liste[i], minimum+1, liste[minimum]))
             tausch = liste[minimum]
             liste[minimum] = liste[i]
             liste[i] = tausch
  
     return liste
+

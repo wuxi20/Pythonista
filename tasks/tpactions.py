@@ -44,7 +44,7 @@ def DoneChild2Parent(l):
     for k in tasks:
         if re.search('(?!.*@done)\t*-\s.*', k[1]):
             try:
-                nt = tasks.next()
+                nt = next(tasks)
             except StopIteration:
                 break
             if nt[1].count('\t') > k[1].count('\t'):
@@ -57,7 +57,7 @@ def DoneChild2Parent(l):
     
 
 allTasks = arg[3].split('\n\n')
-projects = [filter(None,proj.split('\n')) for proj in allTasks]
+projects = [[_f for _f in proj.split('\n') if _f] for proj in allTasks]
 
 for proj in projects:
     
@@ -68,13 +68,13 @@ for proj in projects:
         if tp[0].startswith("/"):
             project = re.compile("(^[\\w/].*:*(\\n\\w.*)*)", re.M) # Find Project Name and Project Comments
             tasks = re.compile("^[^/][\\t\\w]*-??\\s??(?!.*@done).+\\n*", re.M) # Finds every line not containing @done
-            print project.match(tempstr).group() # Prints the Project name and comment
-            print "".join(tasks.findall(tempstr)) # Findall creates a list, so we print it with a join
+            print(project.match(tempstr).group()) # Prints the Project name and comment
+            print("".join(tasks.findall(tempstr))) # Findall creates a list, so we print it with a join
             
         else:
             project = re.compile("(^[\\w/].*:*(\\n\\w.*)*)", re.M)
             ttasks = re.compile("(?!.*@done)(\\t-\\s.*(\\n\\t{2,}-\\s.+)*(\\n\\t+\\w.+(\\n\\t{2,}-\\s.+)*)*)", re.M) # Main match. Will eliminate tasks with @done
             tasks = re.compile("[\\t]+-??\\s??(?!.*@done).+\\n*", re.M) # Second match, will eliminate sub(sub)tasks with @done
             if ttasks.search(tempstr) is not None:
-                print project.match(tempstr).group()
-                print "".join(tasks.findall(ttasks.search(tempstr).group()))
+                print(project.match(tempstr).group())
+                print("".join(tasks.findall(ttasks.search(tempstr).group())))

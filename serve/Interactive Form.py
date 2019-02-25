@@ -10,8 +10,8 @@
 # Enter an address, city, or zip code and select options.
 # Static map images are returned from the Google Maps API.
 
-from BaseHTTPServer import BaseHTTPRequestHandler
-from BaseHTTPServer import HTTPServer
+from http.server import BaseHTTPRequestHandler
+from http.server import HTTPServer
 from string import Template
 import cgi
 import webbrowser

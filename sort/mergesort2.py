@@ -18,9 +18,9 @@ def divide(A):
     halfSize=size/2
     x1=[]
     x2=[]
-    for index in xrange(0,halfSize):
+    for index in range(0,halfSize):
         x1.append(A[index])
-    for index in xrange(halfSize,size):
+    for index in range(halfSize,size):
         x2.append(A[index])
     return [x1,x2]
 
@@ -51,6 +51,7 @@ def merge(x1,x2):
             
 
 a=[6,5,4,3,2,1]
-print 'before sorting',a             
+print('before sorting',a)             
 x=mergeSort(a)
-print 'after sorting',x
+print('after sorting',x)
+

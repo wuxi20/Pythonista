@@ -6,7 +6,7 @@ import appex
 import clipboard
 import dialogs
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 
 def fill_placeholders(action_in):
@@ -14,10 +14,11 @@ def fill_placeholders(action_in):
 	known_placeholders = set()
 	placeholders = []
 	fields = []
-for placeholder_match in re.finditer(u"«(.+?)»", action_in):
+for placeholder_match in re.finditer("«(.+?)»", action_in):
 	placeholder = placeholder_match.group(1)
 if placeholder not in known_placeholders:
 	known_placeholders.add(placeholder)
 placeholders.append(placeholder)
 fields.append({'type': 'text', 'title': placeholder, 'key': placeholder})
+
 

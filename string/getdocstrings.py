@@ -70,9 +70,9 @@ def print_docstrings(source, module='<string>'):
 			name = name if name else module
 			heading = "%s '%s', line %s" % (type_, name, lineno or '?')
 			print(heading)
-			print('-' * len(heading))
+			print(('-' * len(heading)))
 			print('')
-			print(docstring or '')
+			print((docstring or ''))
 			print('\n')
 			
 			
@@ -81,4 +81,5 @@ if __name__ == '__main__':
 	
 	with open(sys.argv[1]) as fp:
 		print_docstrings(fp)
+
 

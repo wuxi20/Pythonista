@@ -33,6 +33,7 @@ def mergejoin(left, right):
 	
 	
 import random
-input = random.sample(range(100), 11)
-print mergesort(input), len(input)
+input = random.sample(list(range(100)), 11)
+print(mergesort(input), len(input))
+
 

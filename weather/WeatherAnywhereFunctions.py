@@ -124,7 +124,7 @@ def pick_your_weather():
       update_city_list('remove', item)
       console.hud_alert('Done')
     else:
-      print 'Something wtong, more than 1 removed item'
+      print('Something wtong, more than 1 removed item')
 
   # 'From A City You Can Add To List' button was tapped
   def btn_type_tapped(sender):
@@ -307,7 +307,7 @@ def get_weather_dicts(lat, lon, city = '', st = '', zcode = ''):
         pass
   # Servers down or no internet so kill thread
   except requests.ConnectionError:
-    print('=' * 20) # console.clear()
+    print(('=' * 20)) # console.clear()
     err = "Weather Servers Busy...Tap 'Menu' To Continue"
     console.hud_alert('{}'.format(err), 'error')
     sys.exit('Error in get_weather_dicts: {}'.format(err))
@@ -467,10 +467,10 @@ def download_weather_icons(icon_path):
     # Write .gif file to icon folder
     with open(icon_path + filename, 'w') as out_file:
       try:
-        print(fmt.format(filename, url))
+        print((fmt.format(filename, url)))
         out_file.write(requests.get(url).content)
       except requests.ConnectionError as e:
-        print('ConnectionError on {}: {}'.format(i, e))
+        print(('ConnectionError on {}: {}'.format(i, e)))
     print('Done.')
 
 def get_current_weather(w, f):
@@ -510,12 +510,12 @@ def get_current_weather(w, f):
 
   # Wind
   wind = current['wind_string']
-  if wind <> 'Calm':
+  if wind != 'Calm':
     # Get direction & speed
     wind = '{} @ {} {}'.format(current['wind_dir'],current['wind_' + unit[5]], unit[5])
     # Add wind gusts if necessary
     gusts = current['wind_gust_' + unit[5]]
-    if gusts <> 0:
+    if gusts != 0:
       wind = '{} Gusts to {} {}'.format(wind, gusts, unit[5])
 
   # Get 'Feels Like' temp
@@ -647,7 +647,7 @@ def get_extended_forecast(w, f):
     pop = txt_f[i]['pop']
 
     # If pop, add more spaces & display it on either header
-    if pop <> '0':
+    if pop != '0':
       ef.append('\n{}{}Precip: {}%'.format(title, (' ' *int(pop_spaces)), pop))
     else:
       ef.append('\n{}'.format(title))
@@ -660,7 +660,7 @@ def get_extended_forecast(w, f):
     for chance in chances:
       txt_pos = fc_txt.find('Chance of {}'.format(chance))
       # Slice out unwanted text if found
-      if txt_pos <> -1:
+      if txt_pos != -1:
         fc_txt = fc_txt[0:txt_pos].strip()
 
     # Strip out high temp info from day & low temp info from night forecasts
@@ -672,7 +672,7 @@ def get_extended_forecast(w, f):
     end = fc_txt.find('Wind')
 
     # Slice out redundant temp info
-    if start <> -1:
+    if start != -1:
       fc_txt1 = fc_txt[:start]
       fc_txt2 = fc_txt[end:].replace('at', '@')
       fc_txt2 = fc_txt2.replace(' to ', '-')
@@ -805,3 +805,4 @@ def get_alerts(w, f):
   else:
     alert = ''
   return alert
+

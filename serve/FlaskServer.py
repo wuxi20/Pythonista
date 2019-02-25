@@ -20,8 +20,10 @@ def install():
 # Attempt at getting this device's ip address
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect(('www.google.com', 9))
-print 'My IP: ' + s.getsockname()[0]
+print(('My IP: ' + s.getsockname()[0]))
 s.close()
 
 app.run(host='0.0.0.0')
+
+
 

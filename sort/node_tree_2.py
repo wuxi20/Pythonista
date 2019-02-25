@@ -76,16 +76,17 @@ def eval_tree(tree):
 	
 	if type(left_op) is int or left_op.isdigit():
 		left_int = int(left_op)
-	elif left_op in operator_map.keys():
+	elif left_op in list(operator_map.keys()):
 		left_int = eval_tree(tree.leftChild)
 		
 	if type(right_op) is int or right_op.isdigit():
 		right_int = int(right_op)
-	elif right_op in operator_map.keys():
+	elif right_op in list(operator_map.keys()):
 		right_int = eval_tree(tree.rightChild)
 		
 	total = getattr(left_int, operator_map[operator])(right_int)
 	return total
 	
-print eval_tree(parse_expr_to_tree('(3 + (4 * 5))'))
+print(eval_tree(parse_expr_to_tree('(3 + (4 * 5))')))
+
 

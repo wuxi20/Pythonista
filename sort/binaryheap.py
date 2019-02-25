@@ -46,14 +46,15 @@ def tests():
 	heap.append(8)
 	
 	def heaptest(aheap):
-		for i in xrange(len(aheap)):
+		for i in range(len(aheap)):
 			if i > 1:
 				assert aheap[i] >= aheap[i // 2]
 				
 	heap.del_min()
 	heaptest(heap)
-	print heap
+	print(heap)
 	
 if __name__ == '__main__':
 	tests()
+
 

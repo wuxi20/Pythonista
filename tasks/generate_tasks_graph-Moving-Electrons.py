@@ -63,21 +63,21 @@ if __name__ == "__main__":
 		contents = infile.readlines()
 		
 	dates = Due_Dates_Dict(contents)
-	print "Dates List Created"
+	print("Dates List Created")
 	
 	today_date = dt.date.today()
 	today_str = today_date.strftime("%Y-%m-%d")
 	
 	later_date = dt.date.today() + dt.timedelta(days=NUMBER_OF_DAYS)
 	later_str = later_date.strftime("%Y-%m-%d")
-	print "Initial Date: "+today_str+"\nEnd Date: "+later_str
+	print("Initial Date: "+today_str+"\nEnd Date: "+later_str)
 	
 	# Defining dataframe index as a Datetime object
-	print 'Dates Parsed:', dates.keys()
+	print('Dates Parsed:', list(dates.keys()))
 	
-	df_index = pd.to_datetime(dates.keys(), format='%Y-%m-%d')
+	df_index = pd.to_datetime(list(dates.keys()), format='%Y-%m-%d')
 	
-	main_df = pd.DataFrame(dates.values(), columns = ['tasks'], index = df_index).sort(ascending=True)
+	main_df = pd.DataFrame(list(dates.values()), columns = ['tasks'], index = df_index).sort(ascending=True)
 	
 	# Getting rid of overdue items and just including upcoming tasks:
 	reduced_df = main_df[(main_df.index >= today_str) & (main_df.index < later_str)]
@@ -106,8 +106,9 @@ if __name__ == "__main__":
 	# Pandas plotting
 	line_plot = reduced_df_allDays.plot(legend=False, title='Tasks Distribution - Next '+str(NUMBER_OF_DAYS)+' Days',
 	y=['tasks'], kind='line')
-	print "Generating Graph.."
+	print("Generating Graph..")
 	fig = line_plot.get_figure()
 	fig.savefig(OUTPUT)
-	print "Done."
+	print("Done.")
+
 

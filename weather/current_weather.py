@@ -6,7 +6,8 @@ from console import alert
 import datetime
 from json import loads
 from sys import argv, exit
-from urllib import urlopen, quote
+from urllib.request import urlopen
+from urllib.parse import quote
 import webbrowser
 
 weather_codes = {200: 'Gewitter mit leichtem Regen',

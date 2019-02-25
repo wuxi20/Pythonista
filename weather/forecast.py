@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import urllib2, json, location, datetime
+import urllib.request, urllib.error, urllib.parse, json, location, datetime
 import ui
 v = ui.load_view('forecast')
 hightemp = v['hightemp']
@@ -20,10 +20,10 @@ def place():
 
 def api(latitude, longitude):
 	url = 'http://api.openweathermap.org/data/2.5/forecast/daily?lat={0}&lon={1}&mode=json&units=imperial' .format (latitude, longitude)
-	api = urllib2.urlopen(url)
+	api = urllib.request.urlopen(url)
 	forecastapi = json.load(api)
 	url = 'http://api.openweathermap.org/data/2.5/weather?lat={0}&lon={1}&mode=json&units=imperial' .format (latitude, longitude)
-	api = urllib2.urlopen(url)
+	api = urllib.request.urlopen(url)
 	weatherapi = json.load(api)
 	forecast(weatherapi, forecastapi)
  
@@ -34,7 +34,7 @@ def forecast(weatherapi, forecastapi):
 	lowtemp.text = str(round(weatherapi['main']['temp_min'], 0)) + '°'
 	des.text = weatherapi['weather'][0]['main']
 	today = datetime.datetime.now()
-	week = [(today + datetime.timedelta(days=i)).strftime('%A') for i in xrange(7)]
+	week = [(today + datetime.timedelta(days=i)).strftime('%A') for i in range(7)]
 	for day in week:
 		v['monday'].text = str(round(forecastapi['list'][week.index('Monday')]['temp']['day'],0)) + '°'
 		v['tuesday'].text = str(round(forecastapi['list'][week.index('Tuesday')]['temp']['day'],0)) + '°'
@@ -47,3 +47,4 @@ def forecast(weatherapi, forecastapi):
 
 place()
 v.present('sheet')
+

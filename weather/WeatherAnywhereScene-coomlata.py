@@ -76,9 +76,10 @@ import textwrap
 #import sys
 import ui
 import time
+import imp
 
 # Catch any editing changes in functions script
-reload(wa)
+imp.reload(wa)
 
 icon_path = './icons/'
 py_ver = wa.pythonista_version()[:1]
@@ -182,7 +183,7 @@ class MyScene(scene.Scene):
 
     for i in range(24):
       # Display 'hrs_per_row' hours per row
-      if count%int(hrs_per_row) == 0 and count <> 0:
+      if count%int(hrs_per_row) == 0 and count != 0:
         x = x1 - 45
         y = y - 80
       x = x + 53
@@ -627,7 +628,7 @@ class SceneViewer(ui.View):
       if os.path.exists(icon):
         continue
       # If any are missing then download what icons are needed
-      print('=' * 20)
+      print(('=' * 20))
       wa.download_weather_icons(path)
 
 if __name__ == '__main__':
@@ -635,3 +636,4 @@ if __name__ == '__main__':
   SceneViewer(MyScene())
   
   
+

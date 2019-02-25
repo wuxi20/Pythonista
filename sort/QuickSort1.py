@@ -14,7 +14,7 @@ def quicksort(array):
         swap(pivotIndex, end)
         
         swapindex = begin
-        for i in xrange(begin, end):
+        for i in range(begin, end):
             if array[i] < pivotElem:
                 swap(swapindex, i)
                 swapindex += 1
@@ -43,7 +43,7 @@ class QuickSortTestFunctions(unittest.TestCase):
         
         prev_index = 0
         
-        for i in xrange(1, len(array)):
+        for i in range(1, len(array)):
             if array[prev_index] > array[i]:
                 return False
             prev_index = i
@@ -65,16 +65,16 @@ class QuickSortTestFunctions(unittest.TestCase):
         self.assertTrue(self.sort_and_test([1,1]))
         
     def test_random(self):
-        for i in xrange(0, 100):
-            array = [ random.randint(-1000000, 1000000) for j in xrange(0, random.randint(20,100))]
+        for i in range(0, 100):
+            array = [ random.randint(-1000000, 1000000) for j in range(0, random.randint(20,100))]
             self.assertTrue(self.sort_and_test(array))
 
 if __name__ == "__main__":
     
-    array = [ random.randint(0, 100) for i in xrange(0, 20) ]
+    array = [ random.randint(0, 100) for i in range(0, 20) ]
     
-    print("Initial array is:", array)
+    print(("Initial array is:", array))
     quicksort(array)
-    print("Quicksorted array is:", array)
+    print(("Quicksorted array is:", array))
 
     unittest.main()

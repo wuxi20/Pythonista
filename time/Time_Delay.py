@@ -4,7 +4,7 @@ import sys
 import notification
 import webbrowser
 import console
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 # Receive parameters from Drafts or Launch Center Pro and assign them to variables.
 text = sys.argv[1]
@@ -16,10 +16,10 @@ hours = float(delay) * 3600
 
 # Encode action and text so they can bed used in URL action.
 encoded_action = action.encode('utf-8')
-encoded_action = urllib.quote(encoded_action, safe='')
+encoded_action = urllib.parse.quote(encoded_action, safe='')
 
 encoded_text = text.encode('utf-8')
-encoded_text = urllib.quote(encoded_text, safe='')
+encoded_text = urllib.parse.quote(encoded_text, safe='')
 
 # Create URL. You can change this from a Drafts action to be something else if it better fits your needs.
 url = 'drafts4://x-callback-url/create?text=' + encoded_text + '&action=' + encoded_action
@@ -36,4 +36,5 @@ scheduled_actions.close()
 #webbrowser.open('launchpro://')
 webbrowser.open('drafts://')
 # Uncomment line 35 and comment line 34 to open Drafts after success instead of Launch Center Pro.
+
 

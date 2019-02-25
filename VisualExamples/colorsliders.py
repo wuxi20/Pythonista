@@ -72,8 +72,8 @@ while True:
     if scene.mouse.events:
         m = scene.mouse.getevent()
         if m.click == "left" and m.pick in [panel, ball, cube]:
-            print("RGB = (%0.3f,%0.3f,%0.3f), opacity = %0.3f" % (ctrl[0].value,ctrl[1].value,ctrl[2].value,ctrl[3].value))
-            print("HSV = (%0.3f,%0.3f,%0.3f)" % (ctrl[4].value,ctrl[5].value,ctrl[6].value))
+            print(("RGB = (%0.3f,%0.3f,%0.3f), opacity = %0.3f" % (ctrl[0].value,ctrl[1].value,ctrl[2].value,ctrl[3].value)))
+            print(("HSV = (%0.3f,%0.3f,%0.3f)" % (ctrl[4].value,ctrl[5].value,ctrl[6].value)))
             continue
         elif m.drop == "left":
             dragobj = None
@@ -100,4 +100,5 @@ while True:
             cube.opacity = ball.opacity = panel.opacity = ctrl[3].value
             for nn in range(3):
                 ctrl[nn].setslider(rgb[nn])
+
 

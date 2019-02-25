@@ -18,16 +18,16 @@ def readListFromFile(inFileName, inList = []):
 			for theLine in theFile.readlines():
 				inList.append(theLine.rstrip())
 	except IOError:
-		print('File not found: ' + inFileName)
+		print(('File not found: ' + inFileName))
 	return inList
 	
 def askUser(inList, inPrompt = ''):
 	printList(inList, inPrompt)
-	return raw_input().title()
+	return input().title()
 	
 def printList(inList, inPrompt = ''):
-	print('{} items: {}'.format(len(inList), inList))
-	print('-' * 11)
+	print(('{} items: {}'.format(len(inList), inList)))
+	print(('-' * 11))
 	if inPrompt:
 		print(inPrompt)
 		
@@ -36,7 +36,7 @@ def addToList(inList):
 	if theItem == 'M':
 		return inList
 	elif theItem in inList:  # prevent duplicates
-		print(theItem + ' is already in the list.')
+		print((theItem + ' is already in the list.'))
 	else:
 		inList.append(theItem)
 	return addToList(inList)
@@ -50,7 +50,7 @@ def removeFromList(inList):
 		if not inList:
 			return inList
 	else:
-		print(theItem + ' is not in the list.')
+		print((theItem + ' is not in the list.'))
 	return removeFromList(inList)
 	
 def viewList(inList):
@@ -75,7 +75,7 @@ def mainLoop(inList):
 	elif userChoice in menuDict:
 		inList = menuDict[userChoice](inList)
 	else:
-		print(userChoice + ' is not a recognized command.')
+		print((userChoice + ' is not a recognized command.'))
 	return mainLoop(inList)  # not yet done; keep looping...
 	
 def main():
@@ -88,4 +88,5 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
 

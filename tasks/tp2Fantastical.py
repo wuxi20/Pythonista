@@ -21,7 +21,7 @@
 
 import sys
 import webbrowser
-import urllib
+import urllib.request, urllib.parse, urllib.error
  
 i = sys.argv[1]
 #i = "Test item @due(2014-05-14)"
@@ -33,4 +33,4 @@ if '@due(' in i:
 	theEnd=i[(i.index('@due(')+16):]
 	i = theStart + " due " + theDate + theEnd
  
-webbrowser.open("fantastical2://parse?sentence=" + urllib.quote(i))
+webbrowser.open("fantastical2://parse?sentence=" + urllib.parse.quote(i))

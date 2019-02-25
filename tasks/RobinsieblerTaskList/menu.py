@@ -9,8 +9,9 @@ __author__ = 'Robin Siebler'
 __date__ = '7/28/14'
 
 import speech, sys, ui
-import help, util
-import tasklist; reload(tasklist)
+from . import help, util
+from . import tasklist; imp.reload(tasklist)
+import imp
 
 
 class Menu:
@@ -442,3 +443,4 @@ class Menu:
 
 if __name__ == '__main__':
     Menu().run()
+

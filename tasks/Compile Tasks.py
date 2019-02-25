@@ -3,7 +3,7 @@
 # https://gist.github.com/ejetzer/d276f1229d2cbb3b0f09
 
 import appex, dialogs, scene
-import plistlib, copy, webbrowser, urllib, time
+import plistlib, copy, webbrowser, urllib.request, urllib.parse, urllib.error, time
 
 # check out http://handleopenurl.com/
 
@@ -33,7 +33,7 @@ def main():
 	if not appex.is_running_extension():
 		with open(db) as tasks:
 			for task in tasks:
-				task = urllib.quote(task)
+				task = urllib.parse.quote(task)
 				webbrowser.open(due % task)
 				time.sleep(10)
 				while TESTER.paused:
@@ -50,4 +50,5 @@ def main():
 	
 if __name__ == '__main__':
 	main()
+
 

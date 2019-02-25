@@ -8,8 +8,8 @@ def perform_search():
     data = twitter.search(account, 'Privacy OR Apple from:RepTedLieu',
                           parameters={'result_type': 'mixed'})
     for status in data['statuses']:
-        print '> user: ', status['user']['screen_name']
-        print status['text']
+        print('> user: ', status['user']['screen_name'])
+        print(status['text'])
         print("________________________>")
 
 perform_search()

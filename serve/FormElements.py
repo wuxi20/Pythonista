@@ -96,11 +96,11 @@ def create_checkboxes(name, options, attrib = 'onchange="submit()"'):
   
 #test elements
 if __name__ == '__main__':
-  print create_textbox('txt', 20)
-  print create_textarea('txtarea', 20, 4)
+  print(create_textbox('txt', 20))
+  print(create_textarea('txtarea', 20, 4))
   #options = [1, 2, 3]
   options = [['one', 1], ['two', 2], ['three', 3]]
-  print create_select('sel', options)
-  print create_radios('rdo', options)
-  print create_checkboxes('chk', options)
+  print(create_select('sel', options))
+  print(create_radios('rdo', options))
+  print(create_checkboxes('chk', options))
   

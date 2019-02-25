@@ -17,14 +17,14 @@ class MyTableViewDataSource (object):
 	def tableview_cell_for_row(self, tableview, section, row):
 		# Create and return a cell for the given section/row
 		cell = ui.TableViewCell()
-		print 'cell name: ', row
+		print('cell name: ', row)
 		cell.text_label.text = row
 		return cell
 		
 	def tableview_title_for_header(self, tableview, section):
 		# Return a title for the given section.
 		# If this is not implemented, no section headers will be shown.
-		print 'section: ', section
+		print('section: ', section)
 		return section
 		
 	def tableview_can_delete(self, tableview, section, row):

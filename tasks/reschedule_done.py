@@ -31,12 +31,12 @@ def WriteToTaskpaper(tskList,tskFile):
 	
 	with open('tmpFile', 'w') as tmpFile:
 
-		print 'Writing to file...'
+		print('Writing to file...')
 		for line in tskList:
 			tmpFile.write(line)
 
 
-	print 'Copying and removing temp file.'
+	print('Copying and removing temp file.')
 	shutil.copy('tmpFile',tskFile)
 	os.remove('tmpFile')
 
@@ -59,7 +59,7 @@ def AddTask(newTask):
 	
 	if projectRegex: pName = projectRegex.group(1)
 	else: pName = 'None'
-	print 'Project Name from Task ----> '+pName
+	print('Project Name from Task ----> '+pName)
 
 	newTask = re.sub(projectPattern, '', newTask)
 
@@ -134,7 +134,7 @@ def RescheduleTask(dueDt, freq):
 			baseTime = timedelta(weeks=+1)
 			newDt = dueDt + baseTime*int(wFreq.group(1))
 	except ValueError:
-		print 'Alert: wrong frequency format.'
+		print('Alert: wrong frequency format.')
 		newDt = 'Error in Frequency Provided'
 	
 	return newDt
@@ -191,14 +191,15 @@ if __name__ == "__main__":
 
 			newTask = newTask+'@due('+newDueDate.isoformat()+')\n'
 			
-			print 'Old Task > '+task
-			print 'New Task > '+newTask
+			print('Old Task > '+task)
+			print('New Task > '+newTask)
 			
 			AddTask(newTask)
 			
 	
 		else:
-			print 'Task done before Due Date. Adding to the top of the list.'
+			print('Task done before Due Date. Adding to the top of the list.')
 			pendingTaskList.insert(0, task)
 
 	WriteToTaskpaper(pendingTaskList, tpFile)
+

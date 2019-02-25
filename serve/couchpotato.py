@@ -1,7 +1,7 @@
 import requests
 import console
 import sys
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import webbrowser
 
 
@@ -43,7 +43,7 @@ class CouchPotato():
 	def do_api_call(self, url, params):
 		api_call = requests.request('GET', url, params=params)
 		if api_call.status_code > 300 or api_call.status_code < 200:
-			print "API call failed, status code: {status_code}".format(status_code=api_call.status_code)
+			print("API call failed, status code: {status_code}".format(status_code=api_call.status_code))
 		return api_call
 
 	def search(self, query):
@@ -73,7 +73,7 @@ class LaunchCenterPro():
 		for menu_item in menu_items[0:8]:
 			formatted_menu_item = "{menu_item_name}={menu_item_url}".format(menu_item_name=menu_item[0], menu_item_url=menu_item[1])
 			menu_urls.append(formatted_menu_item)
-		encoded_menu_url = urllib.quote("launchpro://?url=[List:{menu_title}|{formatted_movie_urls}]".format(menu_title=menu_title, formatted_movie_urls="|".join(menu_urls)))
+		encoded_menu_url = urllib.parse.quote("launchpro://?url=[List:{menu_title}|{formatted_movie_urls}]".format(menu_title=menu_title, formatted_movie_urls="|".join(menu_urls)))
 		
 		return "launchpro://?url={encoded_menu_url}".format(encoded_menu_url=encoded_menu_url)
 	
@@ -96,7 +96,7 @@ class PythonistaHelper():
 		
 		if "argv_list" in kwargs:
 			argv_list = kwargs.get("argv_list")
-			argv_list = [urllib.quote(argv) for argv in argv_list]
+			argv_list = [urllib.parse.quote(argv) for argv in argv_list]
 			argv_joined = "&argv=".join(argv_list)
 			run_url = "{run_url}&argv={argvs}".format(run_url=run_url, argvs=argv_joined)
 		return run_url
@@ -130,7 +130,7 @@ def add_movie(name, imdb_id):
 		confirm_url = lcp.generate_confirm_message("Movie added!")
 		webbrowser.open(confirm_url)
 	else:
-		print add_result
+		print(add_result)
 		raise Exception("Failed to add movie!")
 
 

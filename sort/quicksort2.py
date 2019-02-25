@@ -32,6 +32,7 @@ class Quicksort:
     def run(self):
         self.count = 0    #to count the running time
         q.quicksort(q.l, 1, len(q.l))
-        print("Count = ", self.count)
+        print(("Count = ", self.count))
         
 q = Quicksort()
+

@@ -27,7 +27,7 @@ def validate_file(filename):
     return filename if filename and os.path.exists(filename) else None
 
 def handle_error(filename):
-    print('ERROR: "{}" is not a valid task file.'.format(filename))
+    print(('ERROR: "{}" is not a valid task file.'.format(filename)))
 
 def delete(filename):
     """Delete the task file specified by the user.
@@ -77,12 +77,12 @@ def save(obj, filename):
         handle_error(filename)
 
 def tests():
-    print('-' * 20 +'\nTest run starts...')
+    print(('-' * 20 +'\nTest run starts...'))
     test_payload = 'Will this really work?!?'
     test_file = 'delete me'
     test_file_with_ext = test_file + FILE_EXT
     for filename in (test_file_with_ext, test_file):
-        print('  Testing: ' + filename)
+        print(('  Testing: ' + filename))
         assert valid_filename(filename) == test_file_with_ext
         assert not os.path.exists(filename)
         assert not validate_file(filename)
@@ -101,7 +101,7 @@ def tests():
         assert not os.path.exists(test_file_with_ext)
         assert not validate_file(filename)
     for filename in ('', None, 0):  # , ['hi']):
-        print('  Testing: {}: Should print 3 errors...'.format(filename))
+        print(('  Testing: {}: Should print 3 errors...'.format(filename)))
         save(test_payload, filename)
         load(filename)
         delete(filename)
@@ -110,3 +110,4 @@ def tests():
 if __name__ == '__main__':
     tests()
     #pass  # put call to unit tests here?
+

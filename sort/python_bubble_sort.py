@@ -10,6 +10,7 @@ def bubbleSort(nums): # Bubble Sort Algorithm
             if nums[j] < nums[i]:
                 nums[j], nums[i] = nums[i], nums[j]
 
-    print nums
+    print(nums)
 
 bubbleSort(ls)
+

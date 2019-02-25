@@ -28,7 +28,7 @@ def get_mandatory(expenses):
     if date.today().day in [15, 25]:
         day_val = date.today().day
     else:
-        day_val = int(input('What Payday are you looking for?'))
+        day_val = int(eval(input('What Payday are you looking for?')))
 
     mandatory_expenses = expenses.find(date = day_val)
     mandatory_val = 0
@@ -38,23 +38,24 @@ def get_mandatory(expenses):
 
 def main():
 
-    print('${}'.format(get_vals()))
-    Name = input('Name: ')
-    Amount = input('Amount: $')
+    print(('${}'.format(get_vals())))
+    Name = eval(input('Name: '))
+    Amount = eval(input('Amount: $'))
     if  Amount[0] == '(':
         transaction(deposits,Name,Amount[1:-1])
     else:
         transaction(withdrawals,Name,Amount)
-    if input('continue?') == 'y': main()
+    if eval(input('continue?')) == 'y': main()
 
-option =  input('Selecet an Option: ')
+option =  eval(input('Selecet an Option: '))
 
 if option  == 'bal':
-    print('${}'.format(round(get_vals(),2)))
+    print(('${}'.format(round(get_vals(),2))))
 elif option == 'payday':
-    print('mandatory expenses: ${}'.format(get_vals() - get_mandatory(known_expenses)))
+    print(('mandatory expenses: ${}'.format(get_vals() - get_mandatory(known_expenses))))
 else: 
     main()
 fin_balance = '$' + str(get_vals())
 with open('balance.txt', 'w') as file:
     file.write(fin_balance)
+

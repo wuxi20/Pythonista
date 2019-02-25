@@ -71,8 +71,8 @@ class CustomUIRect(object):
 		
 if __name__ == '__main__':
 	r = CustomUIRect('blue').as_rect()
-	print(dir(r))
-	print(r.my_color)
+	print((dir(r)))
+	print((r.my_color))
 class TestView(ui.View):
 	def __init__(self, *args, **kwargs):
 		pass
@@ -96,8 +96,8 @@ class CustomUIRect(object):
 		
 if __name__ == '__main__':
 	r = CustomUIRect('blue').as_rect()
-	print(dir(r))
-	print(r.my_color)
+	print((dir(r)))
+	print((r.my_color))
 # --------------------
 import ui
 from objc_util import *
@@ -154,4 +154,5 @@ from fake_format import fake_fmt
 html = fake_fmt('<h4 style="margin:0px">{name}</h4><p>{email}</p>'
                 '<p>{phone_number}</p><p>{address}</p>')
 # --------------------
+
 

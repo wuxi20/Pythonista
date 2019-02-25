@@ -48,21 +48,21 @@ def parse_expr_to_tree(expr, tree=None, parent=None):
 		tree = BinaryTree('')
 		
 	if expr[0] == '(':
-		print 'creating left'
+		print('creating left')
 		new_tree = BinaryTree('')
 		tree.insertLeft(parse_expr_to_tree(expr[1:], new_tree, tree))
 		
 	elif expr[0] == ')':
-		print 'found )'
+		print('found )')
 		return parent
 	elif expr[0] in operators:
-		print 'found operator'
+		print('found operator')
 		tree.setRootVal(expr[0])
 		new_tree = BinaryTree('')
 		tree.insertRight(parse_expr_to_tree(expr[1:], new_tree, tree))
 		
 	else:
-		print 'found number'
+		print('found number')
 		# ch is number
 		tree.setRootVal(expr[0])
 		return parent
@@ -70,5 +70,7 @@ def parse_expr_to_tree(expr, tree=None, parent=None):
 # pudb.set_trace()
 t = parse_expr_to_tree('(3 + 2)')
 
-print t.leftChild.key
+print((t.leftChild.key))
+
+
 

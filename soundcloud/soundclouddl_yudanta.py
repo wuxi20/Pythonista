@@ -7,7 +7,7 @@
 #usage : python soundclouddl.py <soundcloud url track/list>
 
 import soundcloud
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import re
 import time
 import os
@@ -35,11 +35,11 @@ class soundcloudDownloader:
 
 		resolveurl = self.client.get('/resolve', url=url);
 		if resolveurl.kind == 'track':
-			print 'downloading track'
+			print('downloading track')
 			returnMedia.append(self.getTrackDetail(resolveurl.id))
 			
 		elif resolveurl.kind == 'playlist':
-			print 'downloading playlist'
+			print('downloading playlist')
 			for song in resolveurl.tracks:
 				returnMedia.append(self.getTrackDetail(song['id']))
 
@@ -74,7 +74,7 @@ class soundcloudDownloader:
 			filename = DOWNLOAD_PATH + "{0}.mp3".format(song['title'])
 			#retrive file
 			sys.stdout.write("\nDownloading: {0}\n".format(filename))
-			urllib.urlretrieve(url=song['media_url'], filename=filename, reporthook=self.downloadProgress)
+			urllib.request.urlretrieve(url=song['media_url'], filename=filename, reporthook=self.downloadProgress)
 
 		return None
 
