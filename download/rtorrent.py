@@ -5,7 +5,7 @@ import ui
 import socket
 import time
 import console
-import xmlrpclib
+import xmlrpc.client
 from threading import Timer
 from dropbox import client, rest, session
 
@@ -81,7 +81,7 @@ class PythonistaDisk(object):
 
 class TorrentMgr(object):
 	def __init__(self, address):
-		self.proxy = xmlrpclib.ServerProxy(RTORRENT_URL)
+		self.proxy = xmlrpc.client.ServerProxy(RTORRENT_URL)
 		self.update()
 		
 	def update(self):
@@ -104,8 +104,8 @@ class TorrentMgr(object):
 		return self.proxy.load_raw_start(torrent_raw)
 
 	def load_url(self, url):
-		print url
-		print self.proxy.load_start(url)
+		print(url)
+		print((self.proxy.load_start(url)))
 
 	def erase(self, id):
 		self.proxy.d.erase(id)
@@ -210,7 +210,7 @@ class MyView (ui.View):
 		prio = d.get_priority(id)
 		self.show_torrent_priority(prio)
 		self.info['prioritySlider'].value = 1.0*prio/3
-		files = [ f.get_path(id, n) for n in xrange(d.get_size_files(id)) ]
+		files = [ f.get_path(id, n) for n in range(d.get_size_files(id)) ]
 		data = ui.ListDataSource(files)
 		self.info['filesTableView'].delegate = data
 		self.info['filesTableView'].data_source = data
@@ -295,3 +295,5 @@ class MyView (ui.View):
 v = MyView()
 v.present('sheet')
  
+
+

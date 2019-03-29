@@ -15,13 +15,13 @@ except NameError:
     setattr(__builtins__, 'False', 0)
 
 def has_key(x, y):
-    if hasattr(x, 'has_key'): return x.has_key(y)
+    if hasattr(x, 'has_key'): return y in x
     else: return y in x
 
 try:
-    import htmlentitydefs
-    import urlparse
-    import HTMLParser
+    import html.entities
+    import urllib.parse
+    import html.parser
 except ImportError: #Python3
     import html.entities as htmlentitydefs
     import urllib.parse as urlparse
@@ -29,7 +29,7 @@ except ImportError: #Python3
 try: #Python3
     import urllib.request as urllib
 except:
-    import urllib
+    import urllib.request, urllib.parse, urllib.error
 import optparse, re, sys, codecs, types
 
 try: from textwrap import wrap
@@ -62,9 +62,9 @@ IGNORE_IMAGES = False
 def name2cp(k):
     if k == 'apos': return ord("'")
     if hasattr(htmlentitydefs, "name2codepoint"): # requires Python 2.3
-        return htmlentitydefs.name2codepoint[k]
+        return html.entities.name2codepoint[k]
     else:
-        k = htmlentitydefs.entitydefs[k]
+        k = html.entities.entitydefs[k]
         if k.startswith("&#") and k.endswith(";"): return int(k[2:-1]) # not in latin-1
         return ord(codecs.latin_1_decode(k)[0])
 
@@ -80,7 +80,7 @@ unifiable = {'rsquo':"'", 'lsquo':"'", 'rdquo':'"', 'ldquo':'"',
 
 unifiable_n = {}
 
-for k in unifiable.keys():
+for k in list(unifiable.keys()):
     unifiable_n[name2cp(k)] = unifiable[k]
 
 def charref(name):
@@ -89,23 +89,23 @@ def charref(name):
     else:
         c = int(name)
     
-    if not UNICODE_SNOB and c in unifiable_n.keys():
+    if not UNICODE_SNOB and c in list(unifiable_n.keys()):
         return unifiable_n[c]
     else:
         try:
-            return unichr(c)
+            return chr(c)
         except NameError: #Python3
             return chr(c)
 
 def entityref(c):
-    if not UNICODE_SNOB and c in unifiable.keys():
+    if not UNICODE_SNOB and c in list(unifiable.keys()):
         return unifiable[c]
     else:
         try: name2cp(c)
         except KeyError: return "&" + c + ';'
         else:
             try:
-                return unichr(name2cp(c))
+                return chr(name2cp(c))
             except NameError: #Python3
                 return chr(name2cp(c))
 
@@ -238,15 +238,15 @@ def list_numbering_start(attrs):
     else:
         return 0
 
-class _html2text(HTMLParser.HTMLParser):
+class _html2text(html.parser.HTMLParser):
     def __init__(self, out=None, baseurl=''):
-        HTMLParser.HTMLParser.__init__(self)
+        html.parser.HTMLParser.__init__(self)
         
         if out is None: self.out = self.outtextf
         else: self.out = out
         self.outtextlist = [] # empty list to store output characters before they are  "joined"
         try:
-            self.outtext = unicode()
+            self.outtext = str()
         except NameError: # Python3
             self.outtext = str()
         self.quiet = 0
@@ -282,14 +282,14 @@ class _html2text(HTMLParser.HTMLParser):
     
     def feed(self, data):
         data = data.replace("</' + 'script>", "</ignore>")
-        HTMLParser.HTMLParser.feed(self, data)
+        html.parser.HTMLParser.feed(self, data)
     
     def outtextf(self, s): 
         self.outtextlist.append(s)
         if s: self.lastWasNL = s[-1] == '\n'
     
     def close(self):
-        HTMLParser.HTMLParser.close(self)
+        html.parser.HTMLParser.close(self)
         
         self.pbr()
         self.o('', 0, 'end')
@@ -655,7 +655,7 @@ class _html2text(HTMLParser.HTMLParser):
                 newa = []
                 for link in self.a:
                     if self.outcount > link['outcount']:
-                        self.out("   ["+ str(link['count']) +"]: " + urlparse.urljoin(self.baseurl, link['href'])) 
+                        self.out("   ["+ str(link['count']) +"]: " + urllib.parse.urljoin(self.baseurl, link['href'])) 
                         if has_key(link, 'title'): self.out(" ("+link['title']+")")
                         self.out("\n")
                     else:
@@ -666,7 +666,7 @@ class _html2text(HTMLParser.HTMLParser):
                 self.a = newa
             
             if self.abbr_list and force == "end":
-                for abbr, definition in self.abbr_list.items():
+                for abbr, definition in list(self.abbr_list.items()):
                     self.out("  *[" + abbr + "]: " + definition + "\n")
 
             self.p_p = 0
@@ -741,7 +741,7 @@ if __name__ == "__main__":
 
         if file_.startswith('http://') or file_.startswith('https://'):
             baseurl = file_
-            j = urllib.urlopen(baseurl)
+            j = urllib.request.urlopen(baseurl)
             text = j.read()
             if encoding is None:
                 try:
@@ -765,3 +765,4 @@ if __name__ == "__main__":
     else:
         data = sys.stdin.read()
     wrapwrite(html2text(data, baseurl))
+

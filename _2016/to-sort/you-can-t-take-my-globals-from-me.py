@@ -2,7 +2,7 @@
 
 # https://forum.omz-software.com/topic/2175/you-can-t-take-my-globals-from-me/4
 
-from __future__ import division, print_function
+
 
 import sys
 import types
@@ -47,3 +47,4 @@ vars(new_module).update(vars(sys.modules["pythonista_startup"]))
 sys.modules["pythonista_startup"] = new_module
 
 # --------------------
+

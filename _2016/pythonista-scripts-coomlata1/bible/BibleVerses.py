@@ -99,7 +99,7 @@ import sys
 import webbrowser
 import console
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import difflib
 
 # Credit to @cclauss for this query function
@@ -141,7 +141,7 @@ def check_book(book, chapter):
   the_book = ''
   the_chapter = ''
 
-  for i in reversed(xrange(len(book))):
+  for i in reversed(range(len(book))):
     # If a letter
     if book[i].isalpha():
       # Last letter of book so mark it's place in book
@@ -230,7 +230,7 @@ def get_url(app, fulltext):
 
     # Append scripture to existing open draft
     fmt = '{}://x-callback-url/append?uuid={}&text={}'
-    url = fmt.format(app, sys.argv[2], urllib.quote(fulltext))
+    url = fmt.format(app, sys.argv[2], urllib.parse.quote(fulltext))
 
   elif app == 'onewriter':
     the_path = sys.argv[3]
@@ -238,7 +238,7 @@ def get_url(app, fulltext):
     # Append scripture to open 1Writer doc
     #fmt = '{}://x-callback-url/append?path={}%2F&name={}&type=Local&text={}'
     fmt = '{}://x-callback-url/replace-selection?path={}%2F&name={}&type=Local&text={}'
-    url = fmt.format(app, the_path, the_file, urllib.quote(fulltext))
+    url = fmt.format(app, the_path, the_file, urllib.parse.quote(fulltext))
 
   elif app == 'editorial':
     # Copy scripture to clipboard
@@ -478,3 +478,4 @@ if __name__ == '__main__':
       # Initiated stand alone so just exit
       sys.exit('Script cancelled!')
   main(ref)
+

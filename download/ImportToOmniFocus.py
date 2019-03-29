@@ -5,7 +5,7 @@
 
 import webbrowser
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import console
 import sys
 
@@ -13,11 +13,12 @@ title = sys.argv[1]
 url = sys.argv[2]
 
 task = console.input_alert('Task', 'Enter task description')
-task = urllib.quote(task)
+task = urllib.parse.quote(task)
 
 note = clipboard.get()
 
 full_note = ''.join([title,'\n\n', url, '\n\n', note])
-full_note = urllib.quote(full_note.encode('utf-8'))
+full_note = urllib.parse.quote(full_note.encode('utf-8'))
 
 webbrowser.open('omnifocus:///add?name=' + task + '&note=' + full_note)
+

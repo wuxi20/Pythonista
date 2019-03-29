@@ -30,7 +30,7 @@ def DownloadFile(url, filename):
 		
 # the URL below is copy from the console of the above script, I don't know why it quits without saving the file after download but it works in this script
 
-url = 'https://video-hkg3-1.xx.fbcdn.net/v/t42.9040-2/10000000_1416830291949591_1471786757199495168_n.mp4?efg=eyJybHIiOjMzNjEsInJsYSI6NDA5NiwidmVuY29kZV90YWciOiJzdmVfaGQifQ%5Cu00253D%5Cu00253D&rl=3361&vabr=2241&oh=a820c423f12ecc6472d83bd9e9d8432b&oe=581ABB82'
+url = 'https://vsb01.520cc.cc/files/mp4/A/AIEdN.mp4?sk=tdVUWMc11zPLO17HpZ0rsg&se=1552373345'
 
 DownloadFile(url, 'temp.mp4')
 console.quicklook('temp.mp4')

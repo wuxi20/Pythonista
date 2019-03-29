@@ -35,9 +35,9 @@ def escape(m):
     elif tail.startswith("x"):
         return chr(convert_hex(tail, 2))
     elif tail.startswith('u'):
-        return unichr(convert_hex(tail, 4))
+        return chr(convert_hex(tail, 4))
     elif tail.startswith('U'):
-        return unichr(convert_hex(tail, 8))
+        return chr(convert_hex(tail, 8))
     elif tail.startswith('N'):
         import unicodedata
         try:
@@ -53,9 +53,9 @@ def escape(m):
 def escaperaw(m):
     all, tail = m.group(0, 1)
     if tail.startswith('u'):
-        return unichr(convert_hex(tail, 4))
+        return chr(convert_hex(tail, 4))
     elif tail.startswith('U'):
-        return unichr(convert_hex(tail, 8))
+        return chr(convert_hex(tail, 8))
     else:
         return all
 
@@ -66,7 +66,7 @@ uni_escape_re = re.compile(r"\\(\'|\"|\\|[abfnrtv]|x.{0,2}|[0-7]{1,3}|"
 def evalString(s, encoding=None):
     regex = escape_re
     repl = escape
-    if encoding and not isinstance(s, unicode):
+    if encoding and not isinstance(s, str):
         s = s.decode(encoding)
     if s.startswith('u') or s.startswith('U'):
         regex = uni_escape_re
@@ -89,8 +89,9 @@ def test():
         s = repr(c)
         e = evalString(s)
         if e != c:
-            print i, c, s, e
+            print(i, c, s, e)
 
 
 if __name__ == "__main__":
     test()
+

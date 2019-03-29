@@ -7,8 +7,8 @@
 
 # Downloads Subtitles using the Open Subtitles API based on https://github.com/Tulifer/OpenSubtitles and suited for Hazel
 
-from __future__ import unicode_literals
-import xmlrpclib
+
+import xmlrpc.client
 import base64
 import zlib
 import random
@@ -30,22 +30,22 @@ class OpenSubtitle:
 		self.srtPath = path
 			
 	def serverInfo(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		return server.ServerInfo()
 	
 	def Login(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		resp = server.LogIn("","","en","MyApp V2")
 		self.token = str(resp["token"])
 		return (resp)
 	
 	def CheckSubHash(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		resp = server.CheckSubHash(self.token,[self.infoVideo['hashSub']])
 		return (resp)
 		
 	def CheckMovieHash(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		resp = server.CheckMovieHash(self.token,[self.infoVideo['hash']])
 
 		if len(resp['data'][self.infoVideo['hash']]) != 0:
@@ -59,7 +59,7 @@ class OpenSubtitle:
 		return (resp)
 	
 	def CheckMovieHash2(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		resp = server.CheckMovieHash2(self.token,[self.infoVideo['hash']])
 
 		if self.infoVideo['hash'] in resp['data']:
@@ -74,7 +74,7 @@ class OpenSubtitle:
 		return (resp)
 	
 	def SearchSubtitles(self,order):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		content = []
 		
 		if(order == 1):
@@ -101,9 +101,9 @@ class OpenSubtitle:
 		return (resp)
 
 	def DownloadSubtitles(self,):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		resp= ""
-		sub = sorted([d for d in list({v['id']:v for v in self.subHash}.values()) if str(d['bad']) == '0' and d['lang'] in self.language.keys()], key=lambda x: (self.language[x['lang']], len(x['userRank']), int(x['count'])), reverse=True)
+		sub = sorted([d for d in list({v['id']:v for v in self.subHash}.values()) if str(d['bad']) == '0' and d['lang'] in list(self.language.keys())], key=lambda x: (self.language[x['lang']], len(x['userRank']), int(x['count'])), reverse=True)
 		resp = server.DownloadSubtitles(self.token,[sub[0]['id']])
 		resp = base64.standard_b64decode(resp['data'][0]['data'])
 		resp = zlib.decompress(resp, 47 )
@@ -117,7 +117,7 @@ class OpenSubtitle:
 		return ()
 		
 	def InsertMovieHash(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		content = []
 		content.append( { 'moviehash':self.infoVideo['hash'], 'moviebytesize':self.infoVideo['size'], 'imdbid':self.infoVideo['imdbid']} )
 
@@ -125,7 +125,7 @@ class OpenSubtitle:
 		return (self.resp)
 
 	def Logout(self):
-		server = xmlrpclib.Server(self.url)
+		server = xmlrpc.client.Server(self.url)
 		server.LogOut(self.token)
 
 def calc_file_hash(filepath):
@@ -179,12 +179,13 @@ if len(sys.argv) > 1:
 		if OS.SearchSubtitles(1) != 'Error' or OS.SearchSubtitles(2) != 'Error' or OS.SearchSubtitles(3) != 'Error' or OS.SearchSubtitles(4) != 'Error' or OS.SearchSubtitles(5) != 'Error':
 			OS.DownloadSubtitles()
 			OS.Logout()
-			print True
+			print(True)
 		else:
 			OS.Logout()
-			print False
+			print(False)
 	else:
 		OS.Logout()
-		print False
+		print(False)
 else:
-	print False
+	print(False)
+

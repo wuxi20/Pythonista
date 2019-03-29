@@ -88,8 +88,8 @@ class DropDown(ui.View):
 			b.ydent -= len(self.children)
 			try:
 				b.draw()
-			except AttributeError,e:
-				print b
+			except AttributeError as e:
+				print(b)
 				raise e
 			
 		self.children = []
@@ -207,4 +207,4 @@ def getFileName(dir,title=''):
 	return selected
 
 if __name__ == '__main__':
-	print getFileName('/private/var/mobile/Containers/Shared/AppGroup/0BE72E31-5474-44B2-9731-3686B8BF7EDC/Documents')
+	print(getFileName('/private/var/mobile/Containers/Shared/AppGroup/0BE72E31-5474-44B2-9731-3686B8BF7EDC/Documents'))

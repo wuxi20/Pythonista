@@ -9,7 +9,7 @@ def convert_dict_chapter(srce):
     # print(json.dumps(srce, indent=4, sort_keys=True))
     return {srce['book_name']: {int(srce['chapter_nr']): {int(verse):
         verse_contents['verse'] for verse, verse_contents
-            in srce['chapter'].iteritems()}}}
+            in srce['chapter'].items()}}}
 
 
 def convert_dict(srce):
@@ -20,8 +20,8 @@ def convert_dict(srce):
     elif srce['type'] == 'verse':
         return convert_dict_chapter(srce['book'][0])
     return {srce['book_name']: {int(chapter): {int(verse): verse_contents['verse']
-            for verse, verse_contents in chapter_contents['chapter'].iteritems()}
-                for chapter, chapter_contents in srce['book'].iteritems()}}
+            for verse, verse_contents in chapter_contents['chapter'].items()}
+                for chapter, chapter_contents in srce['book'].items()}}
 
 
 def passage_as_dict(ref, version='nasb'):
@@ -37,4 +37,5 @@ def passages_as_dicts(ref, version='nasb'):
 
 # Matthew is 'type': 'book', Mark is 'chapter', Luke and John are 'verse'
 passages = passages_as_dicts('Matthew;Mark 2;Luke 2:1;John 2:8-12')
-print(json.dumps(passages, indent=4, sort_keys=True))
+print((json.dumps(passages, indent=4, sort_keys=True)))
+

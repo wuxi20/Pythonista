@@ -55,6 +55,7 @@ def exists(flist, path):
 if __name__ == "__main__":
 	import zipfile
 	files=zipfile.ZipFile("example.zip").namelist()
-	print getSubDirs(files, 'GitHub')
-	print getSubFiles(files, 'GitHub')
+	print(getSubDirs(files, 'GitHub'))
+	print(getSubFiles(files, 'GitHub'))
+
 

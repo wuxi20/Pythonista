@@ -17,7 +17,7 @@
 
 from youtube_dl import YoutubeDL
 import webbrowser
-from urllib import quote_plus
+from urllib.parse import quote_plus
 import clipboard
 from re import sub
 import console

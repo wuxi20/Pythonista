@@ -13,7 +13,7 @@
 import os, sys, re, random, appex, console, clipboard, html2text, requests, dialogs
 
 
-RE_URL = re.compile(ur'^http(s)?://(www\.)?gamefaqs\.com/.*/faqs/[0-9]{3,8}$', re.IGNORECASE)
+RE_URL = re.compile(r'^http(s)?://(www\.)?gamefaqs\.com/.*/faqs/[0-9]{3,8}$', re.IGNORECASE)
 
 
 def main():
@@ -47,3 +47,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+

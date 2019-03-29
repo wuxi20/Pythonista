@@ -18,9 +18,9 @@ Packages included in the Zip bundle:
 * xhtml2pdf
 
 """
-from __future__ import print_function
 
-import hashlib, os, sys, urllib, zipfile
+
+import hashlib, os, sys, urllib.request, urllib.parse, urllib.error, zipfile
 from os.path import expanduser, isdir, join
 
 ZIPFN = 'markdown2pdf.zip'
@@ -35,7 +35,7 @@ def print_progress(blocks, bsize, total):
             print('\b\b\b\b%3i%%' % (amount / (total / 100.)), end='')
 
 print("Downloading zip archive '%s'...     " % ZIPFN, end='')
-urllib.urlretrieve(ZIPURL, ZIPFN, print_progress)
+urllib.request.urlretrieve(ZIPURL, ZIPFN, print_progress)
 print('\b\b\b\b100%')
 
 with open(ZIPFN, 'rb') as f:
@@ -59,3 +59,4 @@ with zipfile.ZipFile(ZIPFN) as z:
 
 os.unlink(ZIPFN)
 print("done.")
+

@@ -167,7 +167,7 @@ def show_tempfile(absolute_path):
 		# make sure the encoding wont break Pythonista
 		contents.decode('ascii')
 	except:
-		print 'Unknown encoding in file:\n\t',absolute_path
+		print('Unknown encoding in file:\n\t',absolute_path)
 		sys.exit()
 	infile.close()
 	
@@ -434,4 +434,5 @@ class filesystem:
 		return os.path.isfile(path)
 		
 run(MyScene(filesystem()))
+
 

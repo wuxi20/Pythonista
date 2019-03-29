@@ -248,14 +248,15 @@ def main():
 			outhtmlfile.close()
 		sys.exit(exit_codes['EX_OK'])
 	except IOError as e:
-		print("I/O error({0}): {1}".format(e.errno, e.strerror))
+		print(("I/O error({0}): {1}".format(e.errno, e.strerror)))
 		sys.exit(exit_codes['EX_IOERR'])
 	except Exception as e:
-		print("Unexpected error:", e)
+		print(("Unexpected error:", e))
 		sys.exit(exit_codes['EX_SOFTWARE'])
 		
 		
 if __name__ == '__main__':
 	main()
+
 
 

@@ -20,7 +20,7 @@ Credits:
 
 '''
 
-import io, os, urllib, json, base64
+import io, os, urllib.request, urllib.parse, urllib.error, json, base64
 
 class File(io.BytesIO):
 	""" cloud.File: generic file-type object that implements cloud storage """
@@ -75,8 +75,8 @@ class File(io.BytesIO):
 			
 	#def isatty(self): should not be implemented for file-like objects
 	
-	def next(self):
-		if self.debug : print 'next'
+	def __next__(self):
+		if self.debug : print('next')
 		
 	def read(self, size = -1):
 		if size < 0:
@@ -102,7 +102,7 @@ class File(io.BytesIO):
 		return l
 		
 	def xreadlines(self):
-		if self.debug : print 'xreadlines'
+		if self.debug : print('xreadlines')
 		return None
 		
 	def seek(self, offset, whence = os.SEEK_SET):
@@ -118,13 +118,13 @@ class File(io.BytesIO):
 		return self.__iPos
 		
 	def truncate(self, size):
-		if self.debug : print 'truncate'
+		if self.debug : print('truncate')
 		
 	def write(self, str):
 		self.__mf.write(str)
 		
 	def writelines(self, sequence = None):
-		if self.debug : print 'writelines'
+		if self.debug : print('writelines')
 		
 		
 	class __mFile(io.BytesIO):
@@ -151,10 +151,10 @@ class File(io.BytesIO):
 	class __CloudProvider(object):
 		"""default implementation using Gist can be subclassed for: GitHub, @webmaster4o server, Googledrive, Dropbox, Box, OneDrive, WebDav, etc """
 		def putFileToURL(self, f):
-			return json.loads(urllib.urlopen('https://api.github.com/gists', json.dumps({ "description": "-", "public": False, "files": { '-': { "content": f.read()} } })).read())['files']['-']['raw_url']
+			return json.loads(urllib.request.urlopen('https://api.github.com/gists', json.dumps({ "description": "-", "public": False, "files": { '-': { "content": f.read()} } })).read())['files']['-']['raw_url']
 			
 		def getFileFromURL(self, sURL):
-			return urllib.urlopen(sURL)
+			return urllib.request.urlopen(sURL)
 			
 	class __EncryptionProvider(object):
 		"""default implementation using Vigenere Cipher (ilogik) can be subclassed for Cryto or any other"""
@@ -162,7 +162,7 @@ class File(io.BytesIO):
 			string = f.read()
 			if key == '' : return string
 			encoded_chars = []
-			for i in xrange(len(string)):
+			for i in range(len(string)):
 				key_c = key[i % len(key)]
 				encoded_c = chr(ord(string[i]) + ord(key_c) % 256)
 				encoded_chars.append(encoded_c)
@@ -174,10 +174,11 @@ class File(io.BytesIO):
 			if key == '' : return string
 			decoded_chars = []
 			string = base64.urlsafe_b64decode(string)
-			for i in xrange(len(string)):
+			for i in range(len(string)):
 				key_c = key[i % len(key)]
 				encoded_c = chr(abs(ord(string[i]) - ord(key_c) % 256))
 				decoded_chars.append(encoded_c)
 			decoded_string = "".join(decoded_chars)
 			return decoded_string
+
 

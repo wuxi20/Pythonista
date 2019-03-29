@@ -89,7 +89,7 @@ class MyImageView(ui.View):
 			else:
 				self.ratio = y_ratio
 		else:
-			print 'This should never happen. :('
+			print('This should never happen. :(')
 			
 class FileManager(ui.View):
 	pos = -1
@@ -139,7 +139,7 @@ class FileManager(ui.View):
 		img = photos.pick_image()
 		if not img:
 			return
-		for i in xrange(sys.maxint):
+		for i in range(sys.maxsize):
 			filename = '{}/image{}.jpg'.format(self.path, str(i).zfill(3))
 			if not os.path.exists(filename):
 				img.save(filename, 'JPEG')
@@ -531,4 +531,5 @@ class FileManager(ui.View):
 		self.view_po['tv_data'].text = hex_view(full_pathname)
 		
 FileManager()
+
 

@@ -18,16 +18,16 @@ import datetime
 import time
 import json
 import csv
-from StringIO import StringIO
+from io import StringIO
 from collections import defaultdict
 import console
 
 try:
 	import prettytable
 except ImportError:
-	print 'Downloading required prettytable module...'
-	import urllib
-	urllib.urlretrieve('http://prettytable.googlecode.com/svn/trunk/prettytable.py', 'prettytable.py')
+	print('Downloading required prettytable module...')
+	import urllib.request, urllib.parse, urllib.error
+	urllib.request.urlretrieve('http://prettytable.googlecode.com/svn/trunk/prettytable.py', 'prettytable.py')
 	import prettytable
 
 class ITCDownloadError (Exception): pass
@@ -77,7 +77,7 @@ def load_exchange_rates(cache_file):
 				return data['rates']
 	except (IOError, ValueError):
 		pass
-	print 'Updating exchange rates...'
+	print('Updating exchange rates...')
 	rates = {}
 	currencies = ['USD', 'AED', 'AUD', 'BHD', 'BND', 'BRL', 'CAD', 'CHF', 'CLP', 'CNY', 'CZK', 'DKK', 'GBP', 'HUF', 'HKD', 'IDR', 'ILS', 'INR', 'ISK', 'JPY', 'KRW', 'KWD', 'KZT', 'LKR', 'MUR', 'MXN', 'MYR', 'NOK', 'NPR', 'NZD', 'OMR', 'PKR', 'QAR', 'RUB', 'SAR', 'SEK', 'SGD', 'THB', 'TWD', 'ZAR', 'TRY']
 	url = 'http://quote.yahoo.com/d/quotes.csv?s='
@@ -138,7 +138,7 @@ def print_report_summary(title, file_content, rates, user_currency):
 	total_updates = sum(updates_by_app.values())
 	table.add_row(['']*4)
 	table.add_row(['TOTAL', total_revenue, total_downloads, total_updates])
-	print table
+	print(table)
 
 def get_login():
 	# Get login data from the keychain, if it has been saved already:
@@ -172,18 +172,19 @@ def main():
 	# Load exchange rates (cached for 12 hours):
 	rates = load_exchange_rates(os.path.join(data_dir, 'ExchangeRates.json'))
 	# Load sales reports for the last 30 days:
-	print 'Loading sales reports...\n'
+	print('Loading sales reports...\n')
 	today = datetime.datetime.now()
-	for i in xrange(30, 0, -1):
+	for i in range(30, 0, -1):
 		d = today - datetime.timedelta(i)
 		date_str = '%04i%02i%02i' % (d.year, d.month, d.day)
 		display_date_str = '%04i-%02i-%02i' % (d.year, d.month, d.day)
 		try:
 			report = load_report(user, password, vendor_id, date_str, data_dir)
 			print_report_summary(display_date_str, report, rates, CURRENCY)
-		except ITCDownloadError, e:
-			print 'Download failed for', display_date_str, '---', e
+		except ITCDownloadError as e:
+			print('Download failed for', display_date_str, '---', e)
 	del password
 
 if __name__ == '__main__':
 	main()
+

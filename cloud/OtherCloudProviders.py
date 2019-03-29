@@ -23,5 +23,6 @@ class __CloudProvider(object):
 		return response.headers['URL']
 		
 	def getFileFromURL(self, sURL):
-		return urllib.urlopen('http://localhost:' + str(port) + '/' + sURL)
+		return urllib.request.urlopen('http://localhost:' + str(port) + '/' + sURL)
+
 

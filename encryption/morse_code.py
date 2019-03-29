@@ -39,7 +39,7 @@ alpha2code_dict = {
     '8' : '---..',
     '9' : '----.',
     '0' : '-----' }
-code2alpha_dict = {v:k for k,v in alpha2code_dict.iteritems()}
+code2alpha_dict = {v:k for k,v in alpha2code_dict.items()}
 
 def morse(msg='... --- ...' or 'sos'):
 	msg = msg.lower().strip()
@@ -54,24 +54,25 @@ def morse(msg='... --- ...' or 'sos'):
 	return out_msg.strip()
 	
 def test_cases():
-	print(morse('sos'))
-	print(morse('... --- ...'))
+	print((morse('sos')))
+	print((morse('... --- ...')))
 	
 	msg = 'I  really  LOVE hacking Morse Code in Python!'  # deal with uppercase, extra spaces, punctuation
-	print(morse(msg))
-	print(morse(morse(msg)))
+	print((morse(msg)))
+	print((morse(morse(msg))))
 	
 	msg = ''.join([k for k in sorted(alpha2code_dict)])
-	print(morse(morse(msg)))  # test entire translation table
+	print((morse(morse(msg))))  # test entire translation table
 	assert msg == morse(morse(msg)), 'Error in translation!!'
 	
 def main(args):
 	if args:
-		print(morse(' '.join(args)))
+		print((morse(' '.join(args))))
 	else:
 		test_cases()
 		
 if __name__ == "__main__":
 	import sys  # put quotes around morse code on commandline or words will run together
 	main(sys.argv[1:])  # strip off the script name
+
 

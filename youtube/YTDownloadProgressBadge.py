@@ -2,13 +2,13 @@
 
 # https://forum.omz-software.com/topic/2574/progress-tracker-on-app-badge/2
 
-import requests,bs4,urllib2
+import requests,bs4,urllib.request,urllib.error,urllib.parse
 import ProgressBadge as pb
 
 #Gets the raw video url for the video using the keepvid service. 
 vidurl='https://www.youtube.com/watch?v=fzievdlaVIU'
 url='http://www.keepvid.com/?url={}'.format(vidurl)
-soup = bs4.BeautifulSoup(urllib2.urlopen(url).read())
+soup = bs4.BeautifulSoup(urllib.request.urlopen(url).read())
 link=[l.get('href') for l in soup.select('a') if l.get('href') and 'googlevideo.com' in l.get('href')][0]
 
 #Holds the progress bar
@@ -33,3 +33,4 @@ except:
     raise
 #clean up
 task.finish()
+

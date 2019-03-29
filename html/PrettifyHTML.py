@@ -17,18 +17,18 @@
 
 import sys  
 import console  
-import urllib  
+import urllib.request, urllib.parse, urllib.error  
 from bs4 import BeautifulSoup
 
 numArgs = len(sys.argv)  
-print numArgs  
+print(numArgs)  
 if numArgs != 2:  
 	console.alert('This script needs an URL as an argument.')  
 else:  
 	url = sys.argv[1]  
-	usock = urllib.urlopen(url)  
+	usock = urllib.request.urlopen(url)  
 	data = usock.read()  
 	usock.close()  
 	soup = BeautifulSoup(data)  
 	console.clear()  
-print(soup.prettify())
+print((soup.prettify()))

@@ -15,12 +15,12 @@ Support windows by pyqt
 More stable
 '''
 
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
-from SocketServer import ThreadingMixIn
+from http.server import HTTPServer, BaseHTTPRequestHandler
+from socketserver import ThreadingMixIn
 import threading, shutil
 import requests
 import json
-import Queue
+import queue
 from core.Network import Scanner, Port_Scan
 from core.other import get_file_list, file_picker, human_size
 import ssl
@@ -205,7 +205,7 @@ class Transfer3(ui.View):
 		self.tv_receiver.data_source.items = []
 		
 		self.limit = threading.Semaphore(self.connect_limit)
-		self.error_list = Queue.Queue()
+		self.error_list = queue.Queue()
 		requests.packages.urllib3.disable_warnings()
 		self.appear_send_v()
 	
@@ -327,7 +327,7 @@ class Transfer3(ui.View):
 			print('Text mode')
 			text = self.file_list_dict['send_text']
 			clipboard.set(text)
-			print text
+			print(text)
 			threading.Thread(target=console.hud_alert, args=('Copied to clipboard',) ).start()
 			
 		else:
@@ -352,12 +352,12 @@ class Transfer3(ui.View):
 				
 				key = self.error_list.get()
 				file_path = self.file_list_dict[key]
-				print('Trying to redownload {}'.format(file_path))
+				print(('Trying to redownload {}'.format(file_path)))
 				try:
 					self.downloader(key)
 				except:
 					print('Error!!')
-					print(traceback.format_exc())
+					print((traceback.format_exc()))
 				else:
 					print('Done!!')
 		
@@ -403,8 +403,8 @@ class Transfer3(ui.View):
 		print('Connected. Getting ip.')
 		data = s.recv(1024)
 		ip, port = json.loads(data)
-		print(ip, port)
-		print(self.scan_result[ip])
+		print((ip, port))
+		print((self.scan_result[ip]))
 		self.receiver_ip = ip
 		self.receiver_port = port
 		self.appear_receive_v()
@@ -504,14 +504,14 @@ class Transfer3(ui.View):
 			
 			file_list_dict_for_receiver_str = json.dumps(file_list_dict_for_receiver)
 			
-		elif type(file_list) == type(str()) or type(file_list) == type(unicode()):
+		elif type(file_list) == type(str()) or type(file_list) == type(str()):
 		
 			file_list_dict_for_receiver_str = json.dumps({'send_text':file_list})
 		
 		
 			
 		server = ThreadedHTTPServer(('', port), Handler)
-		print 'Starting server'
+		print('Starting server')
 		server.socket = ssl.wrap_socket (server.socket, certfile=_self.cert_path, server_side=True)
 		server.serve_forever()
 
@@ -550,7 +550,7 @@ class Transfer3(ui.View):
 				self.scan_result = self.scanner.scan()
 				
 				if self.scan_result:
-					self.tv_receiver.data_source.items = self.scan_result.keys()
+					self.tv_receiver.data_source.items = list(self.scan_result.keys())
 					self.send_label1.text = ''
 					#self.scanner.stop_server()
 					break
@@ -670,4 +670,5 @@ v = ui.load_view()
 
 
 v.present('sheet')
+
 

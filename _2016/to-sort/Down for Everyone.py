@@ -15,7 +15,7 @@
 #
 import console
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import bs4
 import webbrowser
 import re
@@ -30,7 +30,7 @@ try:
 	else:
 		website = console.input_alert("Down for Everyone?","Insert a URL")
 
-    check = bs4.BeautifulSoup(urllib.urlopen("http://www.isup.me/" + website))
+    check = bs4.BeautifulSoup(urllib.request.urlopen("http://www.isup.me/" + website))
     checkStr = check.find_all(text=re.compile("It's just you."))
 
     if checkStr:
@@ -39,3 +39,4 @@ try:
     	console.alert("It is down!",website)
 except:
 	console.clear()
+

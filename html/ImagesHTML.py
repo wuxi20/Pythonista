@@ -14,5 +14,5 @@ title = console.input_alert("Image Title", "Type title below")
 
 final = "<img src=" + '"' + image + '"' + " " + "alt=" + '"' + alts + '"' + " " + "title=" + '"' + title + '"' + " " + "class=\"aligncenter\" />"
 
-print final
+print(final)
 clipboard.set(final)

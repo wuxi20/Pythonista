@@ -131,7 +131,7 @@ class MyImageView(ui.View):
             else:
                 self.ratio = y_ratio
         else:
-            print 'This should never happen. :('
+            print('This should never happen. :(')
 
 class PhoneManager(object):
     pos = -1
@@ -268,7 +268,7 @@ class PhoneManager(object):
           self.btn_Help(None,message="Unknown image type! (Only png, jpg, gif, bmp and tif are supported)",name='Error')
           return
         size = len(bytestring)
-        for i in xrange(sys.maxint):
+        for i in range(sys.maxsize):
           filename = 'image{}'.format(str(i).zfill(3)) + ext
           if not os.path.exists(filename):
             file = open(self.path + '/' + filename, 'wb')
@@ -331,7 +331,7 @@ class PhoneManager(object):
                   else: # file exist
                     self.remove_view_po()
                     self.btn_Help(None,message='File: ' + filename + ' already exists in the destination directory.',name='Error')
-        except Exception, e: # move error
+        except Exception as e: # move error
             self.remove_view_po()
             self.btn_Help(None,message=str(e),name='Error')
 
@@ -405,7 +405,7 @@ class PhoneManager(object):
                 self.make_lst()
                 self.view['tableview1'].reload_data()
                 self.remove_view_po()
-            except Exception, e:
+            except Exception as e:
                 self.remove_view_po()
                 self.btn_Help(None,message=str(e),name='Error')
         else:
@@ -841,3 +841,4 @@ class PhoneManager(object):
         console.alert(title, msg)
 
 PhoneManager()
+

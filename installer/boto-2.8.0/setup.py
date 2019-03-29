@@ -23,7 +23,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-from __future__ import with_statement
+
 
 try:
     from setuptools import setup
@@ -38,7 +38,7 @@ from boto import __version__
 
 if sys.version_info <= (2, 4):
     error = "ERROR: boto requires Python Version 2.5 or above...exiting."
-    print >> sys.stderr, error
+    print(error, file=sys.stderr)
     sys.exit(1)
 
 def readme():
@@ -87,3 +87,4 @@ setup(name = "boto",
                      "Programming Language :: Python :: 2.7"],
       **extra
       )
+

@@ -18,6 +18,7 @@ SITE_DIR = os.path.join(DOCS_DIR, 'site-packages/')
 #==============================
 
 import json
+import imp
 
 with open("modules.json", "r") as f:
 	modules = json.load(f)
@@ -43,14 +44,14 @@ g = Gestures.Gestures()
 
 ''' cloud.py '''
 
-import bs4, urllib2, plistlib, shutil, zipfile, os, importlib, inspect
+import bs4, urllib.request, urllib.error, urllib.parse, plistlib, shutil, zipfile, os, importlib, inspect
 
 def Import(sTarget):
-	for code in bs4.BeautifulSoup(urllib2.urlopen('http://forum.omz-software.com/topic/2775/cloud-import').read()).find_all('code'):
+	for code in bs4.BeautifulSoup(urllib.request.urlopen('http://forum.omz-software.com/topic/2775/cloud-import').read()).find_all('code'):
 		s = code.getText()
 		if s[:5] == '<?xml': urlZ = plistlib.readPlistFromString(s)[sTarget] + '/archive/master.zip'
 	sZ = os.path.expanduser('~/Documents/'+  urlZ.split('/')[-1])
-	shutil.copyfileobj(urllib2.urlopen(urlZ), open(sZ, 'wb'), length=512*1024)
+	shutil.copyfileobj(urllib.request.urlopen(urlZ), open(sZ, 'wb'), length=512*1024)
 	with open(sZ, 'rb') as f:
 		for member in zipfile.ZipFile(f).namelist():
 			l = member.split('/')
@@ -71,6 +72,7 @@ def Import(sTarget):
 	else: # package
 		locals()[sTarget.split('.')[0]] = importlib.import_module(sTarget.split('.')[0])
 		locals()[sTarget.split('.')[1]] = importlib.import_module(sTarget)
-	reload(locals()[sTarget.split('.')[0]])
+	imp.reload(locals()[sTarget.split('.')[0]])
 	inspect.currentframe().f_back.f_globals[sTarget.split('.')[0]] = locals()[sTarget.split('.')[0]]
+
 

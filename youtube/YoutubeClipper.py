@@ -1,5 +1,5 @@
 # https://gist.github.com/allanon2/6239859
-import urllib2, urlparse, sys, webbrowser, clipboard, console
+import urllib.request, urllib.error, urllib.parse, urllib.parse, sys, webbrowser, clipboard, console
  
 itags = {'45': 'webm_720p',
          '44': 'webm_480p',
@@ -24,17 +24,17 @@ def main():
     
     if (len(link) > 0):
         try:
-            v_id = urlparse.parse_qs(link.split('?')[1])['v'][0]
+            v_id = urllib.parse.parse_qs(link.split('?')[1])['v'][0]
         except Exception:
             v_id = None
     if not v_id:
-        print repr(link)
+        print(repr(link))
         return
-    config = urllib2.urlopen('http://www.youtube.com/get_video_info?&video_id=%s&el=detailpage&ps=default&eurl=&gl=US&hl=en' % v_id).read()
-    config = urlparse.parse_qs(config)
-    formats = [urlparse.parse_qs(x) for x in config['url_encoded_fmt_stream_map'][0].split(',')]
+    config = urllib.request.urlopen('http://www.youtube.com/get_video_info?&video_id=%s&el=detailpage&ps=default&eurl=&gl=US&hl=en' % v_id).read()
+    config = urllib.parse.parse_qs(config)
+    formats = [urllib.parse.parse_qs(x) for x in config['url_encoded_fmt_stream_map'][0].split(',')]
     filtered_formats = dict([(x.get('itag', [0])[0], x) for x in formats if x.get('itag', [0])[0] in order_preference])
-    sorted_formats   = [filtered_formats[x] for x in order_preference if filtered_formats.has_key(x)]
+    sorted_formats   = [filtered_formats[x] for x in order_preference if x in filtered_formats]
     #print(sorted_formats)
     options=[]
     for f in sorted_formats:
@@ -55,7 +55,7 @@ def main():
   	
 	
     download_url = first_pick['url'][0]
-    if first_pick.has_key('sig'):
+    if 'sig' in first_pick:
         download_url += ('&signature=' + first_pick['sig'][0])
     download_url = download_url.replace('http://', 'iDownloads://')
     webbrowser.open(download_url)

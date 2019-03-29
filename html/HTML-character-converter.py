@@ -262,7 +262,7 @@ def convert():
 print("Characters: http://de.selfhtml.org/html/referenz/zeichen.htm")
 print("Script: Paul-Vincent Roll")
 print("Please enter a text!")
-text=raw_input("-> ").decode('utf-8')
+text=input("-> ").decode('utf-8')
 #Uncomment for use with Pythonista on iOS:
 #console.clear()
 #converter
@@ -270,5 +270,6 @@ def c(original, html):
 	global text
 	text=text.replace(original.decode('utf-8'), html)
 convert()
-print("Converted text:\n" + text)
+print(("Converted text:\n" + text))
+
 

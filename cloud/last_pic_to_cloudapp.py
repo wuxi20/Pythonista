@@ -3,7 +3,7 @@ import requests
 import keychain
 from collections import OrderedDict
 import console
-import StringIO
+import io
 import webbrowser
 import clipboard
 import bitly
@@ -11,7 +11,7 @@ import datetime
 
 def get_extension():
 	ext = 'jpg'
-	photo_meta = photos.get_metadata(-1).keys()
+	photo_meta = list(photos.get_metadata(-1).keys())
 	if '{PNG}' in photo_meta:
 		ext = 'png'
 	elif '{GIF}' in photo_meta:
@@ -26,7 +26,7 @@ extension = get_extension()
 base = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')
 filename = base + '.' + extension
 
-pic_read = StringIO.StringIO()
+pic_read = io.StringIO()
 last_pic.save(pic_read, extension)
 
 USER = 'n8henrie@gmail.com'
@@ -58,4 +58,5 @@ if upload_request['uploads_remaining'] > 0:
 else:
 	print('Out of uploads!')
 	exit(1)
+
 

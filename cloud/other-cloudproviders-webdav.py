@@ -3,7 +3,7 @@
 # https://forum.omz-software.com/topic/2917/other-cloudproviders-webdav
 
 import requests, socket, random, string, shutil
-from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
+from http.server import HTTPServer, BaseHTTPRequestHandler
 DAVurl = None
 DAVport = None
 
@@ -16,7 +16,7 @@ class __CloudProvider(object):
 		return response.headers['URL']
 		
 		def getFileFromURL(self, sURL):
-			return urllib.urlopen('http://' + DAVurl + ':' + str(DAVport) + '/' + sURL)
+			return urllib.request.urlopen('http://' + DAVurl + ':' + str(DAVport) + '/' + sURL)
 			
 			
 class DAVRequestHandler(BaseHTTPRequestHandler):
@@ -118,4 +118,5 @@ v.present()
 v.close()
 
 # --------------------
+
 

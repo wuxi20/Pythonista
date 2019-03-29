@@ -8,7 +8,7 @@ import os
 import os.path
 import webbrowser
 import clipboard
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 if os.path.isfile('timer.txt'):
 	console.clear()
@@ -23,7 +23,7 @@ if os.path.isfile('timer.txt'):
 	
 	clipboard.set(text)
 	
-	encodetxt = urllib.quote(text, safe='')
+	encodetxt = urllib.parse.quote(text, safe='')
 	draft_url = 'drafts://x-callback-url/create?text='
 	action = '&action=WorkLog%20Closure'
 	
@@ -35,4 +35,5 @@ else:
 	console.clear()
 	console.hud_alert('Timer not started', 'error')
 	webbrowser.open('drafts://')
+
 

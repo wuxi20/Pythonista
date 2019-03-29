@@ -4,7 +4,7 @@ import console
 import dialogs
 import appex
 import os.path
-import urllib.request, urllib
+import urllib.request, urllib.request, urllib.parse, urllib.error
 
 #Make a downloads directory
 os.chdir(os.path.expanduser('~'))
@@ -32,7 +32,7 @@ else:
 	myrun = dialogs.alert('Manual entry?', '','Enter manual URL',"Dummy")
 
 if myrun == 1:
-	filein = input("Enter the URL address of file to get:")
+	filein = eval(input("Enter the URL address of file to get:"))
 
 else:
 	filein = "https://raw.githubusercontent.com/grrrr/py/741ba0500bc49e8f6268f02d23e461649e8d457b/scripts/buffer.py"
@@ -53,3 +53,4 @@ print (myfile)
 
 fin.close()
 fout.close()
+

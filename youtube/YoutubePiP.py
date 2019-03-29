@@ -4,18 +4,18 @@
 
 # coding: utf-8
 
-import appex, bs4, dialogs, urllib2, webbrowser
+import appex, bs4, dialogs, urllib.request, urllib.error, urllib.parse, webbrowser
 if appex.is_running_extension():
 	starturl = appex.get_url()
 else:
 	#ask for video url
 	starturl = dialogs.form_dialog(fields=[{'type':'url', 'title':'URL:', 'key':'url'}])['url']
 #handle redirects, in case of shortened url
-url = urllib2.urlopen(urllib2.Request(starturl)).geturl()
+url = urllib.request.urlopen(urllib.request.Request(starturl)).geturl()
 #keepvid page url
 url = 'http://www.keepvid.com/?url='+url.split('&feature')[0]
 #beautifulsoup object of keepvid page
-soup = bs4.BeautifulSoup(urllib2.urlopen(url).read())
+soup = bs4.BeautifulSoup(urllib.request.urlopen(url).read())
 #find valid links
 links = []
 for l in soup.select('a'):
@@ -26,7 +26,7 @@ for l in soup.select('a'):
 if not appex.is_running_extension():
 	webbrowser.open('safari-'+links[0].get('href'))
 else:
-	print links[0].get('href')
+	print(links[0].get('href'))
 
 # links = [link for link in soup.select('a') if 'googlevideo.com' in link.get('href', None)]
 # replaces...
