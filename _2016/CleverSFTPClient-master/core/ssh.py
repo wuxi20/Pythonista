@@ -48,7 +48,7 @@ import paramiko
 if StrictVersion(paramiko.__version__) < StrictVersion('1.15'):
 	# Install paramiko 1.16.0 to fix a bug with version < 1.15
 	_stash('pip install paramiko==1.16.0')
-	print 'Please restart Pythonista for changes to take full effect'
+	print('Please restart Pythonista for changes to take full effect')
 	sys.exit(0)
 	
 	
@@ -104,8 +104,8 @@ class StashSSH(object):
 		
 	def single_exec(self, command):
 		sin, sout, serr = self.client.exec_command(command)
-		print sout.read()
-		print serr.read()
+		print(sout.read())
+		print(serr.read())
 		self.client.close()
 		
 	def interactive(self):
@@ -118,7 +118,7 @@ class StashSSH(object):
 		t1.join()
 		self.chan.close()
 		self.client.close()
-		print '\nconnection closed\n'
+		print('\nconnection closed\n')
 		
 		
 CTRL_KEY_FLAG = (1 << 18)
@@ -244,10 +244,11 @@ if __name__ == '__main__':
 	
 	_stash.csc_send = sv_delegate.send
 	
-	_stash.stream.feed(u'\u009bc', render_it=False)
+	_stash.stream.feed('\u009bc', render_it=False)
 	with _stash.user_action_proxy.config(tv_responder=tv_vk_kc_delegate,
 	kc_responder=tv_vk_kc_delegate.kc_pressed,
 	vk_responder=tv_vk_kc_delegate.vk_tapped,
 	sv_responder=sv_delegate):
 		ssh.interactive()
+
 

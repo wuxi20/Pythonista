@@ -31,8 +31,9 @@ setup(
     [console_scripts]
     sftpserver = sftpserver:main
     """,
-    classifiers=filter(None, classifiers.split('\n')),
+    classifiers=[_f for _f in classifiers.split('\n') if _f],
     long_description=read('README.rst'),
     extras_require={'test': []}
     )
+
 

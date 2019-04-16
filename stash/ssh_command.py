@@ -28,16 +28,16 @@ print('Parameters configured.')
 
 print('Verifying parameters...')
 if not strComputer:
-	strComputer = input('Enter computer name/IP address:')
+	strComputer = eval(input('Enter computer name/IP address:'))
 if not strUser:
-	strUser = input('Enter user name:')
+	strUser = eval(input('Enter user name:'))
 if not strPwd:
 	strPwd = console.secure_input('Enter password:')
 	
 try:
 	strCommand = sys.argv[1] #checks if the command was entered as an argument. if it was not, asks for it.
 except:
-	strCommand = input('Enter command:')
+	strCommand = eval(input('Enter command:'))
 print('Parameters verified.')
 
 # Initialize connection
@@ -45,16 +45,17 @@ print('Initiating SSH connection...')
 client = paramiko.SSHClient()
 client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 client.connect(hostname=strComputer, username=strUser, password=strPwd)
-print('SSH connection established with ' + strComputer + ' as user ' + strUser + '.')
+print(('SSH connection established with ' + strComputer + ' as user ' + strUser + '.'))
 
-print('Executing command [' + strCommand + ']...')
+print(('Executing command [' + strCommand + ']...'))
 stdin, stdout, stderr = client.exec_command(strCommand)
-print(stdout.read())
+print((stdout.read()))
 print('Command execution complete.')
 
 #Close the connection
 print('Closing SSH connection...')
 client.close()
 print('SSH connection closed.')
+
 
 

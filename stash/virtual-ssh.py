@@ -76,22 +76,22 @@ def main():  # Define as a function to adhere to style guidelines
 	try:
 		sys.argv[1]
 	except IndexError:
-		print "Missing name of virtual machine"
+		print("Missing name of virtual machine")
 		return
 		
 	try:
 		sys.argv[2]  # Check if the user is supplying the virtual machine's name correctly
 	except IndexError:  # If the name is correct, run the program
 		if not check_exists(sys.argv[1]):
-			print "The specified virtual machine does not appear to exist."
+			print("The specified virtual machine does not appear to exist.")
 			return
 			
 		if not check_up(sys.argv[1]):
-			headless_input = raw_input("The specified virtual machine does not appear to be running. Would you like to start the machine in 'headless' mode? [Y/n] ")
+			headless_input = input("The specified virtual machine does not appear to be running. Would you like to start the machine in 'headless' mode? [Y/n] ")
 			
 			if len(headless_input) == 0 or headless_input == "Y" or headless_input == "y":  # If the user responds in the affirmative
 				subprocess.Popen(["VBoxManage", "startvm", sys.argv[1], "--type", "headless"], stdout=subprocess.PIPE)
-				print "Please wait for the machine to boot before trying to connect again."
+				print("Please wait for the machine to boot before trying to connect again.")
 				return
 			else:
 				return
@@ -105,20 +105,21 @@ def main():  # Define as a function to adhere to style guidelines
 		
 		if find_host(sys.argv[1]):
 			if host_outdated(address, sys.argv[1]):
-				hosts_input = raw_input("/etc/hosts has an outdated entry for this virtual machine. Would you like to update it? [Y/n] ")
+				hosts_input = input("/etc/hosts has an outdated entry for this virtual machine. Would you like to update it? [Y/n] ")
 				
 				if len(hosts_input) == 0 or hosts_input == "Y" or hosts_input == "y":  # If the user responds in the affirmative
 					update_host(address, sys.argv[1])
 		else:
-			hosts_input = raw_input("/etc/hosts does not have an entry for this virtual machine. Would you like to add one? [Y/n] ")
+			hosts_input = input("/etc/hosts does not have an entry for this virtual machine. Would you like to add one? [Y/n] ")
 			
 			if len(hosts_input) == 0 or hosts_input == "Y" or hosts_input == "y":  # If the user responds in the affirmative
 				add_host(address, sys.argv[1])
 				
 		os.system("ssh " + address)
 	else:
-		print "If your virtual machine's name contains spaces, please wrap it in quotes."
+		print("If your virtual machine's name contains spaces, please wrap it in quotes.")
 		return
 		
 main()  # Run the function so the module is useful in a CLI
+
 
